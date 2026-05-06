@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell($path = \"c:\\\\work_php\\\\TCC-Reutiliza-o-de-alimentos-main\\\\TCC_Reutilização de alimentos\\\\atividade\"; Get-ChildItem -Path $path -Recurse -Force | ForEach-Object { $_.FullName.Replace\\($path, \"\"\\).TrimStart\\(\"\\\\\"\\) } | Sort-Object)",
+      "Bash(Remove-Item \"c:\\\\work_php\\\\TCC-Reutiliza-o-de-alimentos-main\\\\TCC_Reutilização de alimentos\\\\atividade\\\\Usuario.class.php\" -Force)",
+      "Bash(Remove-Item \"c:\\\\work_php\\\\TCC-Reutiliza-o-de-alimentos-main\\\\TCC_Reutilização de alimentos\\\\atividade\\\\Empresa.class.php\" -Force)",
+      "Bash(Remove-Item \"c:\\\\work_php\\\\TCC-Reutiliza-o-de-alimentos-main\\\\TCC_Reutilização de alimentos\\\\atividade\\\\php\\\\conexao.php\" -Force)",
+      "Bash(Remove-Item \"c:\\\\work_php\\\\TCC-Reutiliza-o-de-alimentos-main\\\\TCC_Reutilização de alimentos\\\\atividade\\\\teste.php\" -Force)",
+      "Bash(Remove-Item \"c:\\\\work_php\\\\TCC-Reutiliza-o-de-alimentos-main\\\\TCC_Reutilização de alimentos\\\\atividade\\\\css\\\\indexEmpresas.css\" -Force)",
+      "PowerShell(Get-ChildItem \"C:\\\\\" -Directory | Where-Object { $_.Name -match \"xampp|laragon|wamp|php|mysql\" } | Select-Object Name)",
+      "PowerShell(Get-Process | Where-Object { $_.Name -match \"mysql|apache|php|httpd|nginx\" } | Select-Object Name, Id)",
+      "PowerShell($env:PATH -split \";\" | Where-Object { $_ -match \"php|mysql|laragon|xampp|wamp\" })"
+    ]
+  }
+}

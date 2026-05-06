@@ -50,7 +50,7 @@ $error = $_GET['error'] ?? '';
                     <div class="message error"><?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></div>
                 <?php endif; ?>
 
-                <form action="../php/cadastrarUsuario.php" method="post">
+                <form action="../controllers/cadastrarUsuario.php" method="post">
                     <label>
                         Nome completo
                         <input type="text" name="nome" placeholder="Seu nome" required minlength="3" maxlength="30" />

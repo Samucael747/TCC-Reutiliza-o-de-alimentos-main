@@ -55,7 +55,7 @@ $success = $_GET['success'] ?? '';
                     <div class="message success"><?php echo htmlspecialchars($success, ENT_QUOTES, 'UTF-8'); ?></div>
                 <?php endif; ?>
 
-                <form action="./php/login.php" method="post">
+                <form action="./controllers/login.php" method="post">
                     <label>
                         Email
                         <input type="email" name="email" placeholder="seu@email.com" required />
@@ -71,7 +71,7 @@ $success = $_GET['success'] ?? '';
 
                 <p class="form-footer">
                     Não tem cadastro?
-                    <a href="./html/cadastroUsuario.php">Cadastre-se</a>
+                    <a href="./views/cadastroUsuario.php">Cadastre-se</a>
                 </p>
             </div>
         </main>

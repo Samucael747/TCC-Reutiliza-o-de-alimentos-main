@@ -3,15 +3,15 @@ if (isset($_POST['email'])) {
     $email = $_POST['email'];
     $senha = $_POST['senha'];
 
-    require 'Usuario.class.php';
+    require '../models/Usuario.class.php';
     $usuario = new Usuario();
-    $conn = $usuario->conectar();
+    $conn    = $usuario->conectar();
 
     if ($conn) {
         if ($usuario->checkUser($email)) {
             if ($usuario->checkPass($email, $senha)) {
                 session_start();
-                $_SESSION['nome'] = "TESTE";
+                $_SESSION['nome'] = $usuario->getUserNome($email);
                 header("Location: home.php");
                 exit;
             } else {

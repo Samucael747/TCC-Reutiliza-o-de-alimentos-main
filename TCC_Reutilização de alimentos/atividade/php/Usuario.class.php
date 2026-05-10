@@ -49,18 +49,6 @@ class Usuario{
         }
     }
 
-    function insertUser($nome, $email, $senha){
-        $sql  = "INSERT INTO usuarios SET nome = :n, email = :e, senha = :s";
-        $stmt = $this->pdo->prepare($sql);
-        
-        $stmt->bindValue(":n", $nome);
-        $stmt->bindValue(":e", $email);
-        $stmt->bindValue(":s", $senha);
-
-        
-        return $stmt->execute();  
-    }
-
     function checkUser($email){
         $sql  = "SELECT id FROM usuarios WHERE email = :e LIMIT 1";
         $stmt = $this->pdo->prepare($sql);
@@ -71,13 +59,12 @@ class Usuario{
     }
 
     function checkPass($email, $senha){
-        $sql  = "SELECT email, senha FROM usuarios WHERE email = :e AND senha = :s";
+        $sql  = "SELECT id FROM usuarios WHERE email = :e AND senha = :s LIMIT 1";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->bindValue(":e",$email);
-        $stmt->bindValue(":s",$senha);
-        
-        return $stmt->rowCount()> 0;
-        
+        $stmt->bindValue(":e", $email);
+        $stmt->bindValue(":s", $senha);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC) !== false;
     }
-    
 }

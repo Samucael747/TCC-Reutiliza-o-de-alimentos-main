@@ -7,7 +7,7 @@ $success = $_GET['success'] ?? '';
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Entrar | SolidárioConnect</title>
+    <title>Entrar | FomeOff</title>
     <link rel="stylesheet" href="./css/index.css" />
 </head>
 <body>
@@ -15,8 +15,8 @@ $success = $_GET['success'] ?? '';
         <aside class="brand-panel">
             <div>
                 <div class="brand-logo">
-                    <span>❤️</span>
-                    <h1>SolidárioConnect</h1>
+                    <span>🛍️</span>
+                    <h1>FomeOff</h1>
                 </div>
                 <h2>Conectando solidariedade em tempo real</h2>
                 <p>Encontre empresas e ONGs que doam alimentos perto de você.</p>
@@ -24,7 +24,7 @@ $success = $_GET['success'] ?? '';
 
             <div class="brand-features">
                 <div class="feature-card">
-                    <span>📍</span>
+                    <span>🕛</span>
                     <div>
                         <strong>Locais próximos</strong>
                         <p>Doações perto de você.</p>
@@ -72,6 +72,9 @@ $success = $_GET['success'] ?? '';
                 <p class="form-footer">
                     Não tem cadastro?
                     <a href="./html/cadastroUsuario.php">Cadastre-se</a>
+                </p>
+                <p class="form-footer">
+                    Sou empresa? <a href="./html/cadastroProduto.php">Cadastrar produto disponível</a>
                 </p>
             </div>
         </main>

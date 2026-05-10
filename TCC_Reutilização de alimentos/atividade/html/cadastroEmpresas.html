@@ -1,31 +1,22 @@
+<!DOCTYPE html>
 <html lang="pt-br">
     <head>
-        <!--Serve par setar o UNICODE do site para o usado em PT-BR-->
-        <meta charset="UTF-8"/> 
-        <title>Tela de Login</title>
-        <title>Seja bem-vindo</title>
-        
-        <!--vinculando a tela, com o CSS para estilizar a página-->
-        <link rel="stylesheet" type="text/css" href="../css/index.css">
-
-        <!--vinculando tela com o script que vamos criar as funcionalidades-->
-
-        <!-- Para usar o  SweetAlert2 CDN -->
-
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Cadastro de Empresas | FomeOff</title>
+        <link rel="stylesheet" type="text/css" href="../css/index.css" />
     </head>
     <body>
-        <!--Essa div, representa onde todo o conteúdo do site vai ficar-->
         <div class="container-principal">
             <div class="formulario">
-                <form method="post" action="../php/cadastrarUsuario.php">
-                    <imput type="text"     placeholder="Empresa:" name = "empresa" required="true" minlength="3" maxlength="30">
-                    <imput type="text"     placeholder="CNPJ:"   name = "cnpj"   required="true" minlength="3" maxlength="100">
-                    <imput type="text"     placeholder="CEP:"    name = "cep"    required="true" minlength="3" maxlength="8">
-                    <input type="text"     placeholder="Usuário:" name = "nome" required="true" minlength="3" maxlength="30">
-                    <input type="text"     placeholder="Email:"   name = "email"   required="true" minlength="3" maxlength="100">
-                    <input type="password" placeholder="Senha:"   name = "senha"   required="true" minlength="3" maxlength="8">
-                    <input type="submit" value="Cadastrar">
-                </form>             
+                <form method="post" action="../php/cadastrarEmpresa.php">
+                    <input type="text" name="nome" placeholder="Empresa" required minlength="3" maxlength="100" />
+                    <input type="text" name="cnpj" placeholder="CNPJ" required minlength="3" maxlength="20" />
+                    <input type="text" name="cep" placeholder="CEP" required minlength="3" maxlength="10" />
+                    <input type="email" name="email" placeholder="Email" required minlength="3" maxlength="100" />
+                    <input type="password" name="senha" placeholder="Senha" required minlength="3" maxlength="8" />
+                    <input type="submit" value="Cadastrar" />
+                </form>
             </div>
         </div>
     </body>

@@ -2,7 +2,7 @@
 require "Usuario.class.php";
 $usuario = new Usuario();
 
-$conn = $usuario->conexao();
+$conn = $usuario->conectar();
 
 if( $conn ){
     echo "<h1> Conectado ao banco";

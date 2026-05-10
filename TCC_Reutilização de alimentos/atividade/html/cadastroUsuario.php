@@ -6,7 +6,7 @@ $error = $_GET['error'] ?? '';
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cadastro | SolidárioConnect</title>
+    <title>Cadastro | FomeOff</title>
     <link rel="stylesheet" href="../css/index.css" />
 </head>
 <body>
@@ -15,7 +15,7 @@ $error = $_GET['error'] ?? '';
             <div>
                 <div class="brand-logo">
                     <span>❤️</span>
-                    <h1>SolidárioConnect</h1>
+                    <h1>FomeOff</h1>
                 </div>
                 <h2>Conecte-se à solidariedade</h2>
                 <p>Cadastre sua conta e ajude quem mais precisa com doações perto de você.</p>
@@ -23,7 +23,7 @@ $error = $_GET['error'] ?? '';
 
             <div class="brand-features">
                 <div class="feature-card">
-                    <span>📍</span>
+                    <span>🕛</span>
                     <div>
                         <strong>Locais próximos</strong>
                         <p>Encontre doações perto de você.</p>

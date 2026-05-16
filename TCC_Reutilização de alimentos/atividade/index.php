@@ -76,6 +76,9 @@ $success = $_GET['success'] ?? '';
                 <p class="form-footer">
                     Sou empresa? <a href="./html/cadastroProduto.php">Cadastrar produto disponível</a>
                 </p>
+                <p class="form-footer">
+                    <a href="./php/mapa.php">🗺️ Ver mapa de organizações (sem login)</a>
+                </p>
             </div>
         </main>
     </div>

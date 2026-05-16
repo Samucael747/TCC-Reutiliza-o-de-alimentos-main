@@ -33,7 +33,7 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home | FomeOff</title>
     <link rel="stylesheet" href="../css/index.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-sA+e2k0Y2RadBqtHVEL0oCe1kt+QcR4y1iwXQExgH30=" crossorigin="" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
     <style>
         body { background: linear-gradient(180deg, #FFE4B5 0%, #FFF3E0 100%); }
         .home-container { max-width: 1024px; margin: 0 auto; padding: 24px; }
@@ -92,7 +92,7 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <?php endif; ?>
     </div>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-o9N1j8EpcZCkkh4d6E2s3sSCM6qMmqjv3c1hczp6pRo=" crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"  crossorigin=""></script>
     <script>
         const produtos = <?php echo json_encode($produtos, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP); ?>;
         const mapElement = document.getElementById('map');
@@ -107,7 +107,11 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
             produtos.forEach((produto) => {
                 const lat = parseFloat(produto.latitude);
                 const lon = parseFloat(produto.longitude);
-                if (!isNaN(lat) && !isNaN(lon)) {
+                if (
+                    produto.latitude !== null && produto.longitude !== null &&
+                    produto.latitude !== '' && produto.longitude !== '' &&
+                    !isNaN(lat) && !isNaN(lon)
+                ) {
                     const marker = L.marker([lat, lon]).addTo(map);
                     marker.bindPopup(`<strong>${produto.empresa}</strong><br>${produto.nome_produto}<br>CEP: ${produto.cep}`);
                     markers.push(marker);

@@ -65,14 +65,9 @@ $error = $_GET['error'] ?? '';
                     <input type="number" name="quantidade" placeholder="Número de unidades" min="1" required />
                 </label>
 
-                <input type="hidden" name="latitude" id="latitude" value="" />
-                <input type="hidden" name="longitude" id="longitude" value="" />
-
                 <div class="button-row">
-                    <button type="button" class="primary-btn" id="captureLocation">Capturar localização</button>
                     <button type="submit" class="primary-btn">Registrar produto</button>
                 </div>
-                <div id="locationStatus">Clique em "Capturar localização" para preencher sua posição atual.</div>
             </form>
 
             <p class="small-note">Após registrar o produto, ele ficará visível na página inicial para usuários próximos ao CEP informado.</p>
@@ -80,31 +75,6 @@ $error = $_GET['error'] ?? '';
         </div>
     </div>
 
-    <script>
-        const button = document.getElementById('captureLocation');
-        const status = document.getElementById('locationStatus');
-        const latInput = document.getElementById('latitude');
-        const lonInput = document.getElementById('longitude');
 
-        button.addEventListener('click', () => {
-            if (!navigator.geolocation) {
-                status.textContent = 'Geolocalização não suportada pelo navegador.';
-                return;
-            }
-
-            status.textContent = 'Capturando localização...';
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    latInput.value = position.coords.latitude.toFixed(7);
-                    lonInput.value = position.coords.longitude.toFixed(7);
-                    status.textContent = `Localização capturada: ${latInput.value}, ${lonInput.value}`;
-                },
-                (error) => {
-                    status.textContent = 'Não foi possível capturar a localização. Tente novamente.';
-                },
-                { enableHighAccuracy: true, timeout: 10000 }
-            );
-        });
-    </script>
 </body>
 </html>

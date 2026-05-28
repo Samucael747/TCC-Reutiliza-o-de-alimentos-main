@@ -13,9 +13,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome_produto = trim($_POST['nome_produto'] ?? '');
     $descricao = trim($_POST['descricao'] ?? '');
     $quantidade = intval($_POST['quantidade'] ?? 0);
+    $validade = trim($_POST['validade'] ?? '');
 
     $latitude = (isset($_POST['latitude']) && $_POST['latitude'] !== '') ? trim($_POST['latitude']) : null;
     $longitude = (isset($_POST['longitude']) && $_POST['longitude'] !== '') ? trim($_POST['longitude']) : null;
+
+    $imagemPath = null;
+
+    if (!isset($_FILES['imagem']) || $_FILES['imagem']['error'] !== UPLOAD_ERR_OK) {
+        header('Location: ../html/cadastroProduto.php?error=Foto+da+caixa+obrigatoria');
+        exit;
+    }
+
+    $imagem = $_FILES['imagem'];
+    $allowed = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' => 'webp'];
+    if (!isset($allowed[$imagem['type']])) {
+        header('Location: ../html/cadastroProduto.php?error=Formato+de+imagem+nao+suportado');
+        exit;
+    }
+
+    if ($imagem['size'] <= 0 || $imagem['size'] > 5 * 1024 * 1024) {
+        header('Location: ../html/cadastroProduto.php?error=Imagem+deve+ter+ate+5MB');
+        exit;
+    }
+
+    $uploadDir = __DIR__ . '/../uploads';
+    if (!is_dir($uploadDir)) {
+        mkdir($uploadDir, 0755, true);
+    }
+
+    $filename = uniqid('produto_', true) . '.' . $allowed[$imagem['type']];
+    $dest = $uploadDir . '/' . $filename;
+    if (!move_uploaded_file($imagem['tmp_name'], $dest)) {
+        header('Location: ../html/cadastroProduto.php?error=Falha+ao+enviar+a+imagem');
+        exit;
+    }
+
+    $imagemPath = 'uploads/' . $filename;
 
     function httpGet($url) {
         $ch = curl_init($url);
@@ -76,19 +110,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    if (!$empresa || !$cep || !$nome_produto || !$descricao || $quantidade <= 0) {
+    if (!$empresa || !$cep || !$nome_produto || !$descricao || $quantidade <= 0 || !$validade) {
         header('Location: ../html/cadastroProduto.php?error=Preencha+todos+os+campos+corretamente');
         exit;
     }
 
+    if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $validade) || strtotime($validade) === false) {
+        header('Location: ../html/cadastroProduto.php?error=Validade+invalida');
+        exit;
+    }
+
     try {
-        $stmt = $pdo->prepare('INSERT INTO produtos (empresa, cnpj, cep, nome_produto, descricao, quantidade, latitude, longitude) VALUES (:empresa, :cnpj, :cep, :nome_produto, :descricao, :quantidade, :latitude, :longitude)');
+        $stmt = $pdo->prepare('INSERT INTO produtos (empresa, cnpj, cep, nome_produto, descricao, quantidade, validade, imagem, latitude, longitude) VALUES (:empresa, :cnpj, :cep, :nome_produto, :descricao, :quantidade, :validade, :imagem, :latitude, :longitude)');
         $stmt->bindValue(':empresa', $empresa);
         $stmt->bindValue(':cnpj', $cnpj);
         $stmt->bindValue(':cep', $cep);
         $stmt->bindValue(':nome_produto', $nome_produto);
         $stmt->bindValue(':descricao', $descricao);
         $stmt->bindValue(':quantidade', $quantidade, PDO::PARAM_INT);
+        $stmt->bindValue(':validade', $validade);
+        $stmt->bindValue(':imagem', $imagemPath);
         $stmt->bindValue(':latitude', $latitude ?: null);
         $stmt->bindValue(':longitude', $longitude ?: null);
         $stmt->execute();

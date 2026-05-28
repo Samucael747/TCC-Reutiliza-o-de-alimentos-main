@@ -10,8 +10,15 @@ if (isset($_POST['email'])) {
         exit;
     }
 
+    $tipo = $_POST['tipo'] ?? 'usuario';
+
     try {
-        $stmt = $pdo->prepare('SELECT id, nome, senha FROM usuarios WHERE email = :e LIMIT 1');
+        if ($tipo === 'empresa') {
+            $stmt = $pdo->prepare('SELECT id, nome, email, senha FROM empresas WHERE email = :e LIMIT 1');
+        } else {
+            $stmt = $pdo->prepare('SELECT id, nome, email, senha FROM usuarios WHERE email = :e LIMIT 1');
+        }
+
         $stmt->bindValue(':e', $email);
         $stmt->execute();
         $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -19,6 +26,8 @@ if (isset($_POST['email'])) {
         if ($usuario && $usuario['senha'] === $senha) {
             session_start();
             $_SESSION['nome'] = $usuario['nome'];
+            $_SESSION['email'] = $usuario['email'];
+            $_SESSION['role'] = $tipo;
             header('Location: home.php');
             exit;
         } else {

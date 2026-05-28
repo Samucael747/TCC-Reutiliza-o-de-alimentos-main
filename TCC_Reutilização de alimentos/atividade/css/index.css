@@ -70,6 +70,20 @@ body {
     gap: 16px;
 }
 
+.brand-image {
+    margin-top: 20px;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(15,23,42,0.12);
+}
+
+.brand-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
 .feature-card {
     display: grid;
     grid-template-columns: auto 1fr;
@@ -191,6 +205,154 @@ input:focus {
     text-decoration: none;
     font-weight: 600;
 }
+
+.brand-action {
+    margin-top: 24px;
+}
+
+.brand-link {
+    display: inline-flex;
+    padding: 14px 24px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    border: 1px solid rgba(255,255,255,0.18);
+}
+
+.brand-link:hover {
+    background: rgba(255,255,255,0.28);
+}
+
+.awareness {
+        display: grid;
+        gap: 24px;
+        margin-top: 32px;
+    }
+
+    .awareness h3 {
+        margin: 0;
+        font-size: 1.85rem;
+        color: #fff;
+    }
+
+    .awareness p {
+        margin: 0;
+        color: rgba(255,255,255,0.92);
+        line-height: 1.8;
+        max-width: 540px;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+    }
+
+    .stat-card {
+        padding: 18px 20px;
+        border-radius: 24px;
+        background: rgba(255,255,255,0.15);
+        border: 1px solid rgba(255,255,255,0.18);
+    }
+
+    .stat-card strong {
+        display: block;
+        font-size: 2rem;
+        margin-bottom: 8px;
+    }
+
+    .stat-card span {
+        color: rgba(255,255,255,0.88);
+        line-height: 1.6;
+    }
+
+    .maps-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+    }
+
+    .map-card {
+        padding: 20px;
+        border-radius: 24px;
+        background: rgba(255,255,255,0.12);
+        border: 1px solid rgba(255,255,255,0.16);
+        color: #fff;
+    }
+
+    .map-card strong {
+        display: block;
+        margin-bottom: 14px;
+        font-size: 1rem;
+    }
+
+    .map-graphic {
+        position: relative;
+        min-height: 170px;
+        border-radius: 22px;
+        background: rgba(255,255,255,0.1);
+        overflow: hidden;
+        box-shadow: inset 0 0 0 1px rgba(255,255,255,0.12);
+    }
+
+    .brasil-map {
+        background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.14));
+    }
+
+    .world-map {
+        background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.12));
+    }
+
+    .map-pin,
+    .map-tag {
+        position: absolute;
+        display: inline-flex;
+        padding: 8px 10px;
+        border-radius: 999px;
+        background: rgba(248, 239, 211, 0.85);
+        color: #1f2937;
+        font-size: 0.8rem;
+        font-weight: 600;
+        line-height: 1;
+    }
+
+    .map-pin.top-left { top: 16px; left: 18px; }
+    .map-pin.top-right { top: 18px; right: 18px; }
+    .map-pin.bottom-left { bottom: 18px; left: 18px; }
+    .map-pin.bottom-right { bottom: 18px; right: 18px; }
+    .map-pin.bottom-center { bottom: 18px; left: 50%; transform: translateX(-50%); }
+
+    .world-map .map-tag { top: 18px; left: 18px; }
+    .world-map .map-tag:nth-child(2) { top: 18px; right: 18px; }
+    .world-map .map-tag:nth-child(3) { bottom: 18px; left: 50%; transform: translateX(-50%); }
+
+    .map-card p {
+        margin: 16px 0 0;
+        color: rgba(255,255,255,0.82);
+        font-size: 0.95rem;
+        line-height: 1.7;
+    }
+
+    .idea-card {
+        padding: 20px;
+        border-radius: 24px;
+        background: rgba(255,255,255,0.14);
+        border: 1px solid rgba(255,255,255,0.16);
+    }
+
+    .idea-card h4 {
+        margin: 0 0 10px;
+        color: #fff;
+        font-size: 1.1rem;
+    }
+
+    .idea-card p {
+        margin: 0;
+        color: rgba(255,255,255,0.92);
+        line-height: 1.8;
+    }
 
 @media (max-width: 960px) {
     .auth-page {

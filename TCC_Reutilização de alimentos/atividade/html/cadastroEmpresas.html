@@ -7,17 +7,76 @@
         <link rel="stylesheet" type="text/css" href="../css/index.css" />
     </head>
     <body>
-        <div class="container-principal">
-            <div class="formulario">
-                <form method="post" action="../php/cadastrarEmpresa.php">
-                    <input type="text" name="nome" placeholder="Empresa" required minlength="3" maxlength="100" />
-                    <input type="text" name="cnpj" placeholder="CNPJ" required minlength="3" maxlength="20" />
-                    <input type="text" name="cep" placeholder="CEP" required minlength="3" maxlength="10" />
-                    <input type="email" name="email" placeholder="Email" required minlength="3" maxlength="100" />
-                    <input type="password" name="senha" placeholder="Senha" required minlength="3" maxlength="8" />
-                    <input type="submit" value="Cadastrar" />
-                </form>
-            </div>
+        <div class="auth-page">
+            <aside class="brand-panel">
+                <div>
+                    <div class="brand-logo">
+                        <span>🏬</span>
+                        <h1>FomeOff</h1>
+                    </div>
+                    <h2>Cadastre sua empresa ou ONG</h2>
+                    <p>Ajude a reduzir o desperdício conectando suas doações a quem precisa.</p>
+                </div>
+
+                <div class="brand-features">
+                    <div class="feature-card">
+                        <span>🕛</span>
+                        <div>
+                            <strong>Locais próximos</strong>
+                            <p>Doações perto de você.</p>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <span>⚡</span>
+                        <div>
+                            <strong>Tempo real</strong>
+                            <p>Atualizações instantâneas.</p>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <main class="form-panel">
+                <div class="form-card">
+                    <div class="form-header">
+                        <h3>Cadastro de Empresas / ONGs</h3>
+                        <p>Preencha os dados da sua organização para começar a cadastrar doações.</p>
+                    </div>
+
+                    <form method="post" action="../php/cadastrarEmpresa.php">
+                        <label>
+                            Nome da empresa / ONG
+                            <input type="text" name="nome" placeholder="Empresa ou ONG" required minlength="3" maxlength="100" />
+                        </label>
+
+                        <label>
+                            CNPJ
+                            <input type="text" name="cnpj" placeholder="00.000.000/0000-00" minlength="3" maxlength="20" />
+                        </label>
+
+                        <label>
+                            CEP
+                            <input type="text" name="cep" placeholder="12345-678" minlength="3" maxlength="10" />
+                        </label>
+
+                        <label>
+                            Email
+                            <input type="email" name="email" placeholder="contato@empresa.com" required />
+                        </label>
+
+                        <label>
+                            Senha
+                            <input type="password" name="senha" placeholder="••••••••" required minlength="3" maxlength="8" />
+                        </label>
+
+                        <button type="submit" class="primary-btn">Cadastrar</button>
+                    </form>
+
+                    <p class="form-footer">
+                        Já tem conta? <a href="../index.php">Faça login</a>
+                    </p>
+                </div>
+            </main>
         </div>
     </body>
 </html>

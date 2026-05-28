@@ -28,15 +28,10 @@ if ($cepFiltro) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home | SolidárioConnect</title>
+    <title>Home | FomeOff</title>
     <link rel="stylesheet" href="../css/index.css">
     <style>
-        .home-container { max-width: 800px; margin: 0 auto; padding: 20px; }
-        .welcome { text-align: center; margin-bottom: 30px; }
-        .filter { margin-bottom: 20px; display: flex; gap: 10px; }
-        .doacao-card { border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 8px; }
-        .doacao-card h3 { margin: 0; }
-        .logout { text-align: center; margin-top: 20px; }
+
     </style>
 </head>
 <body>
@@ -44,6 +39,9 @@ if ($cepFiltro) {
         <div class="welcome">
             <h1>Bem-vindo, <?php echo htmlspecialchars($nome); ?>!</h1>
             <p>Encontre doações de alimentos próximas a você.</p>
+            <figure class="welcome-image">
+                <img src="https://images.unsplash.com/photo-1517949908114-8ecb6f1c6fd8?auto=format&fit=crop&w=1200&q=60" alt="Voluntários entregando alimentos" />
+            </figure>
         </div>
 
         <div class="filter">

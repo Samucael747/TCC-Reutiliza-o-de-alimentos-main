@@ -1,0 +1,352 @@
+/* Configurações de Acessibilidade */
+
+/* Modo Escuro */
+body.dark-mode {
+    background: #1a1a1a !important;
+    color: #e0e0e0;
+    --text-primary: #e0e0e0;
+    --text-secondary: #b0b0b0;
+    --bg-primary: #2a2a2a;
+    --bg-secondary: #1a1a1a;
+    --border-color: #444;
+}
+
+body.dark-mode .card,
+body.dark-mode .lei-card {
+    background: #2a2a2a;
+    color: #e0e0e0;
+}
+
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select {
+    background: #3a3a3a;
+    color: #e0e0e0;
+    border-color: #555;
+}
+
+body.dark-mode .navbar {
+    background: #2a2a2a;
+    border-bottom: 1px solid #444;
+}
+
+body.dark-mode .navbar-brand {
+    color: #FFB347;
+}
+
+body.dark-mode .navbar-menu a {
+    color: #e0e0e0;
+}
+
+body.dark-mode .navbar-menu a:hover {
+    color: #FFB347;
+}
+
+body.dark-mode .message.success {
+    background: #1b5e20;
+    color: #c8e6c9;
+}
+
+body.dark-mode .message.error {
+    background: #b71c1c;
+    color: #ffcdd2;
+}
+
+/* Aumento de Fonte - Pequeno */
+body.font-small {
+    font-size: 12px !important;
+}
+
+body.font-small h1 { font-size: 1.5rem; }
+body.font-small h2 { font-size: 1.3rem; }
+body.font-small h3 { font-size: 1.1rem; }
+
+/* Aumento de Fonte - Médio */
+body.font-medium {
+    font-size: 16px !important;
+}
+
+body.font-medium h1 { font-size: 2rem; }
+body.font-medium h2 { font-size: 1.6rem; }
+body.font-medium h3 { font-size: 1.3rem; }
+
+/* Aumento de Fonte - Grande */
+body.font-large {
+    font-size: 18px !important;
+}
+
+body.font-large h1 { font-size: 2.5rem; }
+body.font-large h2 { font-size: 2rem; }
+body.font-large h3 { font-size: 1.6rem; }
+
+/* Alto Contraste */
+body.high-contrast {
+    background: #000 !important;
+    color: #fff !important;
+}
+
+body.high-contrast * {
+    background-color: #000;
+    color: #fff;
+    border-color: #fff;
+}
+
+body.high-contrast button,
+body.high-contrast .primary-btn,
+body.high-contrast .cta-btn {
+    background: #fff !important;
+    color: #000 !important;
+    border: 2px solid #fff;
+}
+
+body.high-contrast a {
+    color: #ffff00;
+    text-decoration: underline;
+}
+
+body.high-contrast input,
+body.high-contrast textarea,
+body.high-contrast select {
+    background: #000;
+    color: #fff;
+    border: 2px solid #fff;
+}
+
+/* Espaçamento Aumentado */
+body.high-spacing {
+    line-height: 2 !important;
+    letter-spacing: 0.05em !important;
+}
+
+body.high-spacing * {
+    margin-bottom: 1.5rem !important;
+    padding: 1.5rem !important;
+}
+
+body.high-spacing input,
+body.high-spacing textarea,
+body.high-spacing select,
+body.high-spacing button {
+    padding: 1.2rem;
+    min-height: 48px;
+}
+
+/* Fonte Sem Serifas Melhorada */
+body.readable-font {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif !important;
+}
+
+/* Redução de Animações */
+body.reduce-motion * {
+    animation: none !important;
+    transition: none !important;
+}
+
+body.reduce-motion {
+    scroll-behavior: auto !important;
+}
+
+/* Cursor Aumentado (Visual) */
+body.large-cursor {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="15" fill="%23FF8C00" stroke="%23000" stroke-width="2"/></svg>'), auto;
+}
+
+/* Links Destacados */
+body.highlight-links a {
+    text-decoration: underline !important;
+    font-weight: 600 !important;
+    background: rgba(255, 140, 0, 0.2);
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+/* Focus Visível Melhorado */
+body.visible-focus *:focus {
+    outline: 4px solid #FFB347 !important;
+    outline-offset: 2px !important;
+}
+
+/* Paleta de Cores para Daltônicos (Deuteranopia) */
+body.colorblind-deuteranopia {
+    --primary: #0173B2;
+    --secondary: #DE8F05;
+    --accent: #CC78BC;
+}
+
+/* Paleta de Cores para Daltônicos (Protanopia) */
+body.colorblind-protanopia {
+    --primary: #0173B2;
+    --secondary: #029E73;
+    --accent: #D55E00;
+}
+
+/* Paleta de Cores para Daltônicos (Tritanopia) */
+body.colorblind-tritanopia {
+    --primary: #EE7733;
+    --secondary: #0077BB;
+    --accent: #33BBEE;
+}
+
+/* Pausa em Vídeos e Animações Automáticas */
+body.pause-animations video,
+body.pause-animations [autoplay] {
+    animation-play-state: paused !important;
+}
+
+/* Ícones com Texto Explicativo */
+body.icons-text {
+    --show-text: 1;
+}
+
+/* Botões Maiores */
+body.large-buttons button,
+body.large-buttons .btn,
+body.large-buttons a[role="button"],
+body.large-buttons .primary-btn {
+    padding: 16px 32px !important;
+    font-size: 1.1rem !important;
+    min-height: 54px;
+    min-width: 100px;
+}
+
+/* Espaçamento aumentado em Inputs */
+body.large-inputs input,
+body.large-inputs textarea,
+body.large-inputs select {
+    padding: 14px 16px !important;
+    font-size: 1.1rem !important;
+    min-height: 48px !important;
+}
+
+/* Combinar Multiple */
+body.accessibility-full {
+    font-size: 18px !important;
+    line-height: 2 !important;
+    letter-spacing: 0.05em !important;
+}
+
+body.accessibility-full * {
+    margin-bottom: 1.5rem !important;
+}
+
+body.accessibility-full button,
+body.accessibility-full input,
+body.accessibility-full textarea,
+body.accessibility-full select {
+    padding: 14px 16px !important;
+    min-height: 48px !important;
+    font-size: 1.1rem !important;
+}
+
+body.accessibility-full *:focus {
+    outline: 4px solid #FFB347 !important;
+    outline-offset: 2px !important;
+}
+
+body.accessibility-full a {
+    text-decoration: underline !important;
+    font-weight: 600 !important;
+}
+
+/* Elementos com Diagramas Visuais */
+.accessibility-info {
+    display: grid;
+    gap: 12px;
+    padding: 16px;
+    background: rgba(255, 140, 0, 0.1);
+    border-radius: 8px;
+    border-left: 4px solid #FF8C00;
+}
+
+.accessibility-info strong {
+    display: block;
+    color: #E8411C;
+    margin-bottom: 8px;
+}
+
+/* Suporte para Leitura de Tela */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Indicador de Status de Acessibilidade */
+.accessibility-indicator {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #FF8C00, #FDB813);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 999;
+    transition: all 0.3s ease;
+}
+
+.accessibility-indicator:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    body.large-buttons button,
+    body.large-buttons .btn,
+    body.large-buttons a[role="button"],
+    body.large-buttons .primary-btn {
+        padding: 14px 24px !important;
+        font-size: 1rem !important;
+    }
+
+    body.large-inputs input,
+    body.large-inputs textarea,
+    body.large-inputs select {
+        padding: 12px 14px !important;
+        font-size: 1rem !important;
+    }
+
+    .accessibility-indicator {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+        bottom: 10px;
+        right: 10px;
+    }
+}
+
+/* Imprime em Branco e Preto */
+@media print {
+    body.print-friendly {
+        background: white;
+        color: black;
+    }
+
+    body.print-friendly * {
+        background: transparent !important;
+        color: black !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+}
+
+/* Scroll Suave Controlado */
+body.smooth-scroll {
+    scroll-behavior: smooth;
+}
+
+body.smooth-scroll *:focus {
+    scroll-margin-top: 60px;
+}

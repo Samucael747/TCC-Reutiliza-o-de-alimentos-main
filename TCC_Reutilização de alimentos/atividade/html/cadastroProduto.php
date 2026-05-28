@@ -34,7 +34,7 @@ $error = $_GET['error'] ?? '';
                 <div class="message error"><?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></div>
             <?php endif; ?>
 
-            <form action="../php/salvarProduto.php" method="post" class="form-grid">
+            <form action="../php/salvarProduto.php" method="post" enctype="multipart/form-data" class="form-grid">
                 <label>
                     Nome da empresa
                     <input type="text" name="empresa" placeholder="Nome da empresa" required maxlength="100" />
@@ -53,6 +53,16 @@ $error = $_GET['error'] ?? '';
                 <label>
                     Produto disponível
                     <input type="text" name="nome_produto" placeholder="Ex: Pães, frutas, marmitas" required maxlength="100" />
+                </label>
+
+                <label>
+                    Validade do produto
+                    <input type="date" name="validade" required />
+                </label>
+
+                <label>
+                    Foto da caixa / embalagem
+                    <input type="file" name="imagem" accept="image/png,image/jpeg,image/webp" required />
                 </label>
 
                 <label>

@@ -10,14 +10,15 @@ $error = $_GET['error'] ?? '';
     <link rel="stylesheet" href="../css/index.css" />
 </head>
 <body>
+    <?php include '../php/header.php'; ?>
     <div class="auth-page">
         <aside class="brand-panel">
             <div>
                 <div class="brand-logo">
-                    <span>❤️</span>
-                    <h1>FomeOff</h1>
+                    <div class="site-logo">
+                        <img src="./Imagens/Logo.png" alt="Logo FomeOff" class="site-logo" />
                 </div>
-                <h2>Conecte-se à solidariedade</h2>
+                <h2>Conecte-se à FomeOff</h2>
                 <p>Cadastre sua conta e ajude quem mais precisa com doações perto de você.</p>
             </div>
 
@@ -77,4 +78,5 @@ $error = $_GET['error'] ?? '';
         </main>
     </div>
 </body>
+<script src="../js/site-brand.js"></script>
 </html>

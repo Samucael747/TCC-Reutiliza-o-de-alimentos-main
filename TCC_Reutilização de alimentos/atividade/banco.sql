@@ -7,14 +7,6 @@ CREATE TABLE usuarios(
     email VARCHAR(100) NOT NULL UNIQUE,
     senha VARCHAR(255) NOT NULL
 );
-CREATE TABLE doacoes(
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    usuario_id INT,
-    descricao VARCHAR(255) NOT NULL,
-    localizacao VARCHAR(255) NOT NULL,
-    data_doacao DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
-);
 CREATE TABLE empresas (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(100) NOT NULL,
@@ -43,6 +35,21 @@ CREATE TABLE produtos (
     latitude DECIMAL(10,7) NULL,
     longitude DECIMAL(10,7) NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE doacoes(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    produto_id INT NOT NULL,
+    usuario_email VARCHAR(100) NOT NULL,
+    empresa VARCHAR(100) NOT NULL,
+    cnpj VARCHAR(20),
+    nome_produto VARCHAR(100) NOT NULL,
+    quantidade INT NOT NULL DEFAULT 1,
+    tipo_entrega VARCHAR(20) NOT NULL DEFAULT 'retirada',
+    localizacao_retirada VARCHAR(255) NOT NULL,
+    endereco_entrega VARCHAR(255) DEFAULT NULL,
+    observacoes VARCHAR(500) DEFAULT NULL,
+    data_doacao DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (produto_id) REFERENCES produtos(id)
 );
 
 -- Adicionar campos de foto de perfil

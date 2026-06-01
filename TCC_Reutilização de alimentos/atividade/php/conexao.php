@@ -12,6 +12,15 @@ try {
     // Configura o modo de erro do PDO para exceção
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+    function addColumnIfMissing(PDO $pdo, string $table, string $columnName, string $columnDefinition)
+    {
+        $stmt = $pdo->prepare("SHOW COLUMNS FROM `$table` LIKE :column");
+        $stmt->execute([':column' => $columnName]);
+        if ($stmt->rowCount() === 0) {
+            $pdo->exec("ALTER TABLE `$table` ADD COLUMN $columnDefinition");
+        }
+    }
+
     // Criar tabelas se não existirem
     $pdo->exec("CREATE TABLE IF NOT EXISTS usuarios(
         id INT PRIMARY KEY AUTO_INCREMENT,
@@ -32,11 +41,10 @@ try {
         tema VARCHAR(20) NOT NULL DEFAULT 'claro',
         notificacoes TINYINT(1) NOT NULL DEFAULT 1
     )");
-$pdo->exec("ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS foto_perfil VARCHAR(255) DEFAULT NULL");
-$pdo->exec("ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS acessibilidade_preferences JSON DEFAULT NULL");
-
-$pdo->exec("ALTER TABLE empresas ADD COLUMN IF NOT EXISTS foto_perfil VARCHAR(255) DEFAULT NULL");
-$pdo->exec("ALTER TABLE empresas ADD COLUMN IF NOT EXISTS acessibilidade_preferences JSON DEFAULT NULL");
+    addColumnIfMissing($pdo, 'usuarios', 'foto_perfil', "foto_perfil VARCHAR(255) DEFAULT NULL");
+    addColumnIfMissing($pdo, 'usuarios', 'acessibilidade_preferences', "acessibilidade_preferences JSON DEFAULT NULL");
+    addColumnIfMissing($pdo, 'empresas', 'foto_perfil', "foto_perfil VARCHAR(255) DEFAULT NULL");
+    addColumnIfMissing($pdo, 'empresas', 'acessibilidade_preferences', "acessibilidade_preferences JSON DEFAULT NULL");
 
     $pdo->exec("CREATE TABLE IF NOT EXISTS produtos (
         id INT PRIMARY KEY AUTO_INCREMENT,
@@ -52,8 +60,25 @@ $pdo->exec("ALTER TABLE empresas ADD COLUMN IF NOT EXISTS acessibilidade_prefere
         longitude DECIMAL(10,7) NULL,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )");
-    $pdo->exec("ALTER TABLE produtos ADD COLUMN IF NOT EXISTS validade DATE NOT NULL DEFAULT '1970-01-01'");
-    $pdo->exec("ALTER TABLE produtos ADD COLUMN IF NOT EXISTS imagem VARCHAR(255) NOT NULL DEFAULT ''");
+    addColumnIfMissing($pdo, 'produtos', 'validade', "validade DATE NOT NULL DEFAULT '1970-01-01'");
+    addColumnIfMissing($pdo, 'produtos', 'imagem', "imagem VARCHAR(255) NOT NULL DEFAULT ''");
+
+    // Doações efetivamente registradas quando o usuário solicita um produto
+    $pdo->exec("CREATE TABLE IF NOT EXISTS doacoes (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        produto_id INT NOT NULL,
+        usuario_email VARCHAR(100) NOT NULL,
+        empresa VARCHAR(100) NOT NULL,
+        cnpj VARCHAR(20) DEFAULT NULL,
+        nome_produto VARCHAR(100) NOT NULL,
+        quantidade INT NOT NULL DEFAULT 1,
+        tipo_entrega VARCHAR(20) NOT NULL DEFAULT 'retirada',
+        localizacao_retirada VARCHAR(255) NOT NULL,
+        endereco_entrega VARCHAR(255) DEFAULT NULL,
+        observacoes VARCHAR(500) DEFAULT NULL,
+        data_doacao DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (produto_id) REFERENCES produtos(id)
+    )");
 
     // Solicitações feitas por usuários para produtos
     $pdo->exec("CREATE TABLE IF NOT EXISTS solicitacoes (
@@ -68,9 +93,9 @@ $pdo->exec("ALTER TABLE empresas ADD COLUMN IF NOT EXISTS acessibilidade_prefere
         FOREIGN KEY (produto_id) REFERENCES produtos(id)
     )");
 
-    $pdo->exec("ALTER TABLE solicitacoes ADD COLUMN IF NOT EXISTS tipo_entrega VARCHAR(20) NOT NULL DEFAULT 'retirada'");
-    $pdo->exec("ALTER TABLE solicitacoes ADD COLUMN IF NOT EXISTS endereco_entrega VARCHAR(255) DEFAULT NULL");
-    $pdo->exec("ALTER TABLE solicitacoes ADD COLUMN IF NOT EXISTS observacoes VARCHAR(500) DEFAULT NULL");
+    addColumnIfMissing($pdo, 'solicitacoes', 'tipo_entrega', "tipo_entrega VARCHAR(20) NOT NULL DEFAULT 'retirada'");
+    addColumnIfMissing($pdo, 'solicitacoes', 'endereco_entrega', "endereco_entrega VARCHAR(255) DEFAULT NULL");
+    addColumnIfMissing($pdo, 'solicitacoes', 'observacoes', "observacoes VARCHAR(500) DEFAULT NULL");
 
     // Avaliações deixadas por usuários sobre produtos/empresas
     $pdo->exec("CREATE TABLE IF NOT EXISTS avaliacoes (

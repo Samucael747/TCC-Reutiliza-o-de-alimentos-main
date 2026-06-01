@@ -4,27 +4,23 @@ $success = $_GET['success'] ?? '';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Entrar | FomeOff</title>
-    <link rel="stylesheet" href="./css/index.css" />
-</head>
+<?php
+$pageTitle = 'Entrar | FomeOff';
+include 'php/head.php';
+?>
 <body>
+    <?php include 'php/header.php'; ?>
     <div class="auth-page">
         <aside class="brand-panel">
             <div>
                 <div class="brand-logo">
-                    <span>🛍️</span>
-                    <img src="./imagens/Logo.jpg" alt="Logo FomeOff" class="Logo" />
-                    <h1>FomeOff</h1>
+                    <img src="./Imagens/Logo.png" alt="Logo FomeOff" class="site-logo" />
                 </div>
-                <h2>Conectando solidariedade em tempo real</h2>
+                <h2>Conectando pessoas em tempo real</h2>
                 <p>Encontre empresas e ONGs que doam alimentos perto de você.</p>
             </div>
 
                 <figure class="brand-image">
-                    <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=1200&q=60" alt="Pessoas compartilhando uma refeição" />
                 </figure>
 
             <div class="brand-features">
@@ -101,7 +97,8 @@ $success = $_GET['success'] ?? '';
             <div class="form-card">
                 <div class="form-header">
                     <h3>Bem-vindo de volta!</h3>
-                    <p>Entre para encontrar ajuda próxima a você.</p>
+                    <p>Encontre o centro de doação mais próximo de você.</p>
+                    <button type="button" class="chat-open-btn" onclick="window.chatbotManager?.open()">Precisa de ajuda? Abra o chat</button>
                 </div>
 
                 <?php if ($error): ?>
@@ -147,5 +144,7 @@ $success = $_GET['success'] ?? '';
             </div>
         </main>
     </div>
+    <script src="./js/chatbot.js"></script>
+    <script src="./js/site-brand.js"></script>
 </body>
 </html>

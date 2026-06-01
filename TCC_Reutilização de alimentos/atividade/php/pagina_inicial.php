@@ -25,22 +25,16 @@ if ($cepFiltro) {
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home | FomeOff</title>
-    <link rel="stylesheet" href="../css/index.css">
-    <style>
-
-    </style>
-</head>
+<?php
+$pageTitle = 'Home | FomeOff';
+include __DIR__ . '/head.php';
+?>
 <body>
     <div class="home-container">
         <div class="welcome">
             <h1>Bem-vindo, <?php echo htmlspecialchars($nome); ?>!</h1>
             <p>Encontre doações de alimentos próximas a você.</p>
             <figure class="welcome-image">
-                <img src="https://images.unsplash.com/photo-1517949908114-8ecb6f1c6fd8?auto=format&fit=crop&w=1200&q=60" alt="Voluntários entregando alimentos" />
             </figure>
         </div>
 
@@ -71,4 +65,5 @@ if ($cepFiltro) {
         </div>
     </div>
 </body>
+<script src="../js/site-brand.js"></script>
 </html>

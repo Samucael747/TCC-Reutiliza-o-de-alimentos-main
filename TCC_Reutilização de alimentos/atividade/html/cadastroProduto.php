@@ -22,6 +22,7 @@ $error = $_GET['error'] ?? '';
     </style>
 </head>
 <body>
+    <?php include '../php/header.php'; ?>
     <div class="content-wrapper">
         <div class="card">
             <h2>Cadastro de produtos disponíveis</h2>
@@ -87,4 +88,5 @@ $error = $_GET['error'] ?? '';
 
 
 </body>
+<script src="../js/site-brand.js"></script>
 </html>

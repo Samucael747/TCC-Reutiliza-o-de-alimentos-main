@@ -20,24 +20,11 @@ if ($cepFiltro !== '') {
     $sql .= ' WHERE cep LIKE :cep';
     $params[':cep'] = substr($cepFiltro, 0, 5) . '%';
 }
-
-$sql .= ' ORDER BY created_at DESC';
-$stmt = $pdo->prepare($sql);
-$stmt->execute($params);
-$produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-$success = $_GET['success'] ?? '';
-$error = $_GET['error'] ?? '';
-?>
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home | FomeOff</title>
-    <link rel="stylesheet" href="../css/index.css" />
-    <link rel="stylesheet" href="../css/acessibilidade.css" />
-    <link rel="stylesheet" href="../css/accessibility-panel.css" />
+<?php
+$pageTitle = 'Home | FomeOff';
+$extra_head = <<<'HTML'
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
     <style>
         * { box-sizing: border-box; }
@@ -82,83 +69,97 @@ $error = $_GET['error'] ?? '';
         
         .navbar-menu {
             display: flex;
+            gap: 18px;
             list-style: none;
-            gap: 24px;
             margin: 0;
             padding: 0;
-            flex: 1;
         }
         
         .navbar-menu a {
-            color: #333;
+            color: #374151;
             text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        .navbar-menu a:hover,
-        .navbar-menu a.active {
-            color: #FF8C00;
-        }
-        
-        .navbar-menu a.active::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(135deg, #FF8C00, #FDB813);
-            border-radius: 2px;
-        }
-        
-        .navbar-actions {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-        
-        .navbar-actions a {
-            color: #333;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            padding: 8px 14px;
-            border-radius: 6px;
-        }
-        .navbar-location {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: #e8f7ed;
-            color: #1f6f3f;
-            padding: 10px 16px;
-            border-radius: 999px;
-            border: 1px solid #c9f0d6;
-            font-size: 0.95rem;
             font-weight: 600;
-            white-space: nowrap;
-        }
-        .navbar-location .location-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background: rgba(47, 128, 79, 0.12);
-        }
-        .navbar-location .location-text {
-            color: #1f6f3f;
+            padding: 8px 10px;
+            border-radius: 8px;
         }
         
-        .navbar-actions a:hover {
-            background: rgba(255, 140, 0, 0.1);
-            color: #FF8C00;
+        .navbar-menu a.active {
+            background: rgba(255,140,0,0.08);
+            color: #E8411C;
         }
         
-        .home-container { 
+        .home-container {
+            max-width: 1180px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        
+        .message { padding: 14px 18px; border-radius: 14px; margin-bottom: 22px; }
+        .message.success { background:#ecfdf5; color:#065f46; }
+        .message.error { background:#fff1f2; color:#7f1d1d; }
+        
+        h1 { margin: 0 0 8px 0; }
+        p { margin: 0 0 20px 0; color: #475569; }
+        
+        .controls { display:flex; gap:12px; align-items:center; margin: 18px 0 20px 0; }
+        .filter { display:flex; gap:8px; align-items:center; }
+        .filter input { padding:10px 12px; border-radius:12px; border:1px solid #e6e6e6; }
+        
+        .cards { display:grid; gap:18px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+        
+        .card { background:white; border-radius: 18px; padding: 18px; box-shadow: 0 10px 30px rgba(15,23,42,0.06); }
+        
+        .welcome { padding: 28px; background: linear-gradient(135deg, rgba(255,140,0,0.06), rgba(232,65,28,0.06)); border-radius: 18px; }
+        
+        .map { height: 320px; border-radius: 14px; overflow: hidden; }
+        
+        .cards-grid { display:grid; grid-template-columns: 1fr 340px; gap: 20px; }
+        
+        @media (max-width: 1024px) {
+            .cards-grid { grid-template-columns: 1fr; }
+        }
+        
+        @media (max-width: 768px) { 
+            .navbar-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            
+            .navbar-menu {
+                width: 100%;
+                gap: 12px;
+                font-size: 0.9rem;
+            }
+            
+            .controls { 
+                flex-direction: column; 
+            }
+            
+            .filter {
+                flex-direction: column;
+                min-width: auto;
+            }
+            
+            .filter input,
+            .filter button {
+                width: 100%;
+            }
+            
+            .cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .welcome {
+                padding: 24px;
+            }
+            
+        }
+    </style>
+HTML;
+include __DIR__ . '/head.php';
+?>
+<body>
             max-width: 1200px; 
             margin: 0 auto; 
             padding: 40px 20px;
@@ -451,18 +452,20 @@ $error = $_GET['error'] ?? '';
             .welcome {
                 padding: 24px;
             }
+            
         }
     </style>
 </head>
 <body>
+    <?php include __DIR__ . '/header.php'; ?>
     <nav class="navbar">
         <div class="navbar-content">
             <a href="home.php" class="navbar-brand">
-                <span>🍽️</span>
-                <span>FomeOff</span>
+                <img src="../Imagens/Logo.png" alt="FomeOff" class="site-logo" />
             </a>
             <ul class="navbar-menu">
-                <li><a href="home.php" class="active">Home</a></li>
+                <li><a href="home.php" class="active">🏡Home</a></li>
+                <li><a href="doacoes.php">📌 Doações</a></li>
                 <li><a href="leis_doacoes.php">📋 Leis</a></li>
                 <li><a href="configuracoes.php">⚙️ Configurações</a></li>
             </ul>
@@ -494,6 +497,7 @@ $error = $_GET['error'] ?? '';
                 <button type="submit">Filtrar</button>
             </form>
             <div class="actions">
+                <a href="doacoes.php" class="btn-primary">📌 Ver Doações</a>
                 <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'empresa'): ?>
                     <a href="../html/cadastroProduto.php" class="btn-primary">➕ Cadastrar Produto</a>
                 <?php endif; ?>
@@ -632,6 +636,8 @@ $error = $_GET['error'] ?? '';
 
     <script src="../js/accessibility.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    <script src="../js/chatbot.js"></script>
+    <script src="../js/site-brand.js"></script>
     <script>
         function solicitarProduto(empresa) {
             alert(`✅ Solicitação enviada para ${empresa}!\n\nEm breve você será contatado com as instruções de coleta.`);

@@ -4,26 +4,28 @@ $isLogged = isset($_SESSION['nome']);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Leis sobre Doações | FomeOff</title>
-    <link rel="stylesheet" href="../css/index.css" />
+<?php
+$pageTitle = 'Leis sobre Doações | FomeOff';
+$extra_head = <<<'HTML'
     <link rel="stylesheet" href="../css/leis.css" />
-</head>
+HTML;
+include __DIR__ . '/head.php';
+?>
 <body>
+    <?php include __DIR__ . '/header.php'; ?>
     <?php if ($isLogged): ?>
         <nav class="navbar">
             <div class="navbar-container">
                 <div class="navbar-brand">
-                    <span>🍽️</span>
-                    <h1>FomeOff</h1>
+                    <a href="home.php" class="navbar-brand">
+                    <img src="../Imagens/Logo.png" alt="Logo FomeOff" class="site-logo" />
                 </div>
-                <ul class="navbar-menu">
-                    <li><a href="home.php">Home</a></li>
-                    <li><a href="leis_doacoes.php" class="active">Leis</a></li>
-                    <li><a href="configuracoes.php">Configurações</a></li>
-                    <li><a href="logout.php">Sair</a></li>
+            <ul class="navbar-menu">
+                <li><a href="home.php" >🏡Home</a></li>
+                <li><a href="doacoes.php">📌 Doações</a></li>
+                <li><a href="leis_doacoes.php"class="active">📋 Leis</a></li>
+                <li><a href="configuracoes.php">⚙️ Configurações</a></li>
+            </ul>
                 </ul>
             </div>
         </nav>
@@ -45,6 +47,7 @@ $isLogged = isset($_SESSION['nome']);
                     <span class="lei-badge">Nacional</span>
                 </div>
                 <div class="lei-content">
+        <script src="../js/chatbot.js"></script>
                     <h3>Doações de Alimentos Durante Pandemia</h3>
                     <p>Esta lei autoriza a União a transferir recursos para estados, Distrito Federal e municípios, a fim de apoiar ações de enfrentamento à emergência de saúde pública de importância internacional decorrente do novo coronavírus.</p>
                     <div class="lei-details">

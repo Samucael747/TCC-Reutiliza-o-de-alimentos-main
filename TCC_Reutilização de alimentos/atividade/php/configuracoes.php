@@ -37,12 +37,9 @@ $fotoPlaceholder = '../images/user-placeholder.png';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Configurações | FomeOff</title>
-    <link rel="stylesheet" href="../css/index.css" />
-    <link rel="stylesheet" href="../css/acessibilidade.css" />
+<?php
+$pageTitle = 'Configurações | FomeOff';
+$extra_head = <<<'HTML'
     <link rel="stylesheet" href="../css/accessibility-panel.css" />
     <style>
         body { 
@@ -377,19 +374,26 @@ $fotoPlaceholder = '../images/user-placeholder.png';
             }
         }
     </style>
-</head>
+HTML;
+include __DIR__ . '/head.php';
+?>
 <body>
+    <?php include __DIR__ . '/header.php'; ?>
     <nav class="navbar">
         <div class="navbar-brand">
-            <span style="font-size: 1.5rem;">🍽️</span>
-            <h1>FomeOff</h1>
+            <a href="home.php" class="navbar-brand">
+            <img src="../Imagens/Logo.png" alt="Logo FomeOff" class="site-logo" />
+            <span></span>
         </div>
-        <ul class="navbar-menu">
-            <li><a href="home.php">Home</a></li>
-            <li><a href="leis_doacoes.php">Leis</a></li>
-            <li><a href="configuracoes.php" style="color: #FF8C00; font-weight: 700;">Configurações</a></li>
-            <li><a href="logout.php">Sair</a></li>
-        </ul>
+        <ul class="navbar-menu"> 
+                <li><a href="home.php" class="active">🏡Home</a></li>
+                <li><a href="doacoes.php">📌 Doações</a></li>
+                <li><a href="leis_doacoes.php">📋 Leis</a></li>
+                <li><a href="configuracoes.php"class="active">⚙️ Configurações</a></li>
+                    <div class="navbar-actions">
+                <a href="logout.php">🚪 Sair</a>
+            </div>
+            </ul>
     </nav>
     
     <div class="content-wrapper">
@@ -450,108 +454,71 @@ $fotoPlaceholder = '../images/user-placeholder.png';
                     <div class="actions-row">
                         <button type="submit" class="primary-btn">💾 Salvar Alterações</button>
                         <a href="home.php">← Voltar à Home</a>
-                    </div>
-                </form>
-            </div>
-            
-            <!-- Seção de Preferências -->
-            <div class="card">
-                <h2>⚙️ Preferências</h2>
-                <p>Customize sua experiência no site</p>
-                
-                <form action="salvarConfiguracoes.php" method="post" class="settings-grid">
-                    <label>
-                        🌈 Tema do painel
-                        <select name="tema">
-                            <option value="claro" <?php echo $tema === 'claro' ? 'selected' : ''; ?>>☀️ Claro</option>
-                            <option value="escuro" <?php echo $tema === 'escuro' ? 'selected' : ''; ?>>🌙 Escuro</option>
-                        </select>
-                    </label>
-
-                    <label>
-                        🔔 Notificações
-                        <select name="notificacoes">
-                            <option value="1" <?php echo $notificacoes === 1 ? 'selected' : ''; ?>>✓ Ativas</option>
-                            <option value="0" <?php echo $notificacoes === 0 ? 'selected' : ''; ?>>✕ Desativadas</option>
-                        </select>
-                    </label>
-                    
-                    <div class="actions-row">
-                        <button type="submit" class="primary-btn">💾 Salvar Preferências</button>
-                    </div>
-                </form>
-            </div>
-            
-            <!-- Seção de Acessibilidade -->
-            <div class="card">
-                <h2>♿ Acessibilidade</h2>
-                <p>Configure opções de acessibilidade para melhor experiência</p>
-                
-                <div class="accessibility-card-section">
-                    <h3>🔧 Opções Disponíveis</h3>
-                    <p>Clique no botão abaixo para abrir o painel de acessibilidade onde você pode:</p>
-                    <ul style="margin: 12px 0; padding-left: 20px; color: #666;">
-                        <li>🌙 Ativar modo escuro</li>
-                        <li>📝 Alterar tamanho da fonte</li>
-                        <li>⚪ Alto contraste</li>
-                        <li>📏 Aumentar espaçamento</li>
-                        <li>🔤 Fonte mais legível</li>
-                        <li>⏸️ Reduzir animações</li>
-                        <li>🎨 Modo para daltônicos</li>
-                        <li>E muito mais!</li>
-                    </ul>
-                    <button type="button" class="accessibility-btn-open" onclick="accessibilityManager.togglePanel()">
-                        ♿ Abrir Acessibilidade
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <script src="../js/accessibility.js"></script>
-    <script>
-        function uploadFoto(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            
-            const formData = new FormData();
-            formData.append('foto', file);
-            
-            document.getElementById('upload-loading').style.display = 'block';
-            
-            fetch('salvarFoto.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('upload-loading').style.display = 'none';
-                if (data.success) {
-                    document.getElementById('preview-foto').src = data.fotoUrl + '?' + new Date().getTime();
-                    showMessage('✓ Foto atualizada com sucesso!', 'success');
-                } else {
-                    showMessage('✕ Erro: ' + (data.error || 'Falha ao enviar foto'), 'error');
-                }
-            })
-            .catch(error => {
-                document.getElementById('upload-loading').style.display = 'none';
-                showMessage('✕ Erro ao enviar: ' + error.message, 'error');
-            });
-        }
+                    <!DOCTYPE html>
+                    <html lang="pt-br">
+                    <?php
+                    $pageTitle = 'Configurações | FomeOff';
+                    $extra_head = <<<'HTML'
+                        <link rel="stylesheet" href="../css/accessibility-panel.css" />
+                        <style>
+                            body { 
+                                background: linear-gradient(180deg, #FFF3E0 0%, #FFE4B5 100%);
+                                min-height: 100vh;
+                            }
         
-        function showMessage(text, type) {
-            const card = document.querySelector('.card');
-            const message = document.createElement('div');
-            message.className = 'message ' + type;
-            message.textContent = text;
-            message.style.marginBottom = '18px';
-            card.insertBefore(message, card.querySelector('.settings-grid') || card.querySelector('form'));
+                            .navbar {
+                                background: white;
+                                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+                                padding: 16px 20px;
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                position: sticky;
+                                top: 0;
+                                z-index: 100;
+                            }
+        
+                            .navbar-brand {
+                                display: flex;
+                                align-items: center;
+                                gap: 10px;
+                                font-weight: 700;
+                                color: #E8411C;
+                                text-decoration: none;
+                            }
+        
+                            .navbar-brand h1 {
+                                margin: 0;
+                                font-size: 1.3rem;
+                            }
+        
+                            .navbar-menu {
+                                display: flex;
+                                list-style: none;
+                                gap: 24px;
+                                margin: 0;
+                                padding: 0;
+                            }
+        
+                            .navbar-menu a {
+                                color: #333;
+                                text-decoration: none;
+                                font-weight: 500;
+                                transition: all 0.3s ease;
+                            }
+        
+                            .navbar-menu a:hover {
+                                color: #FF8C00;
+                            }
+        
+                            .content-wrapper { 
+                                max-width: 800px; 
+                                margin: 40px auto; 
+                                padding: 24px; 
+                            }
+                        </style>
+                    HTML;
+                    include __DIR__ . '/head.php';
+                    ?>
+                    <body>
             
-            setTimeout(() => {
-                message.style.animation = 'slideOut 0.3s ease';
-                setTimeout(() => message.remove(), 300);
-            }, 4000);
-        }
-    </script>
-</body>
-</html>

@@ -37,9 +37,12 @@ $fotoPlaceholder = '../images/user-placeholder.png';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
-<?php
-$pageTitle = 'Configurações | FomeOff';
-$extra_head = <<<'HTML'
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Configurações | FomeOff</title>
+    <link rel="stylesheet" href="../css/index.css" />
+    <link rel="stylesheet" href="../css/acessibilidade.css" />
     <link rel="stylesheet" href="../css/accessibility-panel.css" />
     <style>
         body { 
@@ -368,15 +371,12 @@ $extra_head = <<<'HTML'
             }
             
             .actions-row a,
-            .primary-btn {
-                width: 100%;
-                text-align: center;
+            .primary-btn { 
+                width: 100%; 
             }
         }
     </style>
-HTML;
-include __DIR__ . '/head.php';
-?>
+</head>
 <body>
     <?php include __DIR__ . '/header.php'; ?>
     <nav class="navbar">

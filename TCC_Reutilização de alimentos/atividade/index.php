@@ -4,10 +4,12 @@ $success = $_GET['success'] ?? '';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
-<?php
-$pageTitle = 'Entrar | FomeOff';
-include 'php/head.php';
-?>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Entrar | FomeOff</title>
+    <link rel="stylesheet" href="./css/index.css" />
+</head>
 <body>
     <?php include 'php/header.php'; ?>
     <div class="auth-page">

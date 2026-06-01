@@ -19,9 +19,12 @@ $error = $_GET['error'] ?? '';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
-<?php
-$pageTitle = 'Doações Registradas | FomeOff';
-$extra_head = <<<'HTML'
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Doações Registradas | FomeOff</title>
+    <link rel="stylesheet" href="../css/index.css" />
+    <link rel="stylesheet" href="../css/acessibilidade.css" />
     <style>
         body { font-family: 'Inter', sans-serif; margin: 0; background: #f7f3ee; color: #222; }
         .navbar { background: white; padding: 18px 24px; box-shadow: 0 6px 18px rgba(0,0,0,0.08); position: sticky; top: 0; z-index: 20; }
@@ -44,9 +47,7 @@ $extra_head = <<<'HTML'
         .empty-state { background: white; padding: 24px; border-radius: 18px; text-align: center; border: 1px solid #ffe7d6; }
         .empty-state p { margin: 0; color: #666; font-size: 1rem; }
     </style>
-HTML;
-include __DIR__ . '/head.php';
-?>
+</head>
 <body>
     <nav class="navbar">
         <div class="navbar-content">

@@ -20,11 +20,16 @@ if ($cepFiltro !== '') {
     $sql .= ' WHERE cep LIKE :cep';
     $params[':cep'] = substr($cepFiltro, 0, 5) . '%';
 }
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
-<?php
-$pageTitle = 'Home | FomeOff';
-$extra_head = <<<'HTML'
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home | FomeOff</title>
+    <link rel="stylesheet" href="../css/index.css" />
+    <link rel="stylesheet" href="../css/acessibilidade.css" />
+    <link rel="stylesheet" href="../css/accessibility-panel.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
     <style>
         * { box-sizing: border-box; }
@@ -156,9 +161,7 @@ $extra_head = <<<'HTML'
             
         }
     </style>
-HTML;
-include __DIR__ . '/head.php';
-?>
+</head>
 <body>
             max-width: 1200px; 
             margin: 0 auto; 

@@ -14,6 +14,7 @@ $p      = $inHtml ? '../php/' : '';   // prefixo para links de páginas PHP
         <ul class="navbar-menu">
             <li><a href="<?php echo $p; ?>dashboard.php"<?php if ($paginaAtiva === 'dashboard') echo ' class="active"'; ?>><i class="bi bi-house-door"></i> Painel</a></li>
             <li><a href="<?php echo $p; ?>doacoes.php"<?php if ($paginaAtiva === 'doacoes') echo ' class="active"'; ?>><i class="bi bi-box-seam"></i> Doa&ccedil;&otilde;es</a></li>
+            <li><a href="<?php echo $p; ?>conquistas.php"<?php if ($paginaAtiva === 'conquistas') echo ' class="active"'; ?>><i class="bi bi-trophy"></i> Conquistas</a></li>
             <li><a href="<?php echo $p; ?>leis_doacoes.php"<?php if ($paginaAtiva === 'leis') echo ' class="active"'; ?>><i class="bi bi-book"></i> Leis</a></li>
             <li><a href="<?php echo $p; ?>configuracoes.php"<?php if ($paginaAtiva === 'configuracoes') echo ' class="active"'; ?>><i class="bi bi-gear"></i> Configura&ccedil;&otilde;es</a></li>
         </ul>

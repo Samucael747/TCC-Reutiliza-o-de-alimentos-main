@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 if (isset($_POST['email'])) {
     $nome  = trim($_POST['nome'] ?? '');
     $email = trim($_POST['email'] ?? '');
@@ -32,7 +32,7 @@ if (isset($_POST['email'])) {
         $stmt->bindValue(':s', $senha);
         $stmt->execute();
 
-        header('Location: ../index.php?success=Cadastro+realizado+com+sucesso');
+        header('Location: ../entrar.php?success=Cadastro+realizado+com+sucesso');
         exit;
     } catch (PDOException $e) {
         header('Location: ../html/cadastroUsuario.php?error=Erro+ao+cadastrar+usuario');

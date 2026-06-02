@@ -1,7 +1,7 @@
-<?php
+﻿<?php
 session_start();
 if (!isset($_SESSION['email'])) {
-    header('Location: ../index.php?error=Voce+precisa+logar+para+avaliar');
+    header('Location: ../entrar.php?error=Voce+precisa+logar+para+avaliar');
     exit;
 }
 
@@ -67,3 +67,4 @@ try {
     header('Location: home.php?error=Erro+ao+salvar+avaliacao');
     exit;
 }
+

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 if (isset($_POST['email'])) {
     $email = trim($_POST['email']);
     $senha = trim($_POST['senha']);
@@ -6,7 +6,7 @@ if (isset($_POST['email'])) {
     require 'conexao.php';
 
     if (!$pdo) {
-        header('Location: ../index.php?error=Erro+de+conexao+com+banco');
+        header('Location: ../entrar.php?error=Erro+de+conexao+com+banco');
         exit;
     }
 
@@ -31,14 +31,14 @@ if (isset($_POST['email'])) {
             header('Location: home.php');
             exit;
         } else {
-            header('Location: ../index.php?error=Email+ou+senha+incorretos');
+            header('Location: ../entrar.php?error=Email+ou+senha+incorretos');
             exit;
         }
     } catch (PDOException $e) {
-        header('Location: ../index.php?error=Erro+ao+autenticar');
+        header('Location: ../entrar.php?error=Erro+ao+autenticar');
         exit;
     }
 } else {
-    header("Location: ../index.php");
+    header("Location: ../entrar.php");
     exit;
 }

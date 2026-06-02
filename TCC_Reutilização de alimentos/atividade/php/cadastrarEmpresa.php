@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require 'conexao.php';
 
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ':senha' => $senha,
         ]);
 
-        header('Location: ../index.php?success=Empresa+cadastrada+com+sucesso');
+        header('Location: ../entrar.php?success=Empresa+cadastrada+com+sucesso');
         exit;
     } catch (PDOException $e) {
         header('Location: ../html/cadastroEmpresas.html?error=Erro+ao+cadastrar+empresa');
@@ -46,3 +46,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 header('Location: ../html/cadastroEmpresas.html');
 exit;
+

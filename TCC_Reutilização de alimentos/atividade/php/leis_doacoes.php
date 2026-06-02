@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 $isLogged = isset($_SESSION['nome']);
 
@@ -157,7 +157,7 @@ HTML;
                 <?php if ($isLogged): ?>
                     <a href="home.php" class="cta-btn">Ir para Home</a>
                 <?php else: ?>
-                    <a href="../index.php" class="cta-btn">Fazer Login</a>
+                    <a href="../entrar.php" class="cta-btn">Fazer Login</a>
                 <?php endif; ?>
             </div>
             <div class="cta-card">
@@ -173,3 +173,4 @@ HTML;
     <script src="../js/accessibility.js"></script>
 </body>
 </html>
+

@@ -1,7 +1,7 @@
-<?php
+﻿<?php
 session_start();
 if (!isset($_SESSION['nome'], $_SESSION['email'], $_SESSION['role'])) {
-    header('Location: ../index.php?error=Voce+precisa+logar+primeiro');
+    header('Location: ../entrar.php?error=Voce+precisa+logar+primeiro');
     exit;
 }
 
@@ -25,7 +25,7 @@ $stmt->execute([':email' => $email]);
 $conta = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$conta) {
-    header('Location: ../index.php?error=Conta+nao+encontrada');
+    header('Location: ../entrar.php?error=Conta+nao+encontrada');
     exit;
 }
 
@@ -256,7 +256,7 @@ HTML;
 
                 <form action="salvarConfiguracoes.php" method="post" class="settings-grid">
                     <label>
-                        <?php echo $role === 'empresa' ? '<i class="bi bi-building"></i> Nome da empresa / ONG' : '<i class="bi bi-person"></i> Nome completo'; ?>
+                        <span class="field-label"><?php echo $role === 'empresa' ? '<i class="bi bi-building"></i> Nome da empresa / ONG' : '<i class="bi bi-person"></i> Nome completo'; ?></span>
                         <input type="text" name="nome"
                                value="<?php echo htmlspecialchars($conta['nome'], ENT_QUOTES, 'UTF-8'); ?>"
                                required maxlength="100" />
@@ -264,13 +264,13 @@ HTML;
 
                     <?php if ($role === 'empresa'): ?>
                         <label>
-                            <i class="bi bi-card-text"></i> CNPJ
+                            <span class="field-label"><i class="bi bi-card-text"></i> CNPJ</span>
                             <input type="text" name="cnpj"
                                    value="<?php echo htmlspecialchars($conta['cnpj'] ?? '', ENT_QUOTES, 'UTF-8'); ?>"
                                    maxlength="20" />
                         </label>
                         <label>
-                            <i class="bi bi-geo-alt"></i> CEP
+                            <span class="field-label"><i class="bi bi-geo-alt"></i> CEP</span>
                             <input type="text" name="cep"
                                    value="<?php echo htmlspecialchars($conta['cep'] ?? '', ENT_QUOTES, 'UTF-8'); ?>"
                                    maxlength="10" />
@@ -278,14 +278,14 @@ HTML;
                     <?php endif; ?>
 
                     <label>
-                        <i class="bi bi-envelope"></i> Email de login
+                        <span class="field-label"><i class="bi bi-envelope"></i> Email de login</span>
                         <input type="email" name="email"
                                value="<?php echo htmlspecialchars($conta['email'], ENT_QUOTES, 'UTF-8'); ?>"
                                required maxlength="100" />
                     </label>
 
                     <label>
-                        <i class="bi bi-lock"></i> Nova senha
+                        <span class="field-label"><i class="bi bi-lock"></i> Nova senha</span>
                         <input type="password" name="senha"
                                placeholder="Deixe em branco para manter a senha atual"
                                minlength="3" maxlength="50" />
@@ -337,3 +337,4 @@ HTML;
     </script>
 </body>
 </html>
+

@@ -1,263 +1,268 @@
-<?php
-$error   = $_GET['error'] ?? '';
-$success = $_GET['success'] ?? '';
-?>
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FomeOff — Entrar</title>
-    <link rel="stylesheet" href="./css/index.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FomeOff - Plataforma de Doação de Alimentos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
     <link rel="stylesheet" href="./css/acessibilidade.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="./css/accessibility-panel.css" />
     <style>
-        /* ── Login page overrides ── */
-        .brand-logo {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            font-size: 1.6rem;
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            color: #fff;
-        }
-
-        .brand-logo img {
-            width: 52px;
-            height: 52px;
-            border-radius: 16px;
-            object-fit: cover;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.2);
-        }
-
-        .form-card {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-        }
-
-        .form-header { margin-bottom: 0; }
-
-        form { margin-top: 24px; gap: 18px; }
-
-        select {
-            width: 100%;
-            padding: 16px 18px;
-            border: 1px solid #E0B299;
-            border-radius: 18px;
-            background: #FFF8F0;
-            font: inherit;
-            color: #111827;
-            transition: border-color 0.25s, box-shadow 0.25s;
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 18px center;
-        }
-
-        select:focus {
-            outline: none;
-            border-color: #FF8C00;
-            box-shadow: 0 0 0 4px rgba(255,140,0,0.15);
-        }
-
-        .message {
-            padding: 14px 16px;
-            border-radius: 14px;
-            margin: 16px 0 0;
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        .message.error   { background: #fff1f2; color: #be123c; border-left: 4px solid #f43f5e; }
-        .message.success { background: #f0fdf4; color: #166534; border-left: 4px solid #22c55e; }
-
-        .form-footer { margin-top: 14px; }
-        .form-footer a { color: #FF8C00; }
-
-        .chat-open-btn {
-            margin-top: 12px;
-            padding: 9px 16px;
-            border: 1.5px solid #e5e7eb;
-            border-radius: 10px;
-            background: transparent;
-            color: #6b7280;
-            font: inherit;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .chat-open-btn:hover { border-color: #FF8C00; color: #FF8C00; }
-
-        /* Stats */
-        .stats-grid {
-            grid-template-columns: repeat(3, 1fr);
-            margin-top: 20px;
-        }
-
-        .stat-card strong { font-size: 1.6rem; }
-
-        /* Maps */
-        .maps-grid { margin-top: 20px; }
-
-        /* Idea card */
-        .idea-card { margin-top: 20px; }
-
-        @media (max-width: 960px) {
-            .brand-panel { padding: 32px 24px; }
-        }
+        body { font-family: 'Inter', system-ui, sans-serif; }
+        h1, h2, h3, h4 { font-family: 'Inter', system-ui, sans-serif; }
     </style>
 </head>
 <body>
-    <div class="auth-page">
+    <div class="min-h-screen bg-gradient-to-b from-orange-50 to-white">
 
-        <!-- Painel esquerdo — marca -->
-        <aside class="brand-panel">
-            <div>
-                <div class="brand-logo">
-                    <img src="./Imagens/Logo.png" alt="Logo FomeOff" />
-                    FomeOff
+        <!-- Header -->
+        <header class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+            <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <svg class="w-8 h-8 text-orange-500 fill-orange-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                    <span class="text-gray-800 text-2xl font-bold">FomeOff</span>
                 </div>
-                <h2>Conectando pessoas em tempo real</h2>
-                <p>Encontre empresas e ONGs que doam alimentos perto de você.</p>
-            </div>
-
-            <div class="brand-features">
-                <div class="feature-card">
-                    <span><i class="bi bi-geo-alt-fill"></i></span>
-                    <div>
-                        <strong>Locais próximos</strong>
-                        <p>Doações perto de você.</p>
-                    </div>
-                </div>
-                <div class="feature-card">
-                    <span><i class="bi bi-lightning-charge-fill"></i></span>
-                    <div>
-                        <strong>Tempo real</strong>
-                        <p>Atualizações instantâneas.</p>
-                    </div>
-                </div>
-                <div class="feature-card">
-                    <span><i class="bi bi-heart-fill"></i></span>
-                    <div>
-                        <strong>Solidariedade</strong>
-                        <p>Conectando quem doa a quem precisa.</p>
-                    </div>
+                <div class="flex gap-4">
+                    <a href="entrar.php" class="px-6 py-2 text-gray-700 hover:text-orange-600 rounded-lg transition">Entrar</a>
+                    <a href="html/cadastroUsuario.php" class="px-6 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition">Cadastre-se</a>
                 </div>
             </div>
+        </header>
 
-            <div class="brand-action">
-                <a class="brand-link" href="./sensibilizacao.html">Conheça nossa causa</a>
-            </div>
-
-            <section class="awareness">
-                <h3>Doar salva vidas</h3>
-                <p>Hoje, mais de <strong>828 milhões</strong> de pessoas no mundo passam fome. No Brasil, cerca de <strong>33 milhões</strong> vivem com insegurança alimentar. Cada empresa ou ONG que doa transforma excedente em esperança.</p>
-
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <strong>828M</strong>
-                        <span>Pessoas sem comida suficiente no mundo</span>
+        <!-- Hero Section -->
+        <section class="container mx-auto px-6 py-20">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div class="inline-block px-4 py-2 bg-orange-100 text-orange-600 rounded-full mb-6">
+                        <span class="font-semibold">💚 Plataforma 100% Gratuita</span>
                     </div>
-                    <div class="stat-card">
-                        <strong>33M</strong>
-                        <span>Brasileiros em insegurança alimentar</span>
-                    </div>
-                    <div class="stat-card">
-                        <strong>1/3</strong>
-                        <span>Dos alimentos produzidos são desperdiçados</span>
+                    <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+                        Conectando Doações,<br />
+                        <span class="text-orange-500">Alimentando Esperança</span>
+                    </h1>
+                    <p class="text-xl text-gray-600 mb-8">
+                        Plataforma que conecta empresas e ONGs que doam alimentos com pessoas que precisam. Em tempo real, com mapa interativo.
+                    </p>
+                    <div class="flex gap-4 flex-wrap">
+                        <a href="html/cadastroUsuario.php" class="px-8 py-4 bg-orange-500 text-white rounded-lg font-semibold hover:bg-orange-600 transition flex items-center gap-2 shadow-lg shadow-orange-200">
+                            Quero Receber Doações
+                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </a>
+                        <a href="html/cadastroEmpresas.html" class="px-8 py-4 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 transition shadow-lg shadow-green-200">
+                            Quero Doar Alimentos
+                        </a>
                     </div>
                 </div>
-
-                <div class="maps-grid">
-                    <article class="map-card">
-                        <strong>Mapa da fome no Brasil</strong>
-                        <div class="map-graphic brasil-map">
-                            <span class="map-pin top-left">Norte</span>
-                            <span class="map-pin top-right">Nordeste</span>
-                            <span class="map-pin bottom-left">Centro-Oeste</span>
-                            <span class="map-pin bottom-right">Sudeste</span>
-                            <span class="map-pin bottom-center">Sul</span>
+                <div class="relative">
+                    <div class="rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+                        <img src="https://images.unsplash.com/photo-1599059813005-11265ba4b4ce?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080"
+                             alt="Voluntários organizando doações de alimentos" class="w-full h-full object-cover" />
+                    </div>
+                    <div class="absolute -bottom-6 -left-6 bg-white rounded-2xl p-6 shadow-xl border-2 border-orange-100">
+                        <div class="flex items-center gap-3">
+                            <div class="bg-gradient-to-br from-orange-400 to-orange-600 rounded-full p-3">
+                                <svg class="w-6 h-6 text-white fill-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-2xl font-bold text-gray-800">100%</p>
+                                <p class="text-sm text-gray-600">Gratuito</p>
+                            </div>
                         </div>
-                        <p>Regiões com maior incidência de insegurança alimentar no país.</p>
-                    </article>
-                    <article class="map-card">
-                        <strong>Mapa mundial</strong>
-                        <div class="map-graphic world-map">
-                            <span class="map-tag">África</span>
-                            <span class="map-tag">América Latina</span>
-                            <span class="map-tag">Ásia</span>
-                        </div>
-                        <p>Áreas com maiores desafios de acesso a alimentos.</p>
-                    </article>
+                    </div>
                 </div>
-
-                <div class="idea-card">
-                    <h4>Como nossa ideia faz diferença</h4>
-                    <p>Esta plataforma conecta empresas e ONGs que têm alimentos disponíveis com quem precisa. Ao doar, você evita desperdício, fortalece cadeias locais e transforma vidas.</p>
-                </div>
-            </section>
-        </aside>
-
-        <!-- Painel direito — formulário -->
-        <main class="form-panel">
-            <div class="form-card">
-                <div class="form-header">
-                    <h3>Bem-vindo de volta!</h3>
-                    <p>Encontre o centro de doação mais próximo de você.</p>
-                    <button type="button" class="chat-open-btn"
-                            onclick="window.chatbotManager?.open()">
-                        <i class="bi bi-chat-dots"></i> Precisa de ajuda? Abra o chat
-                    </button>
-                </div>
-
-                <?php if ($error): ?>
-                    <div class="message error"><?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></div>
-                <?php endif; ?>
-                <?php if ($success): ?>
-                    <div class="message success"><?php echo htmlspecialchars($success, ENT_QUOTES, 'UTF-8'); ?></div>
-                <?php endif; ?>
-
-                <form action="./php/login.php" method="post">
-                    <label>
-                        <i class="bi bi-person-badge"></i> Tipo de conta
-                        <select name="tipo" required>
-                            <option value="usuario">Usuário</option>
-                            <option value="empresa">Empresa / ONG</option>
-                        </select>
-                    </label>
-                    <label>
-                        <i class="bi bi-envelope"></i> Email
-                        <input type="email" name="email" placeholder="seu@email.com" required />
-                    </label>
-                    <label>
-                        <i class="bi bi-lock"></i> Senha
-                        <input type="password" name="senha" placeholder="••••••••" required minlength="3" maxlength="50" />
-                    </label>
-                    <button type="submit" class="primary-btn">
-                        <i class="bi bi-box-arrow-in-right"></i> Entrar
-                    </button>
-                </form>
-
-                <p class="form-footer">
-                    Não tem cadastro?
-                    <a href="./html/cadastroUsuario.php">Cadastre-se</a>
-                </p>
-                <p class="form-footer">
-                    Sou empresa?
-                    <a href="./html/cadastroEmpresas.html">Cadastre sua empresa / ONG</a>
-                </p>
-                <p class="form-footer">
-                    <a href="./php/leis_doacoes.php"><i class="bi bi-book"></i> Conheça as leis sobre doações</a>
-                </p>
             </div>
-        </main>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="container mx-auto px-6 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-2xl p-8 text-center shadow-lg border-2 border-orange-100 hover:border-orange-300 transition">
+                    <div class="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-orange-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">Mapa em Tempo Real</h3>
+                    <p class="text-gray-600">Veja doações próximas a você no mapa interativo</p>
+                </div>
+                <div class="bg-white rounded-2xl p-8 text-center shadow-lg border-2 border-green-100 hover:border-green-300 transition">
+                    <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="16.5" y1="9.4" x2="7.5" y2="4.21"></line>
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">Busca por CEP</h3>
+                    <p class="text-gray-600">Encontre doações disponíveis na sua região</p>
+                </div>
+                <div class="bg-white rounded-2xl p-8 text-center shadow-lg border-2 border-blue-100 hover:border-blue-300 transition">
+                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">100% Gratuito</h3>
+                    <p class="text-gray-600">Plataforma totalmente gratuita para todos</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- How it Works -->
+        <section class="container mx-auto px-6 py-20">
+            <h2 class="text-4xl font-bold text-gray-900 text-center mb-4">Como Funciona?</h2>
+            <p class="text-gray-600 text-center mb-16 max-w-2xl mx-auto">Processo simples e rápido para conectar quem precisa com quem pode ajudar</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="bg-white rounded-3xl p-10 shadow-xl border-t-4 border-orange-500 hover:shadow-2xl transition">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="bg-orange-100 p-3 rounded-xl">
+                            <svg class="w-10 h-10 text-orange-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-3xl font-bold text-gray-800">Para Usuários</h3>
+                    </div>
+                    <div class="space-y-6">
+                        <?php foreach([['Cadastre-se Gratuitamente','Crie sua conta em segundos'],['Busque por CEP','Encontre doações próximas a você'],['Solicite a Doação','Escolha retirada ou entrega em casa'],['Avalie a Experiência','Dê sua nota de 1 a 5 estrelas']] as $i => $s): ?>
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold"><?php echo $i+1; ?></div>
+                            <div><h4 class="font-semibold text-gray-800 mb-1"><?php echo $s[0]; ?></h4><p class="text-gray-600"><?php echo $s[1]; ?></p></div>
+                        </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+                <div class="bg-white rounded-3xl p-10 shadow-xl border-t-4 border-green-500 hover:shadow-2xl transition">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="bg-green-100 p-3 rounded-xl">
+                            <svg class="w-10 h-10 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><path d="M9 22v-4h6v4"></path>
+                                <path d="M8 6h.01"></path><path d="M16 6h.01"></path><path d="M12 6h.01"></path>
+                                <path d="M12 10h.01"></path><path d="M12 14h.01"></path><path d="M16 10h.01"></path>
+                                <path d="M16 14h.01"></path><path d="M8 10h.01"></path><path d="M8 14h.01"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-3xl font-bold text-gray-800">Para Empresas/ONGs</h3>
+                    </div>
+                    <div class="space-y-6">
+                        <?php foreach([['Cadastre sua Organização','Informe CNPJ e dados da empresa'],['Cadastre o Produto','Nome, quantidade, validade e CEP'],['Aparece no Mapa','Localização automática pelo CEP'],['Receba Solicitações','Gerencie as doações facilmente']] as $i => $s): ?>
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center font-bold"><?php echo $i+1; ?></div>
+                            <div><h4 class="font-semibold text-gray-800 mb-1"><?php echo $s[0]; ?></h4><p class="text-gray-600"><?php echo $s[1]; ?></p></div>
+                        </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Impact Section -->
+        <section class="container mx-auto px-6 py-20">
+            <div class="bg-white rounded-3xl overflow-hidden shadow-2xl">
+                <div class="grid grid-cols-1 lg:grid-cols-2">
+                    <div class="p-12 flex flex-col justify-center">
+                        <h2 class="text-4xl font-bold text-gray-800 mb-6">Juntos Contra o Desperdício</h2>
+                        <p class="text-lg text-gray-600 mb-8">Milhões de toneladas de alimentos são desperdiçadas enquanto pessoas passam fome. O FomeOff conecta quem pode doar com quem precisa, de forma simples e transparente.</p>
+                        <div class="space-y-4">
+                            <?php foreach([
+                                ['Localização em Tempo Real','Veja no mapa onde estão as doações mais próximas','M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z'],
+                                ['Comunidade Solidária','Empresas, ONGs e pessoas unidas por uma causa','M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2'],
+                                ['Processo Transparente','Acompanhe todo o histórico de doações','M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z']
+                            ] as $item): ?>
+                            <div class="flex items-start gap-3">
+                                <div class="bg-orange-100 rounded-full p-2 mt-1">
+                                    <svg class="w-5 h-5 text-orange-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="<?php echo $item[2]; ?>"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800"><?php echo $item[0]; ?></h4>
+                                    <p class="text-gray-600"><?php echo $item[1]; ?></p>
+                                </div>
+                            </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                    <div class="h-full min-h-[400px]">
+                        <img src="https://images.unsplash.com/photo-1593113646773-028c64a8f1b8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080"
+                             alt="Pessoas recebendo doações" class="w-full h-full object-cover" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Legal Protection -->
+        <section class="container mx-auto px-6 py-20">
+            <div class="bg-white rounded-3xl p-12 text-center shadow-lg">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Protegido por Lei</h2>
+                <p class="text-gray-600 mb-8 max-w-3xl mx-auto">Todas as doações são amparadas pelas seguintes legislações brasileiras:</p>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+                    <?php foreach(['Lei 14.016/2020','Lei 9.249/1995','Lei 10.696/2003','LOSAN 11.346/2006'] as $lei): ?>
+                    <a href="php/leis_doacoes.php" class="p-4 bg-orange-50 rounded-xl border border-orange-200 hover:bg-orange-100 transition">
+                        <p class="font-semibold text-orange-600"><?php echo $lei; ?></p>
+                    </a>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="bg-gradient-to-r from-orange-500 to-orange-600 py-20">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold text-white mb-6">Pronto para Fazer a Diferença?</h2>
+                <p class="text-xl text-white/90 mb-12">Junte-se a nós na luta contra o desperdício de alimentos</p>
+                <div class="flex gap-4 justify-center flex-wrap">
+                    <a href="html/cadastroUsuario.php" class="px-12 py-5 bg-white text-orange-600 rounded-lg text-lg font-semibold hover:bg-gray-50 transition shadow-xl">Começar Agora</a>
+                    <a href="html/cadastroEmpresas.html" class="px-12 py-5 bg-green-500 text-white rounded-lg text-lg font-semibold hover:bg-green-600 transition shadow-xl">Quero Doar</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-gray-900 py-12">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
+                    <div class="flex items-center gap-2">
+                        <svg class="w-6 h-6 text-orange-500 fill-orange-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                        </svg>
+                        <span class="text-white text-xl font-bold">FomeOff</span>
+                    </div>
+                    <div class="flex gap-6 text-gray-400">
+                        <a href="#" class="hover:text-orange-500 transition">Sobre</a>
+                        <a href="php/leis_doacoes.php" class="hover:text-orange-500 transition">Leis</a>
+                        <a href="entrar.php" class="hover:text-orange-500 transition">Entrar</a>
+                        <a href="html/cadastroUsuario.php" class="hover:text-orange-500 transition">Cadastre-se</a>
+                    </div>
+                </div>
+                <div class="border-t border-gray-800 pt-8 text-center">
+                    <p class="text-gray-400">&copy; 2026 FomeOff. Todos os direitos reservados. Plataforma de doação de alimentos 100% gratuita.</p>
+                </div>
+            </div>
+        </footer>
     </div>
 
-    <script src="./js/chatbot.js"></script>
-    <link rel="stylesheet" href="./css/accessibility-panel.css" />
     <script src="./js/accessibility.js"></script>
 </body>
 </html>

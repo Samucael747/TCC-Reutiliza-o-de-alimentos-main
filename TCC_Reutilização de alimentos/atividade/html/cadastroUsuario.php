@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $error = $_GET['error'] ?? '';
 ?>
 <!DOCTYPE html>
@@ -11,6 +11,9 @@ $error = $_GET['error'] ?? '';
     <link rel="stylesheet" href="../css/acessibilidade.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <style>
+        body, input, select, button, textarea, label {
+            font-family: 'Inter', system-ui, sans-serif;
+        }
         .brand-logo {
             display: flex;
             align-items: center;
@@ -108,24 +111,18 @@ $error = $_GET['error'] ?? '';
 
                 <form action="../php/cadastrarUsuario.php" method="post">
                     <label>
-                        <span style="display:flex;align-items:center;gap:7px;font-weight:600;color:#374151;">
-                            <i class="bi bi-person" style="color:#FF8C00;"></i> Nome completo
-                        </span>
+                        <span class="field-label"><i class="bi bi-person"></i> Nome completo</span>
                         <input type="text" name="nome" placeholder="Seu nome completo"
                                required minlength="3" maxlength="100" />
                     </label>
 
                     <label>
-                        <span style="display:flex;align-items:center;gap:7px;font-weight:600;color:#374151;">
-                            <i class="bi bi-envelope" style="color:#FF8C00;"></i> Email
-                        </span>
+                        <span class="field-label"><i class="bi bi-envelope"></i> Email</span>
                         <input type="email" name="email" placeholder="seu@email.com" required />
                     </label>
 
                     <label>
-                        <span style="display:flex;align-items:center;gap:7px;font-weight:600;color:#374151;">
-                            <i class="bi bi-lock" style="color:#FF8C00;"></i> Senha
-                        </span>
+                        <span class="field-label"><i class="bi bi-lock"></i> Senha</span>
                         <input type="password" name="senha" placeholder="••••••••"
                                required minlength="3" maxlength="50" />
                     </label>
@@ -136,7 +133,7 @@ $error = $_GET['error'] ?? '';
                 </form>
 
                 <p class="form-footer">
-                    Já tem conta? <a href="../index.php">Faça login</a>
+                    Já tem conta? <a href="../entrar.php">Faça login</a>
                 </p>
                 <p class="form-footer">
                     Sou empresa? <a href="cadastroEmpresas.html">Cadastre sua empresa / ONG</a>
@@ -149,3 +146,4 @@ $error = $_GET['error'] ?? '';
     <script src="../js/accessibility.js"></script>
 </body>
 </html>
+

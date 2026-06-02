@@ -1,7 +1,7 @@
-<?php
+﻿<?php
 session_start();
 if (!isset($_SESSION['nome']) || $_SESSION['role'] !== 'empresa') {
-    header('Location: ../index.php?error=Voce+precisa+logar+como+empresa');
+    header('Location: ../entrar.php?error=Voce+precisa+logar+como+empresa');
     exit;
 }
 $success = $_GET['success'] ?? '';
@@ -10,7 +10,10 @@ $paginaAtiva = '';
 $pageTitle   = 'Cadastrar Produto | FomeOff';
 $extra_head  = <<<'HTML'
     <style>
-        body { background: linear-gradient(180deg, #FFE4B5 0%, #FFF3E0 100%); }
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: linear-gradient(180deg, #FFE4B5 0%, #FFF3E0 100%);
+        }
         .content-wrapper { max-width: 760px; margin: 32px auto; padding: 20px; }
         .card {
             background: #fff;
@@ -19,47 +22,45 @@ $extra_head  = <<<'HTML'
             padding: 32px;
             border-top: 4px solid #FF8C00;
         }
-        .card h2 { margin-top: 0; color: #E8411C; display:flex; align-items:center; gap:10px; }
-        .card p { color: #6b7280; margin-bottom: 24px; }
-        .form-grid { display: grid; gap: 18px; }
-        .form-grid label { display: grid; gap: 8px; font-weight: 600; color: #374151; }
+        .card h2 { margin-top: 0; color: #E8411C; display:flex; align-items:center; gap:10px; font-size: 1.4rem; }
+        .card > p { color: #6b7280; margin-bottom: 24px; font-size: 0.95rem; }
+        .form-grid { display: grid; gap: 20px; }
+        .form-grid label { display: grid; gap: 8px; font-family: 'Inter', Arial, sans-serif; }
         .form-grid input,
         .form-grid textarea,
         .form-grid select {
-            padding: 12px 14px;
-            border: 2px solid #E0E0E0;
-            border-radius: 10px;
+            padding: 13px 16px;
+            border: 1.5px solid #E0B299;
+            border-radius: 14px;
             font-size: 0.95rem;
-            font-family: inherit;
+            font-family: 'Inter', Arial, sans-serif;
+            background: #FFF8F0;
+            color: #111827;
             transition: border-color 0.2s, box-shadow 0.2s;
         }
         .form-grid input:focus,
-        .form-grid textarea:focus {
+        .form-grid textarea:focus,
+        .form-grid select:focus {
             outline: none;
             border-color: #FF8C00;
-            box-shadow: 0 0 0 3px rgba(255,140,0,0.1);
+            box-shadow: 0 0 0 3px rgba(255,140,0,0.12);
         }
         .form-grid input[type="file"] {
-            padding: 10px;
+            padding: 10px 14px;
             background: #fff8f0;
             cursor: pointer;
         }
-        .button-row {
-            display: flex;
-            gap: 12px;
-            margin-top: 8px;
-            flex-wrap: wrap;
-        }
+        .button-row { display: flex; gap: 12px; margin-top: 8px; flex-wrap: wrap; }
         .primary-btn {
             padding: 13px 28px;
             background: linear-gradient(135deg, #FF8C00, #FDB813);
             color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 14px;
             font-weight: 700;
             font-size: 0.95rem;
             cursor: pointer;
-            font-family: inherit;
+            font-family: 'Inter', Arial, sans-serif;
             display: inline-flex;
             align-items: center;
             gap: 8px;
@@ -116,43 +117,43 @@ include '../php/head.php';
             <form action="../php/salvarProduto.php" method="post" enctype="multipart/form-data" class="form-grid">
 
                 <label>
-                    <i class="bi bi-building"></i> Nome da empresa
+                    <span class="field-label"><i class="bi bi-building"></i> Nome da empresa</span>
                     <input type="text" name="empresa" placeholder="Nome da empresa" required maxlength="100"
                            value="<?php echo htmlspecialchars($_SESSION['nome'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" />
                 </label>
 
                 <label>
-                    <i class="bi bi-card-text"></i> CNPJ
+                    <span class="field-label"><i class="bi bi-card-text"></i> CNPJ</span>
                     <input type="text" name="cnpj" placeholder="00.000.000/0000-00" maxlength="20" />
                 </label>
 
                 <label>
-                    <i class="bi bi-geo-alt"></i> CEP
+                    <span class="field-label"><i class="bi bi-geo-alt"></i> CEP</span>
                     <input type="text" name="cep" placeholder="12345-678" required maxlength="10" />
                 </label>
 
                 <label>
-                    <i class="bi bi-gift"></i> Nome do produto
+                    <span class="field-label"><i class="bi bi-gift"></i> Nome do produto</span>
                     <input type="text" name="nome_produto" placeholder="Ex: Pães, frutas, marmitas" required maxlength="100" />
                 </label>
 
                 <label>
-                    <i class="bi bi-calendar-event"></i> Validade
+                    <span class="field-label"><i class="bi bi-calendar-event"></i> Validade</span>
                     <input type="date" name="validade" required />
                 </label>
 
                 <label>
-                    <i class="bi bi-stack"></i> Quantidade disponível
+                    <span class="field-label"><i class="bi bi-stack"></i> Quantidade disponível</span>
                     <input type="number" name="quantidade" placeholder="Número de unidades" min="1" required />
                 </label>
 
                 <label>
-                    <i class="bi bi-text-paragraph"></i> Descrição
+                    <span class="field-label"><i class="bi bi-text-paragraph"></i> Descrição</span>
                     <textarea name="descricao" placeholder="Descreva o alimento e outras informações relevantes" required rows="4" maxlength="255"></textarea>
                 </label>
 
                 <label>
-                    <i class="bi bi-image"></i> Foto do produto
+                    <span class="field-label"><i class="bi bi-image"></i> Foto do produto</span>
                     <input type="file" name="imagem" accept="image/png,image/jpeg,image/webp"
                            onchange="previewImagem(this)" />
                     <img id="preview-img" alt="Pré-visualização" />
@@ -191,3 +192,4 @@ include '../php/head.php';
     </script>
 </body>
 </html>
+

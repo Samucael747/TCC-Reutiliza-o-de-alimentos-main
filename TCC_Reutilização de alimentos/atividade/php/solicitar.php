@@ -1,7 +1,7 @@
-<?php
+﻿<?php
 session_start();
 if (!isset($_SESSION['email'])) {
-    header('Location: ../index.php?error=Voce+precisa+logar+para+solicitar');
+    header('Location: ../entrar.php?error=Voce+precisa+logar+para+solicitar');
     exit;
 }
 
@@ -83,3 +83,4 @@ try {
     header('Location: home.php?error=Erro+ao+registrar+solicitacao');
     exit;
 }
+

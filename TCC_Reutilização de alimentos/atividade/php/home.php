@@ -1,8 +1,8 @@
-<?php
+﻿<?php
 session_start();
 
 if (!isset($_SESSION['nome'])) {
-    header('Location: ../index.php?error=Voce+precisa+logar+primeiro');
+    header('Location: ../entrar.php?error=Voce+precisa+logar+primeiro');
     exit;
 }
 
@@ -600,3 +600,4 @@ HTML;
     </script>
 </body>
 </html>
+

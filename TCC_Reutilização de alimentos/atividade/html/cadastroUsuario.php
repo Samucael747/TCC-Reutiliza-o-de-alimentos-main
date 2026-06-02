@@ -8,6 +8,7 @@ $error = $_GET['error'] ?? '';
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Criar Conta | FomeOff</title>
     <link rel="stylesheet" href="../css/index.css" />
+    <link rel="stylesheet" href="../css/acessibilidade.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <style>
         .brand-logo {
@@ -107,18 +108,24 @@ $error = $_GET['error'] ?? '';
 
                 <form action="../php/cadastrarUsuario.php" method="post">
                     <label>
-                        <i class="bi bi-person"></i> Nome completo
+                        <span style="display:flex;align-items:center;gap:7px;font-weight:600;color:#374151;">
+                            <i class="bi bi-person" style="color:#FF8C00;"></i> Nome completo
+                        </span>
                         <input type="text" name="nome" placeholder="Seu nome completo"
                                required minlength="3" maxlength="100" />
                     </label>
 
                     <label>
-                        <i class="bi bi-envelope"></i> Email
+                        <span style="display:flex;align-items:center;gap:7px;font-weight:600;color:#374151;">
+                            <i class="bi bi-envelope" style="color:#FF8C00;"></i> Email
+                        </span>
                         <input type="email" name="email" placeholder="seu@email.com" required />
                     </label>
 
                     <label>
-                        <i class="bi bi-lock"></i> Senha
+                        <span style="display:flex;align-items:center;gap:7px;font-weight:600;color:#374151;">
+                            <i class="bi bi-lock" style="color:#FF8C00;"></i> Senha
+                        </span>
                         <input type="password" name="senha" placeholder="••••••••"
                                required minlength="3" maxlength="50" />
                     </label>
@@ -138,5 +145,7 @@ $error = $_GET['error'] ?? '';
         </main>
 
     </div>
+    <link rel="stylesheet" href="../css/accessibility-panel.css" />
+    <script src="../js/accessibility.js"></script>
 </body>
 </html>

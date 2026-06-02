@@ -9,6 +9,7 @@ $success = $_GET['success'] ?? '';
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FomeOff — Entrar</title>
     <link rel="stylesheet" href="./css/index.css" />
+    <link rel="stylesheet" href="./css/acessibilidade.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <style>
         /* ── Login page overrides ── */
@@ -256,5 +257,7 @@ $success = $_GET['success'] ?? '';
     </div>
 
     <script src="./js/chatbot.js"></script>
+    <link rel="stylesheet" href="./css/accessibility-panel.css" />
+    <script src="./js/accessibility.js"></script>
 </body>
 </html>

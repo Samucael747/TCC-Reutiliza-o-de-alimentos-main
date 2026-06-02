@@ -277,29 +277,7 @@ body.accessibility-full a {
     border-width: 0;
 }
 
-/* Indicador de Status de Acessibilidade */
-.accessibility-indicator {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #FF8C00, #FDB813);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    z-index: 999;
-    transition: all 0.3s ease;
-}
-
-.accessibility-indicator:hover {
-    transform: scale(1.1);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-}
+/* .accessibility-indicator definido em accessibility-panel.css */
 
 /* Responsivo */
 @media (max-width: 768px) {

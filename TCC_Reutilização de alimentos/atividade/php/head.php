@@ -84,6 +84,10 @@ $pageTitle = $pageTitle ?? 'FomeOff';
             .navbar-menu { gap: 12px; flex-wrap: wrap; }
         }
 
+        /* ── Footer sempre no fundo ── */
+        body { display: flex; flex-direction: column; min-height: 100vh; }
+        main, .home-container, .content-wrapper, .page-container, .leis-page { flex: 1; }
+
         /* ── Ícones Bootstrap Icons — espaçamento global ── */
         a, button { gap: 6px; }
         .navbar-menu a { display: inline-flex; align-items: center; gap: 6px; }

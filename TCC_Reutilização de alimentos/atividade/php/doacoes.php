@@ -21,8 +21,8 @@ $paginaAtiva = 'doacoes';
 $pageTitle   = 'Doações Registradas | FomeOff';
 $extra_head  = <<<'HTML'
     <style>
-        body { font-family: 'Inter', sans-serif; margin: 0; background: #f7f3ee; color: #222; }
-        .page-container { max-width: 1180px; margin: 24px auto 0; padding: 0 20px; }
+        body { font-family: 'Inter', sans-serif; margin: 0; background: #f7f3ee; color: #222; display: flex; flex-direction: column; min-height: 100vh; }
+        .page-container { max-width: 1180px; margin: 24px auto 0; padding: 0 20px; flex: 1; width: 100%; box-sizing: border-box; }
         .page-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 24px; }
         .page-header h1 { margin: 0; color: #E8411C; font-size: 2rem; }
         .message { padding: 14px 18px; border-radius: 14px; margin-bottom: 22px; color: #1f3e2e; background: #eaf8ed; }

@@ -21,6 +21,7 @@ $p      = $inHtml ? '../php/' : '';   // prefixo para links de páginas PHP
         <div class="navbar-location" id="locationBadge">
             <i class="bi bi-geo-alt-fill"></i>
             <span class="location-text">Localizando...</span>
+            <span class="navbar-clock" id="navbarClock">--/--/---- --:--</span>
         </div>
         <?php endif; ?>
         <a href="<?php echo $p; ?>actions/logout.php" class="navbar-sair"><i class="bi bi-box-arrow-right"></i> Sair</a>

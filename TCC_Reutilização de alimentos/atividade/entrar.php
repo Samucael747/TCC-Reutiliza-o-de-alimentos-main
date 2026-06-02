@@ -110,20 +110,51 @@ $success = $_GET['success'] ?? '';
         /* Idea card */
         .idea-card { margin-top: 20px; }
 
+        .auth-page {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 32px;
+            min-height: 14vh;
+            align-items: center;
+        }
+
+        .brand-panel {
+            grid-column: 1;
+        }
+
+        .form-panel {
+            grid-column: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 48px 24px;
+        }
+
+        .form-card {
+            width: min(560px, 100%);
+            background: #fff;
+            border-radius: 32px;
+            box-shadow: 0 28px 70px rgba(15, 23, 42, 0.12);
+            padding: 40px;
+        }
+
         @media (max-width: 960px) {
+            .auth-page { grid-template-columns: 1fr; }
             .brand-panel { padding: 32px 24px; }
+            .form-panel { padding: 24px; }
+            .form-card { padding: 32px; }
         }
     </style>
 </head>
 <body>
     <div class="auth-page">
-
         <!-- Painel esquerdo — marca -->
         <aside class="brand-panel">
             <div>
                 <div class="brand-logo">
                     <img src="./Imagens/Logo.png" alt="Logo FomeOff" />
                     FomeOff
+                    
                 </div>
                 <h2>Conectando pessoas em tempo real</h2>
                 <p>Encontre empresas e ONGs que doam alimentos perto de você.</p>
@@ -175,30 +206,6 @@ $success = $_GET['success'] ?? '';
                         <span>Dos alimentos produzidos são desperdiçados</span>
                     </div>
                 </div>
-
-                <div class="maps-grid">
-                    <article class="map-card">
-                        <strong>Mapa da fome no Brasil</strong>
-                        <div class="map-graphic brasil-map">
-                            <span class="map-pin top-left">Norte</span>
-                            <span class="map-pin top-right">Nordeste</span>
-                            <span class="map-pin bottom-left">Centro-Oeste</span>
-                            <span class="map-pin bottom-right">Sudeste</span>
-                            <span class="map-pin bottom-center">Sul</span>
-                        </div>
-                        <p>Regiões com maior incidência de insegurança alimentar no país.</p>
-                    </article>
-                    <article class="map-card">
-                        <strong>Mapa mundial</strong>
-                        <div class="map-graphic world-map">
-                            <span class="map-tag">África</span>
-                            <span class="map-tag">América Latina</span>
-                            <span class="map-tag">Ásia</span>
-                        </div>
-                        <p>Áreas com maiores desafios de acesso a alimentos.</p>
-                    </article>
-                </div>
-
                 <div class="idea-card">
                     <h4>Como nossa ideia faz diferença</h4>
                     <p>Esta plataforma conecta empresas e ONGs que têm alimentos disponíveis com quem precisa. Ao doar, você evita desperdício, fortalece cadeias locais e transforma vidas.</p>
@@ -262,6 +269,22 @@ $success = $_GET['success'] ?? '';
     </div>
 
     <script src="./js/chatbot.js"></script>
+    <script>
+        function updateLiveClock() {
+            const clock = document.getElementById('liveClock');
+            if (!clock) return;
+            const now = new Date();
+            const day = String(now.getDate()).padStart(2, '0');
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const year = now.getFullYear();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            clock.textContent = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+        }
+        updateLiveClock();
+        setInterval(updateLiveClock, 1000);
+    </script>
     <link rel="stylesheet" href="./css/accessibility-panel.css" />
     <script src="./js/accessibility.js"></script>
 </body>

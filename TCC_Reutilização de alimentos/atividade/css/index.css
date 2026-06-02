@@ -17,6 +17,8 @@ body {
     background: linear-gradient(180deg, #FFE4B5 0%, #FFF3E0 100%);
 }
 
+.navbar
+
 .auth-page {
     display: grid;
     grid-template-columns: 1.2fr 1fr;

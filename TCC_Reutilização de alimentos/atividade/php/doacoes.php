@@ -106,6 +106,8 @@ HTML;
 
     <?php include __DIR__ . '/includes/footer.php'; ?>
 
+    
+
     <script src="../js/accessibility.js"></script>
 </body>
 </html>

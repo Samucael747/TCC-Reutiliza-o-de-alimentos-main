@@ -59,7 +59,7 @@
                 </div>
                 <div class="relative">
                     <div class="rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
-                        <img src="https://images.unsplash.com/photo-1599059813005-11265ba4b4ce?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080"
+                        <img src="../imagens/grupovoluntarios.jpg"/>
                              alt="Voluntários organizando doações de alimentos" class="w-full h-full object-cover" />
                     </div>
                     <div class="absolute -bottom-6 -left-6 bg-white rounded-2xl p-6 shadow-xl border-2 border-orange-100">
@@ -108,7 +108,7 @@
                             <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
                         </svg>
                     </div>
-                    <h3 class="text-2xl font-bold text-gray-800 mb-2">200% Gratuito</h3>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">100% Gratuito</h3>
                     <p class="text-gray-600">Plataforma totalmente gratuita para todos</p>
                 </div>
             </div>

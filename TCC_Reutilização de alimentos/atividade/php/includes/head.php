@@ -69,7 +69,7 @@ $pageTitle = $pageTitle ?? 'FomeOff';
         .navbar-location {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 10px;
             background: #e8f8ee;
             color: #1f6f3f;
             padding: 8px 14px;
@@ -79,9 +79,17 @@ $pageTitle = $pageTitle ?? 'FomeOff';
             font-weight: 600;
             white-space: nowrap;
         }
+        .navbar-clock {
+            color: #0f5132;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            opacity: 0.95;
+        }
         @media (max-width: 768px) {
             .navbar-content { flex-wrap: wrap; gap: 10px; }
             .navbar-menu { gap: 12px; flex-wrap: wrap; }
+            .navbar-clock { display: none; }
         }
 
         /* ── Footer sempre no fundo ── */
@@ -103,6 +111,21 @@ $pageTitle = $pageTitle ?? 'FomeOff';
         }
         .footer p { margin: 0; font-size: 0.9rem; opacity: 0.95; }
     </style>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                function updateNavbarClock() {
+                    const clock = document.getElementById('navbarClock');
+                    if (!clock) return;
+                    const now = new Date();
+                    const day = String(now.getDate()).padStart(2, '0');
+                    const month = String(now.getMonth() + 1).padStart(2, '0');
+                    const year = now.getFullYear();
+                    const hours = String(now.getHours()).padStart(2, '0');
+                    const minutes = String(now.getMinutes()).padStart(2, '0');
+                    clock.textContent = `${day}/${month}/${year} ${hours}:${minutes}`;
+                }
+                updateNavbarClock();
+                setInterval(updateNavbarClock, 1000);
+            });
+        </script>
     <?php if (!empty($extra_head)) echo $extra_head; ?>
-</head>
-

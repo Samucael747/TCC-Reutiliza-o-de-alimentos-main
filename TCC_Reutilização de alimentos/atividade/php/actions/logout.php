@@ -2,7 +2,8 @@
 session_start();
 session_unset();
 session_destroy();
-header("Location: ../entrar.php?success=Sessao+encerrada");
+header("Location: ../../index.php");
 exit;
+
 
 

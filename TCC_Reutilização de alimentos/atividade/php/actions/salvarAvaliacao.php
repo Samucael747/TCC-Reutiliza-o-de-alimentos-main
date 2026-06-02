@@ -1,18 +1,18 @@
 ﻿<?php
 session_start();
 if (!isset($_SESSION['email'])) {
-    header('Location: ../entrar.php?error=Voce+precisa+logar+para+avaliar');
+    header('Location: ../../entrar.php?error=Voce+precisa+logar+para+avaliar');
     exit;
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: home.php');
+    header('Location: ../dashboard.php');
     exit;
 }
 
 require __DIR__ . '/../includes/conexao.php';
 if (!$pdo) {
-    header('Location: home.php?error=Erro+de+conexao+com+banco');
+    header('Location: ../dashboard.php?error=Erro+de+conexao+com+banco');
     exit;
 }
 
@@ -21,7 +21,7 @@ $nota = (int)($_POST['nota'] ?? 0);
 $comentario = trim($_POST['comentario'] ?? '');
 
 if ($produto_id <= 0 || $nota < 1 || $nota > 5) {
-    header('Location: home.php?error=Dados+invalidos+para+avaliacao');
+    header('Location: ../dashboard.php?error=Dados+invalidos+para+avaliacao');
     exit;
 }
 
@@ -30,7 +30,7 @@ $stmt = $pdo->prepare('SELECT COUNT(*) FROM solicitacoes WHERE produto_id = :pid
 $stmt->execute([':pid' => $produto_id, ':email' => $_SESSION['email']]);
 $has = $stmt->fetchColumn();
 if (!$has) {
-    header('Location: home.php?error=Somente+usuarios+que+retiraram+a+doacao+podem+avaliar');
+    header('Location: ../dashboard.php?error=Somente+usuarios+que+retiraram+a+doacao+podem+avaliar');
     exit;
 }
 
@@ -38,7 +38,7 @@ if (!$has) {
 $stmt = $pdo->prepare('SELECT COUNT(*) FROM avaliacoes WHERE produto_id = :pid AND usuario_email = :email');
 $stmt->execute([':pid' => $produto_id, ':email' => $_SESSION['email']]);
 if ($stmt->fetchColumn() > 0) {
-    header('Location: home.php?error=Voce+ja+avaliou+este+produto');
+    header('Location: ../dashboard.php?error=Voce+ja+avaliou+este+produto');
     exit;
 }
 
@@ -47,7 +47,7 @@ $stmt = $pdo->prepare('SELECT empresa FROM produtos WHERE id = :pid LIMIT 1');
 $stmt->execute([':pid' => $produto_id]);
 $produto = $stmt->fetch(PDO::FETCH_ASSOC);
 if (!$produto) {
-    header('Location: home.php?error=Produto+nao+encontrado');
+    header('Location: ../dashboard.php?error=Produto+nao+encontrado');
     exit;
 }
 
@@ -61,11 +61,14 @@ try {
         ':comentario' => $comentario
     ]);
 
-    header('Location: home.php?success=Avaliacao+registrada.+Obrigado');
+    header('Location: ../dashboard.php?success=Avaliacao+registrada.+Obrigado');
     exit;
 } catch (PDOException $e) {
-    header('Location: home.php?error=Erro+ao+salvar+avaliacao');
+    header('Location: ../dashboard.php?error=Erro+ao+salvar+avaliacao');
     exit;
 }
+
+
+
 
 

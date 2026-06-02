@@ -30,8 +30,8 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $success = $_GET['success'] ?? '';
 $error   = $_GET['error'] ?? '';
 
-$paginaAtiva = 'home';
-$pageTitle   = 'Home | FomeOff';
+$paginaAtiva = 'dashboard';
+$pageTitle   = 'Painel | FomeOff';
 $extra_head  = <<<'HTML'
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
     <link rel="stylesheet" href="../css/home.css" />

@@ -155,7 +155,7 @@ HTML;
                 <h3><i class="bi bi-lightbulb"></i> Quer Fazer uma Doação?</h3>
                 <p>Junte-se a empresas e ONGs que já estão fazendo a diferença através de doações de alimentos.</p>
                 <?php if ($isLogged): ?>
-                    <a href="home.php" class="cta-btn">Ir para Home</a>
+                    <a href="dashboard.php" class="cta-btn">Ir para Home</a>
                 <?php else: ?>
                     <a href="../entrar.php" class="cta-btn">Fazer Login</a>
                 <?php endif; ?>
@@ -173,5 +173,6 @@ HTML;
     <script src="../js/accessibility.js"></script>
 </body>
 </html>
+
 
 

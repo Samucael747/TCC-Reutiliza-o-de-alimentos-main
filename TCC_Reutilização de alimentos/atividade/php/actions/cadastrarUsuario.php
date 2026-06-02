@@ -5,14 +5,14 @@ if (isset($_POST['email'])) {
     $senha = trim($_POST['senha'] ?? '');
 
     if (!$nome || !$email || !$senha) {
-        header('Location: ../html/cadastroUsuario.php?error=Preencha+todos+os+campos');
+        header('Location: ../../auth/cadastroUsuario.php?error=Preencha+todos+os+campos');
         exit;
     }
 
     require __DIR__ . '/../includes/conexao.php';
 
     if (!$pdo) {
-        header('Location: ../html/cadastroUsuario.php?error=Erro+de+conexao+com+banco');
+        header('Location: ../../auth/cadastroUsuario.php?error=Erro+de+conexao+com+banco');
         exit;
     }
 
@@ -22,7 +22,7 @@ if (isset($_POST['email'])) {
         $stmt->execute();
 
         if ($stmt->fetch()) {
-            header('Location: ../html/cadastroUsuario.php?error=Email+ja+cadastrado');
+            header('Location: ../../auth/cadastroUsuario.php?error=Email+ja+cadastrado');
             exit;
         }
 
@@ -32,14 +32,15 @@ if (isset($_POST['email'])) {
         $stmt->bindValue(':s', $senha);
         $stmt->execute();
 
-        header('Location: ../entrar.php?success=Cadastro+realizado+com+sucesso');
+        header('Location: ../../entrar.php?success=Cadastro+realizado+com+sucesso');
         exit;
     } catch (PDOException $e) {
-        header('Location: ../html/cadastroUsuario.php?error=Erro+ao+cadastrar+usuario');
+        header('Location: ../../auth/cadastroUsuario.php?error=Erro+ao+cadastrar+usuario');
         exit;
     }
 } else {
-    header('Location: ../html/cadastroUsuario.php?error=Dados+invalidos');
+    header('Location: ../../auth/cadastroUsuario.php?error=Dados+invalidos');
     exit;
 }
+
 

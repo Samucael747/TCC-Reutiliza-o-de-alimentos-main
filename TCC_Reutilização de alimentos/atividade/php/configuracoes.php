@@ -109,7 +109,7 @@ HTML;
 
                     <div class="actions-row">
                         <button type="submit" class="primary-btn"><i class="bi bi-floppy"></i> Salvar Alterações</button>
-                        <a href="home.php"><i class="bi bi-arrow-left"></i> Voltar</a>
+                        <a href="dashboard.php"><i class="bi bi-arrow-left"></i> Voltar</a>
                     </div>
                 </form>
             </div>
@@ -153,6 +153,7 @@ HTML;
     </script>
 </body>
 </html>
+
 
 
 

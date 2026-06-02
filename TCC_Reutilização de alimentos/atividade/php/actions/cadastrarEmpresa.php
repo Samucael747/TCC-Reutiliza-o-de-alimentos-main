@@ -3,7 +3,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require __DIR__ . '/../includes/conexao.php';
 
     if (!$pdo) {
-        header('Location: ../html/cadastroEmpresas.html?error=Erro+de+conexao+com+banco');
+        header('Location: ../../auth/cadastroEmpresas.html?error=Erro+de+conexao+com+banco');
         exit;
     }
 
@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $senha = trim($_POST['senha'] ?? '');
 
     if (!$nome || !$email || !$senha) {
-        header('Location: ../html/cadastroEmpresas.html?error=Dados+incompletos');
+        header('Location: ../../auth/cadastroEmpresas.html?error=Dados+incompletos');
         exit;
     }
 
@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([':email' => $email]);
 
         if ($stmt->fetch()) {
-            header('Location: ../html/cadastroEmpresas.html?error=Email+ja+cadastrado');
+            header('Location: ../../auth/cadastroEmpresas.html?error=Email+ja+cadastrado');
             exit;
         }
 
@@ -36,15 +36,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ':senha' => $senha,
         ]);
 
-        header('Location: ../entrar.php?success=Empresa+cadastrada+com+sucesso');
+        header('Location: ../../entrar.php?success=Empresa+cadastrada+com+sucesso');
         exit;
     } catch (PDOException $e) {
-        header('Location: ../html/cadastroEmpresas.html?error=Erro+ao+cadastrar+empresa');
+        header('Location: ../../auth/cadastroEmpresas.html?error=Erro+ao+cadastrar+empresa');
         exit;
     }
 }
 
-header('Location: ../html/cadastroEmpresas.html');
+header('Location: ../../auth/cadastroEmpresas.html');
 exit;
+
 
 

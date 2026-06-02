@@ -3,7 +3,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require __DIR__ . '/../includes/conexao.php';
 
     if (!$pdo) {
-        header('Location: ../html/cadastroProduto.php?error=Erro+de+conexao+com+banco');
+        header('Location: ../../auth/cadastroProduto.php?error=Erro+de+conexao+com+banco');
         exit;
     }
 
@@ -21,19 +21,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $imagemPath = null;
 
     if (!isset($_FILES['imagem']) || $_FILES['imagem']['error'] !== UPLOAD_ERR_OK) {
-        header('Location: ../html/cadastroProduto.php?error=Foto+da+caixa+obrigatoria');
+        header('Location: ../../auth/cadastroProduto.php?error=Foto+da+caixa+obrigatoria');
         exit;
     }
 
     $imagem = $_FILES['imagem'];
     $allowed = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' => 'webp'];
     if (!isset($allowed[$imagem['type']])) {
-        header('Location: ../html/cadastroProduto.php?error=Formato+de+imagem+nao+suportado');
+        header('Location: ../../auth/cadastroProduto.php?error=Formato+de+imagem+nao+suportado');
         exit;
     }
 
     if ($imagem['size'] <= 0 || $imagem['size'] > 5 * 1024 * 1024) {
-        header('Location: ../html/cadastroProduto.php?error=Imagem+deve+ter+ate+5MB');
+        header('Location: ../../auth/cadastroProduto.php?error=Imagem+deve+ter+ate+5MB');
         exit;
     }
 
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $filename = uniqid('produto_', true) . '.' . $allowed[$imagem['type']];
     $dest = $uploadDir . '/' . $filename;
     if (!move_uploaded_file($imagem['tmp_name'], $dest)) {
-        header('Location: ../html/cadastroProduto.php?error=Falha+ao+enviar+a+imagem');
+        header('Location: ../../auth/cadastroProduto.php?error=Falha+ao+enviar+a+imagem');
         exit;
     }
 
@@ -105,18 +105,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         if ($latitude === null || $longitude === null) {
-            header('Location: ../html/cadastroProduto.php?error=Não+foi+possível+obter+localização+para+o+CEP+informado.+Verifique+o+CEP+e+tente+novamente.');
+            header('Location: ../../auth/cadastroProduto.php?error=Não+foi+possível+obter+localização+para+o+CEP+informado.+Verifique+o+CEP+e+tente+novamente.');
             exit;
         }
     }
 
     if (!$empresa || !$cep || !$nome_produto || !$descricao || $quantidade <= 0 || !$validade) {
-        header('Location: ../html/cadastroProduto.php?error=Preencha+todos+os+campos+corretamente');
+        header('Location: ../../auth/cadastroProduto.php?error=Preencha+todos+os+campos+corretamente');
         exit;
     }
 
     if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $validade) || strtotime($validade) === false) {
-        header('Location: ../html/cadastroProduto.php?error=Validade+invalida');
+        header('Location: ../../auth/cadastroProduto.php?error=Validade+invalida');
         exit;
     }
 
@@ -134,14 +134,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bindValue(':longitude', $longitude ?: null);
         $stmt->execute();
 
-        header('Location: ../html/cadastroProduto.php?success=Produto+registrado+com+sucesso');
+        header('Location: ../../auth/cadastroProduto.php?success=Produto+registrado+com+sucesso');
         exit;
     } catch (PDOException $e) {
-        header('Location: ../html/cadastroProduto.php?error=Erro+ao+registrar+produto');
+        header('Location: ../../auth/cadastroProduto.php?error=Erro+ao+registrar+produto');
         exit;
     }
 }
 
-header('Location: ../html/cadastroProduto.php?error=Metodo+nao+permitido');
+header('Location: ../../auth/cadastroProduto.php?error=Metodo+nao+permitido');
 exit;
+
 

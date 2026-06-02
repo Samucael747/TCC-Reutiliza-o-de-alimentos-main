@@ -1,18 +1,18 @@
 ﻿<?php
 session_start();
 if (!isset($_SESSION['email'])) {
-    header('Location: ../entrar.php?error=Voce+precisa+logar+para+solicitar');
+    header('Location: ../../entrar.php?error=Voce+precisa+logar+para+solicitar');
     exit;
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: home.php');
+    header('Location: ../dashboard.php');
     exit;
 }
 
 require __DIR__ . '/../includes/conexao.php';
 if (!$pdo) {
-    header('Location: home.php?error=Erro+de+conexao+com+banco');
+    header('Location: ../dashboard.php?error=Erro+de+conexao+com+banco');
     exit;
 }
 
@@ -22,12 +22,12 @@ $endereco = trim($_POST['endereco'] ?? '');
 $observacoes = trim($_POST['observacoes'] ?? '');
 
 if ($produto_id <= 0) {
-    header('Location: home.php?error=Produto+invalido');
+    header('Location: ../dashboard.php?error=Produto+invalido');
     exit;
 }
 
 if ($tipo === 'entrega' && $endereco === '') {
-    header('Location: home.php?error=Endereco+de+entrega+obrigatorio');
+    header('Location: ../dashboard.php?error=Endereco+de+entrega+obrigatorio');
     exit;
 }
 
@@ -37,7 +37,7 @@ try {
     $produto = $stmtProduto->fetch(PDO::FETCH_ASSOC);
 
     if (!$produto) {
-        header('Location: home.php?error=Produto+nao+encontrado');
+        header('Location: ../dashboard.php?error=Produto+nao+encontrado');
         exit;
     }
 
@@ -71,17 +71,20 @@ try {
     $pdo->commit();
 
     if ($tipo === 'entrega') {
-        header('Location: home.php?success=Pedido+de+entrega+registrado.+A+empresa+sera+contactada');
+        header('Location: ../dashboard.php?success=Pedido+de+entrega+registrado.+A+empresa+sera+contactada');
     } else {
-        header('Location: home.php?success=Solicitacao+registrada.+Verifique+suas+mensagens');
+        header('Location: ../dashboard.php?success=Solicitacao+registrada.+Verifique+suas+mensagens');
     }
     exit;
 } catch (PDOException $e) {
     if ($pdo->inTransaction()) {
         $pdo->rollBack();
     }
-    header('Location: home.php?error=Erro+ao+registrar+solicitacao');
+    header('Location: ../dashboard.php?error=Erro+ao+registrar+solicitacao');
     exit;
 }
+
+
+
 
 

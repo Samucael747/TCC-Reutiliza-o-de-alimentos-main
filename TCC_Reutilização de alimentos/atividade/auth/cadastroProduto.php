@@ -77,7 +77,7 @@ include '../php/includes/head.php';
                     <button type="submit" class="primary-btn">
                         <i class="bi bi-check-circle"></i> Registrar produto
                     </button>
-                    <a href="../php/home.php" class="btn-voltar">
+                    <a href="../php/dashboard.php" class="btn-voltar">
                         <i class="bi bi-arrow-left"></i> Voltar
                     </a>
                 </div>
@@ -106,5 +106,6 @@ include '../php/includes/head.php';
     </script>
 </body>
 </html>
+
 
 

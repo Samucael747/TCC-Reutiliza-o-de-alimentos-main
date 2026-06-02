@@ -1,18 +1,18 @@
 ﻿<?php
 session_start();
 if (!isset($_SESSION['email'], $_SESSION['role'])) {
-    header('Location: ../entrar.php?error=Voce+precisa+logar+primeiro');
+    header('Location: ../../entrar.php?error=Voce+precisa+logar+primeiro');
     exit;
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: configuracoes.php');
+    header('Location: ../configuracoes.php');
     exit;
 }
 
 require __DIR__ . '/../includes/conexao.php';
 if (!$pdo) {
-    header('Location: configuracoes.php?error=Erro+de+conexao+com+banco');
+    header('Location: ../configuracoes.php?error=Erro+de+conexao+com+banco');
     exit;
 }
 
@@ -25,7 +25,7 @@ $tema = in_array($_POST['tema'] ?? 'claro', ['claro', 'escuro'], true) ? $_POST[
 $notificacoes = isset($_POST['notificacoes']) && $_POST['notificacoes'] === '1' ? 1 : 0;
 
 if (!$nome || !$email) {
-    header('Location: configuracoes.php?error=Nome+e+email+sao+obrigatorios');
+    header('Location: ../configuracoes.php?error=Nome+e+email+sao+obrigatorios');
     exit;
 }
 
@@ -39,7 +39,7 @@ try {
         $conta = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if (!$conta) {
-            header('Location: configuracoes.php?error=Conta+nao+encontrada');
+            header('Location: ../configuracoes.php?error=Conta+nao+encontrada');
             exit;
         }
 
@@ -47,7 +47,7 @@ try {
             $stmt = $pdo->prepare('SELECT id FROM empresas WHERE email = :email LIMIT 1');
             $stmt->execute([':email' => $email]);
             if ($stmt->fetch()) {
-                header('Location: configuracoes.php?error=Email+ja+esta+em+uso');
+                header('Location: ../configuracoes.php?error=Email+ja+esta+em+uso');
                 exit;
             }
         }
@@ -71,7 +71,7 @@ try {
         $conta = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if (!$conta) {
-            header('Location: configuracoes.php?error=Conta+nao+encontrada');
+            header('Location: ../configuracoes.php?error=Conta+nao+encontrada');
             exit;
         }
 
@@ -79,7 +79,7 @@ try {
             $stmt = $pdo->prepare('SELECT id FROM usuarios WHERE email = :email LIMIT 1');
             $stmt->execute([':email' => $email]);
             if ($stmt->fetch()) {
-                header('Location: configuracoes.php?error=Email+ja+esta+em+uso');
+                header('Location: ../configuracoes.php?error=Email+ja+esta+em+uso');
                 exit;
             }
         }
@@ -100,11 +100,13 @@ try {
     $_SESSION['nome'] = $nome;
     $_SESSION['email'] = $email;
 
-    header('Location: configuracoes.php?success=Configuracoes+salvas+com+sucesso');
+    header('Location: ../configuracoes.php?success=Configuracoes+salvas+com+sucesso');
     exit;
 } catch (PDOException $e) {
-    header('Location: configuracoes.php?error=Erro+ao+salvar+configuracoes');
+    header('Location: ../configuracoes.php?error=Erro+ao+salvar+configuracoes');
     exit;
 }
+
+
 
 

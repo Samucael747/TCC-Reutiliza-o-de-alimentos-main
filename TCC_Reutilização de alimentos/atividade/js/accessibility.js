@@ -99,6 +99,22 @@
         }
 
         createAccessibilityPanel() {
+            // Overlay transparente — fechar ao clicar fora
+            const overlay = document.createElement('div');
+            overlay.className = 'accessibility-overlay';
+            overlay.addEventListener('click', () => this.closePanel());
+            document.body.appendChild(overlay);
+            this.overlay = overlay;
+
+            // Sincronizar posição do overlay com o nav
+            const positionOverlay = () => {
+                const nav = document.querySelector('.navbar');
+                const offset = nav ? nav.offsetHeight : 0;
+                overlay.style.top = offset + 'px';
+            };
+            positionOverlay();
+            window.addEventListener('resize', positionOverlay);
+
             // Criar botão flutuante
             const indicator = document.createElement('div');
             indicator.className = 'accessibility-indicator';
@@ -111,11 +127,23 @@
             const panel = document.createElement('div');
             panel.id = 'accessibility-panel';
             panel.className = 'accessibility-panel';
+
+            // Posicionar abaixo do navbar
+            const positionBelowNav = () => {
+                const nav = document.querySelector('.navbar');
+                const offset = nav ? nav.offsetHeight : 0;
+                panel.style.top    = offset + 'px';
+                panel.style.height = `calc(100vh - ${offset}px)`;
+            };
+            positionBelowNav();
+            window.addEventListener('resize', positionBelowNav);
             panel.innerHTML = `
                 <div class="accessibility-panel-content">
                     <div class="accessibility-panel-header">
-                        <h3>♿ Acessibilidade</h3>
-                        <button class="close-btn" onclick="accessibilityManager.togglePanel()">✕</button>
+                        <h3><i class="bi bi-universal-access"></i> Acessibilidade</h3>
+                        <button class="close-btn" onclick="accessibilityManager.closePanel()" title="Fechar">
+                            <i class="bi bi-x-lg"></i>
+                        </button>
                     </div>
 
                     <div class="accessibility-settings">
@@ -229,10 +257,21 @@
 
         togglePanel() {
             const panel = document.getElementById('accessibility-panel');
-            panel.classList.toggle('open');
+            const isOpen = panel.classList.toggle('open');
+            if (this.overlay) this.overlay.classList.toggle('active', isOpen);
+        }
+
+        closePanel() {
+            const panel = document.getElementById('accessibility-panel');
+            panel.classList.remove('open');
+            if (this.overlay) this.overlay.classList.remove('active');
         }
 
         attachEventListeners() {
+            // Fechar com tecla Escape
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') this.closePanel();
+            });
             // Modo Escuro
             const darkModeToggle = document.getElementById('dark-mode-toggle');
             if (darkModeToggle) {

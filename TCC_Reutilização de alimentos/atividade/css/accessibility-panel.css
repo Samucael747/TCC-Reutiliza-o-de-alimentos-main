@@ -1,3 +1,41 @@
+/* Botão flutuante de acessibilidade */
+.accessibility-indicator {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #FF8C00, #FDB813);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    cursor: pointer;
+    z-index: 1001;
+    box-shadow: 0 4px 16px rgba(255, 140, 0, 0.4);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    user-select: none;
+}
+
+.accessibility-indicator:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 22px rgba(255, 140, 0, 0.5);
+}
+
+/* Overlay — clicar fora fecha o painel */
+.accessibility-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: transparent;
+    cursor: default;
+}
+
+.accessibility-overlay.active { display: block; }
+
 /* Painel de Acessibilidade */
 .accessibility-panel {
     position: fixed;
@@ -9,8 +47,10 @@
     box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
     z-index: 1000;
     transition: right 0.3s ease;
-    overflow-y: auto;
-    border-radius: 0;
+    overflow: hidden;          /* o scroll fica só no conteúdo */
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid #f0f0f0;
 }
 
 .accessibility-panel.open {
@@ -18,16 +58,23 @@
 }
 
 .accessibility-panel-content {
-    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
 }
 
 .accessibility-panel-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 24px;
-    padding-bottom: 12px;
+    padding: 20px 24px 16px;
     border-bottom: 2px solid #FF8C00;
+    background: white;
+    flex-shrink: 0;             /* header nunca encolhe */
+    position: sticky;
+    top: 0;
+    z-index: 2;
 }
 
 .accessibility-panel-header h3 {
@@ -37,29 +84,34 @@
 }
 
 .accessibility-panel-header .close-btn {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
+    background: #fff1ee;
+    border: 1.5px solid #E8411C;
+    font-size: 1rem;
     cursor: pointer;
     color: #E8411C;
     padding: 0;
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
 }
 
 .accessibility-panel-header .close-btn:hover {
-    background: rgba(255, 140, 0, 0.1);
+    background: #E8411C;
+    color: #fff;
     transform: scale(1.1);
 }
 
 .accessibility-settings {
     display: grid;
     gap: 20px;
+    overflow-y: auto;           /* só o conteúdo rola */
+    flex: 1;                    /* ocupa o espaço restante abaixo do header */
+    padding: 20px 24px 24px;
 }
 
 .accessibility-option {

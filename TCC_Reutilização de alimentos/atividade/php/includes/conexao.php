@@ -81,6 +81,8 @@ try {
         data_doacao DATETIME DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (produto_id) REFERENCES produtos(id)
     )");
+    addColumnIfMissing($pdo, 'doacoes', 'produto_id', "produto_id INT NOT NULL DEFAULT 0");
+    addColumnIfMissing($pdo, 'doacoes', 'cnpj', "cnpj VARCHAR(20) DEFAULT NULL");
 
     // Solicitações feitas por usuários para produtos
     $pdo->exec("CREATE TABLE IF NOT EXISTS solicitacoes (

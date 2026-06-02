@@ -17,13 +17,17 @@ if (!$pdo) {
 }
 
 $produto_id = (int)($_POST['produto_id'] ?? 0);
-$tipo = $_POST['tipo'] ?? 'retirada';
+$tipo = strtolower(trim($_POST['tipo'] ?? 'retirada'));
 $endereco = trim($_POST['endereco'] ?? '');
 $observacoes = trim($_POST['observacoes'] ?? '');
 
 if ($produto_id <= 0) {
     header('Location: ../dashboard.php?error=Produto+invalido');
     exit;
+}
+
+if (!in_array($tipo, ['retirada', 'entrega'], true)) {
+    $tipo = 'retirada';
 }
 
 if ($tipo === 'entrega' && $endereco === '') {
@@ -80,7 +84,17 @@ try {
     if ($pdo->inTransaction()) {
         $pdo->rollBack();
     }
-    header('Location: ../dashboard.php?error=Erro+ao+registrar+solicitacao');
+    error_log('[solicitar.php] ' . $e->getMessage());
+    $message = 'Erro+ao+registrar+solicitacao';
+    $errorText = strtolower($e->getMessage());
+    if (strpos($errorText, 'foreign key') !== false) {
+        $message = 'Erro+ao+registrar+solicitacao.+Produto+invalido+ou+removido';
+    } elseif (strpos($errorText, 'unknown column') !== false) {
+        $message = 'Erro+interno:+estrutura+do+banco+incompleta';
+    } elseif (strpos($errorText, 'null') !== false) {
+        $message = 'Erro+ao+registrar:+faltam+dados+obrigatorios';
+    }
+    header('Location: ../dashboard.php?error=' . $message);
     exit;
 }
 

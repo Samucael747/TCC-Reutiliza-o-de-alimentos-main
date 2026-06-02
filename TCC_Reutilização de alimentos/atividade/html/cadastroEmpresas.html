@@ -1,0 +1,219 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro de Empresa / ONG | FomeOff</title>
+    <link rel="stylesheet" href="../css/index.css" />
+    <link rel="stylesheet" href="../css/acessibilidade.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <style>
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: #fff;
+        }
+
+        .brand-logo img {
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            object-fit: cover;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+        }
+
+        /* Labels com ícone inline */
+        label {
+            display: grid;
+            gap: 8px;
+            font-size: 0.95rem;
+            color: #374151;
+            font-weight: 600;
+        }
+
+        .field-label {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: #374151;
+        }
+
+        .field-label i { color: #FF8C00; font-size: 1rem; }
+
+        input, select {
+            width: 100%;
+            padding: 15px 18px;
+            border: 1px solid #E0B299;
+            border-radius: 14px;
+            background: #FFF8F0;
+            font: inherit;
+            color: #111827;
+            font-size: 0.97rem;
+            transition: border-color 0.25s, box-shadow 0.25s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #FF8C00;
+            box-shadow: 0 0 0 4px rgba(255,140,0,0.15);
+        }
+
+        .primary-btn {
+            width: 100%;
+            border: none;
+            border-radius: 14px;
+            padding: 15px 18px;
+            background: linear-gradient(135deg, #FF8C00, #FDB813);
+            color: white;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-family: inherit;
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(255,140,0,0.3);
+        }
+
+        .message {
+            padding: 14px 16px;
+            border-radius: 14px;
+            margin: 16px 0 0;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .message.error   { background: #fff1f2; color: #be123c; border-left: 4px solid #f43f5e; }
+        .message.success { background: #f0fdf4; color: #166534; border-left: 4px solid #22c55e; }
+
+        .form-footer { margin-top: 16px; text-align: center; color: #6b7280; font-size: 0.95rem; }
+        .form-footer a { color: #FF8C00; font-weight: 600; text-decoration: none; }
+        .form-footer a:hover { text-decoration: underline; }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 4px 0;
+            color: #d1d5db;
+            font-size: 0.85rem;
+        }
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e5e7eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-page">
+
+        <!-- Painel esquerdo -->
+        <aside class="brand-panel">
+            <div>
+                <div class="brand-logo">
+                    <img src="../Imagens/Logo.png" alt="Logo FomeOff" />
+                    FomeOff
+                </div>
+                <h2>Cadastre sua empresa ou ONG</h2>
+                <p>Ajude a reduzir o desperdício conectando suas doações a quem precisa. 100% gratuito.</p>
+            </div>
+
+            <div class="brand-features">
+                <div class="feature-card">
+                    <span><i class="bi bi-geo-alt-fill" style="font-size:1.3rem;"></i></span>
+                    <div>
+                        <strong>Mapa em tempo real</strong>
+                        <p>Seus produtos aparecem no mapa automaticamente pelo CEP.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <span><i class="bi bi-lightning-charge-fill" style="font-size:1.3rem;"></i></span>
+                    <div>
+                        <strong>Atualizações instantâneas</strong>
+                        <p>Gerencie doações e solicitações em tempo real.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <span><i class="bi bi-shield-check" style="font-size:1.3rem;"></i></span>
+                    <div>
+                        <strong>Protegido por lei</strong>
+                        <p>Doações amparadas pela Lei 14.016/2020 e LOSAN.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="brand-action">
+                <a class="brand-link" href="../php/leis_doacoes.php">
+                    <i class="bi bi-book"></i> Conheça as leis sobre doações
+                </a>
+            </div>
+        </aside>
+
+        <!-- Painel direito — formulário -->
+        <main class="form-panel">
+            <div class="form-card">
+                <div class="form-header">
+                    <h3>Cadastro de Empresa / ONG</h3>
+                    <p>Preencha os dados da sua organização para começar a cadastrar doações.</p>
+                </div>
+
+                <form method="post" action="../php/cadastrarEmpresa.php">
+                    <label>
+                        <span class="field-label"><i class="bi bi-building"></i> Nome da empresa / ONG</span>
+                        <input type="text" name="nome" placeholder="Empresa ou ONG" required minlength="3" maxlength="100" />
+                    </label>
+
+                    <label>
+                        <span class="field-label"><i class="bi bi-card-text"></i> CNPJ</span>
+                        <input type="text" name="cnpj" placeholder="00.000.000/0000-00" maxlength="20" />
+                    </label>
+
+                    <label>
+                        <span class="field-label"><i class="bi bi-geo-alt"></i> CEP</span>
+                        <input type="text" name="cep" placeholder="12345-678" maxlength="10" />
+                    </label>
+
+                    <label>
+                        <span class="field-label"><i class="bi bi-envelope"></i> Email</span>
+                        <input type="email" name="email" placeholder="contato@empresa.com" required />
+                    </label>
+
+                    <label>
+                        <span class="field-label"><i class="bi bi-lock"></i> Senha</span>
+                        <input type="password" name="senha" placeholder="••••••••" required minlength="3" maxlength="50" />
+                    </label>
+
+                    <button type="submit" class="primary-btn">
+                        <i class="bi bi-building-add"></i> Cadastrar empresa
+                    </button>
+                </form>
+
+                <div class="divider">ou</div>
+
+                <p class="form-footer">
+                    Já tem conta? <a href="../index.php">Faça login</a>
+                </p>
+                <p class="form-footer">
+                    Sou pessoa física? <a href="cadastroUsuario.php">Cadastre como usuário</a>
+                </p>
+            </div>
+        </main>
+
+    </div>
+
+    <link rel="stylesheet" href="../css/accessibility-panel.css" />
+    <script src="../js/accessibility.js"></script>
+</body>
+</html>

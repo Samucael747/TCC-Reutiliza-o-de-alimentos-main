@@ -1,29 +1,14 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FomeOff - Plataforma de Doação de Alimentos</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
-                    },
-                },
-            },
-        }
-    </script>
     <link rel="stylesheet" href="./css/acessibilidade.css" />
     <link rel="stylesheet" href="./css/accessibility-panel.css" />
     <style>
-        body { font-family: 'Inter', system-ui, sans-serif; }
-        h1, h2, h3, h4 { font-family: 'Inter', system-ui, sans-serif; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
     </style>
 </head>
 <body>
@@ -33,14 +18,14 @@
         <header class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
             <div class="container mx-auto px-6 py-4 flex justify-between items-center">
                 <div class="flex items-center gap-2">
-                    <div class="bg-gradient-to-br from-orange-400 to-orange-600 rounded-full p-3">
-                        <img src="./Imagens/Logo.png" alt="FomeOff" class="w-6 h-6" />
-                            </div>
+                    <svg class="w-8 h-8 text-orange-500 fill-orange-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
                     <span class="text-gray-800 text-2xl font-bold">FomeOff</span>
                 </div>
                 <div class="flex gap-4">
-                    <a href="entrar.php" class="px-6 py-2 text-gray-700 hover:text-orange-600 rounded-lg transition">Entrar</a>
-                    <a href="auth/cadastroUsuario.php" class="px-6 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition">Cadastre-se</a>
+                    <a href="index.php" class="px-6 py-2 text-gray-700 hover:text-orange-600 rounded-lg transition">Entrar</a>
+                    <a href="html/cadastroUsuario.php" class="px-6 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition">Cadastre-se</a>
                 </div>
             </div>
         </header>
@@ -60,14 +45,14 @@
                         Plataforma que conecta empresas e ONGs que doam alimentos com pessoas que precisam. Em tempo real, com mapa interativo.
                     </p>
                     <div class="flex gap-4 flex-wrap">
-                        <a href="auth/cadastroUsuario.php" class="px-8 py-4 bg-orange-500 text-white rounded-lg font-semibold hover:bg-orange-600 transition flex items-center gap-2 shadow-lg shadow-orange-200">
+                        <a href="html/cadastroUsuario.php" class="px-8 py-4 bg-orange-500 text-white rounded-lg font-semibold hover:bg-orange-600 transition flex items-center gap-2 shadow-lg shadow-orange-200">
                             Quero Receber Doações
                             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <line x1="5" y1="12" x2="19" y2="12"></line>
                                 <polyline points="12 5 19 12 12 19"></polyline>
                             </svg>
                         </a>
-                        <a href="auth/cadastroEmpresas.html" class="px-8 py-4 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 transition shadow-lg shadow-green-200">
+                        <a href="html/cadastroEmpresas.html" class="px-8 py-4 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 transition shadow-lg shadow-green-200">
                             Quero Doar Alimentos
                         </a>
                     </div>
@@ -80,8 +65,9 @@
                     <div class="absolute -bottom-6 -left-6 bg-white rounded-2xl p-6 shadow-xl border-2 border-orange-100">
                         <div class="flex items-center gap-3">
                             <div class="bg-gradient-to-br from-orange-400 to-orange-600 rounded-full p-3">
-                            <img src="Imagens/Logo.png" alt="FomeOff" class="w-6 h-6" />
-                            </div>
+                                <svg class="w-6 h-6 text-white fill-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                </svg>
                             </div>
                             <div>
                                 <p class="text-2xl font-bold text-gray-800">100%</p>
@@ -122,7 +108,7 @@
                             <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
                         </svg>
                     </div>
-                    <h3 class="text-2xl font-bold text-gray-800 mb-2">300% Gratuito</h3>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">200% Gratuito</h3>
                     <p class="text-gray-600">Plataforma totalmente gratuita para todos</p>
                 </div>
             </div>
@@ -232,8 +218,8 @@
                 <h2 class="text-4xl font-bold text-white mb-6">Pronto para Fazer a Diferença?</h2>
                 <p class="text-xl text-white/90 mb-12">Junte-se a nós na luta contra o desperdício de alimentos</p>
                 <div class="flex gap-4 justify-center flex-wrap">
-                    <a href="auth/cadastroUsuario.php" class="px-12 py-5 bg-white text-orange-600 rounded-lg text-lg font-semibold hover:bg-gray-50 transition shadow-xl">Começar Agora</a>
-                    <a href="auth/cadastroEmpresas.html" class="px-12 py-5 bg-green-500 text-white rounded-lg text-lg font-semibold hover:bg-green-600 transition shadow-xl">Quero Doar</a>
+                    <a href="html/cadastroUsuario.php" class="px-12 py-5 bg-white text-orange-600 rounded-lg text-lg font-semibold hover:bg-gray-50 transition shadow-xl">Começar Agora</a>
+                    <a href="html/cadastroEmpresas.html" class="px-12 py-5 bg-green-500 text-white rounded-lg text-lg font-semibold hover:bg-green-600 transition shadow-xl">Quero Doar</a>
                 </div>
             </div>
         </section>
@@ -251,8 +237,8 @@
                     <div class="flex gap-6 text-gray-400">
                         <a href="#" class="hover:text-orange-500 transition">Sobre</a>
                         <a href="php/leis_doacoes.php" class="hover:text-orange-500 transition">Leis</a>
-                        <a href="entrar.php" class="hover:text-orange-500 transition">Entrar</a>
-                        <a href="auth/cadastroUsuario.php" class="hover:text-orange-500 transition">Cadastre-se</a>
+                        <a href="index.php" class="hover:text-orange-500 transition">Entrar</a>
+                        <a href="html/cadastroUsuario.php" class="hover:text-orange-500 transition">Cadastre-se</a>
                     </div>
                 </div>
                 <div class="border-t border-gray-800 pt-8 text-center">
@@ -265,4 +251,3 @@
     <script src="./js/accessibility.js"></script>
 </body>
 </html>
-

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $base = (strpos($_SERVER['SCRIPT_NAME'], '/php/') !== false) ? '../' : './';
 $pageTitle = $pageTitle ?? 'FomeOff';
 ?>
@@ -105,3 +105,4 @@ $pageTitle = $pageTitle ?? 'FomeOff';
     </style>
     <?php if (!empty($extra_head)) echo $extra_head; ?>
 </head>
+

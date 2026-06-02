@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $error   = $_GET['error'] ?? '';
 $success = $_GET['success'] ?? '';
 ?>
@@ -10,6 +10,7 @@ $success = $_GET['success'] ?? '';
     <title>FomeOff — Entrar</title>
     <link rel="stylesheet" href="./css/index.css" />
     <link rel="stylesheet" href="./css/acessibilidade.css" />
+    <link rel="stylesheet" href="./css/auth.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <style>
         /* ── Login page overrides ── */
@@ -224,7 +225,7 @@ $success = $_GET['success'] ?? '';
                     <div class="message success"><?php echo htmlspecialchars($success, ENT_QUOTES, 'UTF-8'); ?></div>
                 <?php endif; ?>
 
-                <form action="./php/login.php" method="post">
+                <form action="./php/actions/login.php" method="post">
                     <label>
                         <span class="field-label"><i class="bi bi-person-badge"></i> Tipo de conta</span>
                         <select name="tipo" required>
@@ -247,11 +248,11 @@ $success = $_GET['success'] ?? '';
 
                 <p class="form-footer">
                     Não tem cadastro?
-                    <a href="./html/cadastroUsuario.php">Cadastre-se</a>
+                    <a href="./auth/cadastroUsuario.php">Cadastre-se</a>
                 </p>
                 <p class="form-footer">
                     Sou empresa?
-                    <a href="./html/cadastroEmpresas.html">Cadastre sua empresa / ONG</a>
+                    <a href="./auth/cadastroEmpresas.html">Cadastre sua empresa / ONG</a>
                 </p>
                 <p class="form-footer">
                     <a href="./php/leis_doacoes.php"><i class="bi bi-book"></i> Conheça as leis sobre doações</a>
@@ -265,3 +266,4 @@ $success = $_GET['success'] ?? '';
     <script src="./js/accessibility.js"></script>
 </body>
 </html>
+

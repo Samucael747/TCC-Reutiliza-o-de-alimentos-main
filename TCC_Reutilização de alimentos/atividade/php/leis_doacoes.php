@@ -10,9 +10,9 @@ HTML;
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
-<?php include __DIR__ . '/head.php'; ?>
+<?php include __DIR__ . '/includes/head.php'; ?>
 <body>
-    <?php if ($isLogged): include __DIR__ . '/navbar.php'; endif; ?>
+    <?php if ($isLogged): include __DIR__ . '/includes/navbar.php'; endif; ?>
 
     <div class="leis-page">
         <div class="leis-header">
@@ -168,9 +168,10 @@ HTML;
         </div>
     </div>
 
-    <?php include __DIR__ . '/footer.php'; ?>
+    <?php include __DIR__ . '/includes/footer.php'; ?>
 
     <script src="../js/accessibility.js"></script>
 </body>
 </html>
+
 

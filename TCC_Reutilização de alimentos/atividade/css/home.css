@@ -1,0 +1,188 @@
+/* ── home.php ── */
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: 'Inter', Arial, sans-serif;
+    background: linear-gradient(180deg, #fff3e0 0%, #ffe8bf 100%);
+    color: #1f2937;
+}
+
+.home-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 36px 20px 56px;
+}
+
+/* Hero */
+.hero {
+    padding: 36px 28px;
+    border-radius: 24px;
+    background: linear-gradient(135deg, rgba(255,140,0,0.13), rgba(232,79,22,0.08));
+    border-left: 8px solid #ff8c00;
+    box-shadow: 0 14px 32px rgba(232,65,28,0.08);
+    margin-bottom: 24px;
+}
+.hero h1 { margin: 0 0 10px; font-size: clamp(1.8rem, 3.8vw, 2.8rem); color: #0f172a; }
+.hero p  { margin: 0; font-size: 1.05rem; color: #475569; }
+
+/* Mensagens */
+.message { padding: 14px 16px; border-radius: 14px; margin-bottom: 16px; font-weight: 600; }
+.message.success { background: #ecfdf5; color: #065f46; }
+.message.error   { background: #fff1f2; color: #9f1239; }
+
+/* Barra de controles */
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255,255,255,0.72);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.7);
+    padding: 18px;
+    border-radius: 18px;
+    margin-bottom: 24px;
+    box-shadow: 0 10px 24px rgba(15,23,42,0.05);
+}
+
+.filter {
+    display: flex;
+    gap: 10px;
+    flex: 1;
+    min-width: 260px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.filter input {
+    flex: 1;
+    min-width: 220px;
+    height: 48px;
+    padding: 0 14px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    font-size: 0.98rem;
+    background: #fffaf3;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+.filter button,
+.btn-primary {
+    height: 48px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #ff8c00, #fdb813);
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+.filter button { padding: 0 18px; }
+.btn-primary { display: inline-flex; align-items: center; gap: 6px; padding: 0 16px; white-space: nowrap; }
+.filter button:hover, .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 18px rgba(255,140,0,0.25); }
+
+.actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* Mapa */
+#map {
+    width: 100%;
+    min-height: 360px;
+    border-radius: 18px;
+    margin-bottom: 32px;
+    box-shadow: 0 12px 32px rgba(232,65,28,0.10);
+    overflow: hidden;
+}
+
+/* Cards de produtos */
+.section-title { margin: 0 0 18px; font-size: 1.45rem; color: #c2410c; }
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 22px;
+    box-shadow: 0 12px 28px rgba(15,23,42,0.08);
+    border-top: 5px solid #ff8c00;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.card:hover { transform: translateY(-3px); box-shadow: 0 18px 36px rgba(15,23,42,0.12); }
+.card h3 { margin: 0; font-size: 1.18rem; color: #c2410c; }
+.card img { width: 100%; height: 160px; object-fit: cover; border-radius: 12px; }
+
+.card-info { display: grid; gap: 10px; }
+.card-field { display: grid; gap: 4px; }
+.card-field-label { font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.04em; color: #6b7280; font-weight: 700; }
+.card-field-value { color: #1f2937; word-break: break-word; }
+
+/* Botões de ação do card */
+.card-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: auto;
+}
+.card-actions form { display: contents; }
+
+.card-actions .btn-solicitar,
+.card-actions .btn-entrega {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 12px 8px;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.88rem;
+    white-space: nowrap;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.card-actions .btn-solicitar { background: linear-gradient(135deg, #ff8c00, #fdb813); color: #fff; border: none; }
+.card-actions .btn-entrega   { border: 2px solid #ff8c00; background: #fff; color: #ff8c00; }
+.card-actions .btn-solicitar:hover,
+.card-actions .btn-entrega:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(255,140,0,0.22); }
+
+/* Formulário de entrega */
+.delivery-form { display: none; padding: 14px; border-radius: 14px; background: #fff8ef; border: 1px solid #fed7aa; gap: 10px; }
+.delivery-form.active { display: grid; }
+.delivery-form input,
+.delivery-form textarea { width: 100%; padding: 10px 12px; border: 1px solid #e5e7eb; border-radius: 10px; font: inherit; background: #fff; }
+.delivery-form button { padding: 10px; border: none; border-radius: 10px; background: linear-gradient(135deg, #ff8c00, #fdb813); color: #fff; font-weight: 700; cursor: pointer; font-family: inherit; }
+
+/* Avaliações */
+.avaliacoes { margin-top: 10px; }
+.avaliacao-item { margin-top: 8px; padding: 10px; border-radius: 10px; background: #fff8f0; border: 1px solid #ffecd1; font-size: 0.9rem; }
+.avaliacao-nota { font-weight: 700; color: #c94a00; }
+.avaliacao-autor { color: #555; margin-left: 8px; font-weight: 500; }
+.avaliacao-comentario { margin-top: 6px; color: #444; }
+
+.form-avaliar { margin-top: 10px; display: grid; gap: 8px; }
+.form-avaliar-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.form-avaliar select,
+.form-avaliar input { padding: 8px 10px; border-radius: 8px; border: 1px solid #e9caa8; font-family: inherit; }
+.form-avaliar button { padding: 8px 14px; border-radius: 8px; background: linear-gradient(135deg, #ff8c00, #fdb813); color: #fff; border: none; font-weight: 700; cursor: pointer; font-family: inherit; }
+
+/* Estado vazio */
+.empty-state { padding: 40px 28px; border-radius: 18px; background: rgba(255,255,255,0.8); color: #475569; text-align: center; box-shadow: 0 10px 24px rgba(15,23,42,0.05); }
+
+@media (max-width: 768px) {
+    .controls { align-items: stretch; }
+    .actions { width: 100%; }
+    .btn-primary, .filter button { width: 100%; }
+}

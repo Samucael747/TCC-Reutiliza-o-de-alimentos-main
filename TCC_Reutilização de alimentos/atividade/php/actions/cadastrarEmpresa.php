@@ -1,6 +1,6 @@
 ﻿<?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    require 'conexao.php';
+    require __DIR__ . '/../includes/conexao.php';
 
     if (!$pdo) {
         header('Location: ../html/cadastroEmpresas.html?error=Erro+de+conexao+com+banco');
@@ -46,4 +46,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 header('Location: ../html/cadastroEmpresas.html');
 exit;
+
 

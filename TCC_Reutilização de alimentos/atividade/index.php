@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -40,7 +40,7 @@
                 </div>
                 <div class="flex gap-4">
                     <a href="entrar.php" class="px-6 py-2 text-gray-700 hover:text-orange-600 rounded-lg transition">Entrar</a>
-                    <a href="html/cadastroUsuario.php" class="px-6 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition">Cadastre-se</a>
+                    <a href="auth/cadastroUsuario.php" class="px-6 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition">Cadastre-se</a>
                 </div>
             </div>
         </header>
@@ -60,14 +60,14 @@
                         Plataforma que conecta empresas e ONGs que doam alimentos com pessoas que precisam. Em tempo real, com mapa interativo.
                     </p>
                     <div class="flex gap-4 flex-wrap">
-                        <a href="html/cadastroUsuario.php" class="px-8 py-4 bg-orange-500 text-white rounded-lg font-semibold hover:bg-orange-600 transition flex items-center gap-2 shadow-lg shadow-orange-200">
+                        <a href="auth/cadastroUsuario.php" class="px-8 py-4 bg-orange-500 text-white rounded-lg font-semibold hover:bg-orange-600 transition flex items-center gap-2 shadow-lg shadow-orange-200">
                             Quero Receber Doações
                             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <line x1="5" y1="12" x2="19" y2="12"></line>
                                 <polyline points="12 5 19 12 12 19"></polyline>
                             </svg>
                         </a>
-                        <a href="html/cadastroEmpresas.html" class="px-8 py-4 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 transition shadow-lg shadow-green-200">
+                        <a href="auth/cadastroEmpresas.html" class="px-8 py-4 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 transition shadow-lg shadow-green-200">
                             Quero Doar Alimentos
                         </a>
                     </div>
@@ -233,8 +233,8 @@
                 <h2 class="text-4xl font-bold text-white mb-6">Pronto para Fazer a Diferença?</h2>
                 <p class="text-xl text-white/90 mb-12">Junte-se a nós na luta contra o desperdício de alimentos</p>
                 <div class="flex gap-4 justify-center flex-wrap">
-                    <a href="html/cadastroUsuario.php" class="px-12 py-5 bg-white text-orange-600 rounded-lg text-lg font-semibold hover:bg-gray-50 transition shadow-xl">Começar Agora</a>
-                    <a href="html/cadastroEmpresas.html" class="px-12 py-5 bg-green-500 text-white rounded-lg text-lg font-semibold hover:bg-green-600 transition shadow-xl">Quero Doar</a>
+                    <a href="auth/cadastroUsuario.php" class="px-12 py-5 bg-white text-orange-600 rounded-lg text-lg font-semibold hover:bg-gray-50 transition shadow-xl">Começar Agora</a>
+                    <a href="auth/cadastroEmpresas.html" class="px-12 py-5 bg-green-500 text-white rounded-lg text-lg font-semibold hover:bg-green-600 transition shadow-xl">Quero Doar</a>
                 </div>
             </div>
         </section>
@@ -253,7 +253,7 @@
                         <a href="#" class="hover:text-orange-500 transition">Sobre</a>
                         <a href="php/leis_doacoes.php" class="hover:text-orange-500 transition">Leis</a>
                         <a href="entrar.php" class="hover:text-orange-500 transition">Entrar</a>
-                        <a href="html/cadastroUsuario.php" class="hover:text-orange-500 transition">Cadastre-se</a>
+                        <a href="auth/cadastroUsuario.php" class="hover:text-orange-500 transition">Cadastre-se</a>
                     </div>
                 </div>
                 <div class="border-t border-gray-800 pt-8 text-center">
@@ -266,3 +266,4 @@
     <script src="./js/accessibility.js"></script>
 </body>
 </html>
+

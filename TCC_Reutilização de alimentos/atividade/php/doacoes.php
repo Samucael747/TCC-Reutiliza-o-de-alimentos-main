@@ -5,7 +5,7 @@ if (!isset($_SESSION['nome'])) {
     exit;
 }
 
-require 'conexao.php';
+require __DIR__ . '/includes/conexao.php';
 if (!$pdo) {
     die('Erro de conexão com o banco de dados. Tente novamente mais tarde.');
 }
@@ -40,9 +40,9 @@ HTML;
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
-<?php include __DIR__ . '/head.php'; ?>
+<?php include __DIR__ . '/includes/head.php'; ?>
 <body>
-    <?php include __DIR__ . '/navbar.php'; ?>
+    <?php include __DIR__ . '/includes/navbar.php'; ?>
 
     <div class="page-container">
         <?php if ($success): ?>
@@ -104,9 +104,10 @@ HTML;
         <?php endif; ?>
     </div>
 
-    <?php include __DIR__ . '/footer.php'; ?>
+    <?php include __DIR__ . '/includes/footer.php'; ?>
 
     <script src="../js/accessibility.js"></script>
 </body>
 </html>
+
 

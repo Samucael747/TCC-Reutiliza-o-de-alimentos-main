@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-require 'conexao.php';
+require __DIR__ . '/../includes/conexao.php';
 if (!$pdo) {
     header('Location: home.php?error=Erro+de+conexao+com+banco');
     exit;
@@ -67,4 +67,5 @@ try {
     header('Location: home.php?error=Erro+ao+salvar+avaliacao');
     exit;
 }
+
 

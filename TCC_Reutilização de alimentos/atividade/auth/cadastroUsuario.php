@@ -9,6 +9,7 @@ $error = $_GET['error'] ?? '';
     <title>Criar Conta | FomeOff</title>
     <link rel="stylesheet" href="../css/index.css" />
     <link rel="stylesheet" href="../css/acessibilidade.css" />
+    <link rel="stylesheet" href="../css/auth.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <style>
         body, input, select, button, textarea, label {
@@ -109,7 +110,7 @@ $error = $_GET['error'] ?? '';
                     </div>
                 <?php endif; ?>
 
-                <form action="../php/cadastrarUsuario.php" method="post">
+                <form action="../php/actions/cadastrarUsuario.php" method="post">
                     <label>
                         <span class="field-label"><i class="bi bi-person"></i> Nome completo</span>
                         <input type="text" name="nome" placeholder="Seu nome completo"
@@ -146,4 +147,5 @@ $error = $_GET['error'] ?? '';
     <script src="../js/accessibility.js"></script>
 </body>
 </html>
+
 

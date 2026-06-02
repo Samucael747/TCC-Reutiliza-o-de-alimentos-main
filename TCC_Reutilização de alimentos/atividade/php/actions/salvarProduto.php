@@ -1,6 +1,6 @@
-<?php
+﻿<?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    require 'conexao.php';
+    require __DIR__ . '/../includes/conexao.php';
 
     if (!$pdo) {
         header('Location: ../html/cadastroProduto.php?error=Erro+de+conexao+com+banco');
@@ -144,3 +144,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 header('Location: ../html/cadastroProduto.php?error=Metodo+nao+permitido');
 exit;
+

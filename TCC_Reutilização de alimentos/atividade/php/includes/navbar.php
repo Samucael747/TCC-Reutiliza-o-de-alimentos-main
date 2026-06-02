@@ -1,7 +1,7 @@
-<?php
+﻿<?php
 $paginaAtiva = $paginaAtiva ?? '';
 $inPhp  = strpos($_SERVER['SCRIPT_NAME'], '/php/')  !== false;
-$inHtml = strpos($_SERVER['SCRIPT_NAME'], '/html/') !== false;
+$inHtml = strpos($_SERVER['SCRIPT_NAME'], '/auth/') !== false;
 $base   = ($inPhp || $inHtml) ? '../' : './';
 $p      = $inHtml ? '../php/' : '';   // prefixo para links de páginas PHP
 ?>
@@ -26,3 +26,4 @@ $p      = $inHtml ? '../php/' : '';   // prefixo para links de páginas PHP
         <a href="<?php echo $p; ?>logout.php" class="navbar-sair"><i class="bi bi-box-arrow-right"></i> Sair</a>
     </div>
 </nav>
+

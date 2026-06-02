@@ -9,7 +9,7 @@ if (isset($_POST['email'])) {
         exit;
     }
 
-    require 'conexao.php';
+    require __DIR__ . '/../includes/conexao.php';
 
     if (!$pdo) {
         header('Location: ../html/cadastroUsuario.php?error=Erro+de+conexao+com+banco');
@@ -42,3 +42,4 @@ if (isset($_POST['email'])) {
     header('Location: ../html/cadastroUsuario.php?error=Dados+invalidos');
     exit;
 }
+

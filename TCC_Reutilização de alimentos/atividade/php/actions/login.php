@@ -3,7 +3,7 @@ if (isset($_POST['email'])) {
     $email = trim($_POST['email']);
     $senha = trim($_POST['senha']);
 
-    require 'conexao.php';
+    require __DIR__ . '/../includes/conexao.php';
 
     if (!$pdo) {
         header('Location: ../entrar.php?error=Erro+de+conexao+com+banco');
@@ -42,3 +42,4 @@ if (isset($_POST['email'])) {
     header("Location: ../entrar.php");
     exit;
 }
+

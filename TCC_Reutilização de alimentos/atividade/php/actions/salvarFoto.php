@@ -6,7 +6,7 @@ if (!isset($_SESSION['email'])) {
 }
 
 header('Content-Type: application/json');
-require 'conexao.php';
+require __DIR__ . '/../includes/conexao.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(400);
@@ -89,4 +89,5 @@ try {
     echo json_encode(['error' => 'Erro ao salvar no banco de dados: ' . $e->getMessage()]);
 }
 ?>
+
 

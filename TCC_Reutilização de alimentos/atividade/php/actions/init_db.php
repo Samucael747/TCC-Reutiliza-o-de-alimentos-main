@@ -1,5 +1,5 @@
-<?php
-require 'conexao.php';
+﻿<?php
+require __DIR__ . '/../includes/conexao.php';
 
 try {
     // Criar tabela produtos se não existir
@@ -23,3 +23,4 @@ try {
     echo "Erro ao criar tabela: " . $e->getMessage();
 }
 ?>
+

@@ -64,7 +64,6 @@ HTML;
             </form>
             <div class="actions">
                 <a href="doacoes.php" class="btn-primary"><i class="bi bi-box-seam"></i> Ver Doa&ccedil;&otilde;es</a>
-                <a href="conquistas.php" class="btn-primary"><i class="bi bi-trophy"></i> Ver Conquistas</a>
                 <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'empresa'): ?>
                     <a href="../auth/cadastroProduto.php" class="btn-primary"><i class="bi bi-plus-circle"></i> Cadastrar Produto</a>
                 <?php endif; ?>

@@ -5,15 +5,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Cadastro de Empresas | FomeOff</title>
         <link rel="stylesheet" type="text/css" href="../css/index.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+        <style>
+            .brand-logo { display:flex; align-items:center; gap:14px; font-size:1.6rem; font-weight:800; color:#fff; }
+            .brand-logo img { width:52px; height:52px; border-radius:16px; object-fit:cover; }
+            i.bi { margin-right:5px; }
+        </style>
     </head>
     <body>
         <div class="auth-page">
             <aside class="brand-panel">
                 <div>
                     <div class="brand-logo">
-                        <img src="../Imagens/Logo.png" alt="FomeOff" class="site-logo" />
-                        <span>🏬</span>
-                        <h1></h1>
+                        <img src="../Imagens/Logo.png" alt="FomeOff" />
+                        FomeOff
                     </div>
                     <h2>Cadastre sua empresa ou ONG</h2>
                     <p>Ajude a reduzir o desperdício conectando suas doações a quem precisa.</p>
@@ -21,17 +26,24 @@
 
                 <div class="brand-features">
                     <div class="feature-card">
-                        <span>🕛</span>
+                        <span><i class="bi bi-geo-alt-fill" style="font-size:1.3rem;"></i></span>
                         <div>
                             <strong>Locais próximos</strong>
                             <p>Doações perto de você.</p>
                         </div>
                     </div>
                     <div class="feature-card">
-                        <span>⚡</span>
+                        <span><i class="bi bi-lightning-charge-fill" style="font-size:1.3rem;"></i></span>
                         <div>
                             <strong>Tempo real</strong>
                             <p>Atualizações instantâneas.</p>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <span><i class="bi bi-building" style="font-size:1.3rem;"></i></span>
+                        <div>
+                            <strong>Empresa / ONG</strong>
+                            <p>Cadastre produtos para doação.</p>
                         </div>
                     </div>
                 </div>
@@ -46,31 +58,33 @@
 
                     <form method="post" action="../php/cadastrarEmpresa.php">
                         <label>
-                            Nome da empresa / ONG
+                            <i class="bi bi-building"></i> Nome da empresa / ONG
                             <input type="text" name="nome" placeholder="Empresa ou ONG" required minlength="3" maxlength="100" />
                         </label>
 
                         <label>
-                            CNPJ
+                            <i class="bi bi-card-text"></i> CNPJ
                             <input type="text" name="cnpj" placeholder="00.000.000/0000-00" minlength="3" maxlength="20" />
                         </label>
 
                         <label>
-                            CEP
+                            <i class="bi bi-geo-alt"></i> CEP
                             <input type="text" name="cep" placeholder="12345-678" minlength="3" maxlength="10" />
                         </label>
 
                         <label>
-                            Email
+                            <i class="bi bi-envelope"></i> Email
                             <input type="email" name="email" placeholder="contato@empresa.com" required />
                         </label>
 
                         <label>
-                            Senha
-                            <input type="password" name="senha" placeholder="••••••••" required minlength="3" maxlength="8" />
+                            <i class="bi bi-lock"></i> Senha
+                            <input type="password" name="senha" placeholder="••••••••" required minlength="3" maxlength="50" />
                         </label>
 
-                        <button type="submit" class="primary-btn">Cadastrar</button>
+                        <button type="submit" class="primary-btn">
+                            <i class="bi bi-building-add"></i> Cadastrar empresa
+                        </button>
                     </form>
 
                     <p class="form-footer">
@@ -80,5 +94,4 @@
             </main>
         </div>
     </body>
-    <script src="../js/site-brand.js"></script>
 </html>

@@ -552,10 +552,12 @@ HTML;
             const lon = parseFloat(p.longitude);
             if (p.latitude && p.longitude && !isNaN(lat) && !isNaN(lon)) {
                 L.marker([lat, lon]).addTo(map).bindPopup(
-                    '<strong>' + p.empresa + '</strong><br>' +
-                    '🎁 ' + p.nome_produto + '<br>' +
-                    '📊 Qtd: ' + p.quantidade + '<br>' +
-                    '📍 CEP: ' + p.cep
+                    '<div style="font-family:Inter,sans-serif;min-width:160px;">' +
+                        '<strong style="color:#E8411C;font-size:1rem;">' + p.empresa + '</strong><br><br>' +
+                        '<i class="bi bi-gift" style="color:#ff8c00;"></i> ' + p.nome_produto + '<br>' +
+                        '<i class="bi bi-stack" style="color:#ff8c00;"></i> Qtd: ' + p.quantidade + '<br>' +
+                        '<i class="bi bi-geo-alt" style="color:#ff8c00;"></i> CEP: ' + p.cep +
+                    '</div>'
                 );
             }
         });

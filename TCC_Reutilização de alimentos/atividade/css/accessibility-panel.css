@@ -13,7 +13,7 @@
     justify-content: center;
     font-size: 1.4rem;
     cursor: pointer;
-    z-index: 1001;
+    z-index: 998;
     box-shadow: 0 4px 16px rgba(255, 140, 0, 0.4);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     user-select: none;

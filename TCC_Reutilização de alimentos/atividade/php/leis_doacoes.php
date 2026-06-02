@@ -35,10 +35,10 @@ HTML;
                     <div class="lei-details">
                         <h4>Principais Pontos:</h4>
                         <ul>
-                            <li>✓ Autoriza doações de alimentos em situações de emergência</li>
-                            <li>✓ Facilita a distribuição de alimentos em contextos de crise sanitária</li>
-                            <li>✓ Protege doadores de responsabilidades legais em doações de boa fé</li>
-                            <li>✓ Estimula a solidariedade alimentar</li>
+                            <li><i class="bi bi-check-circle-fill" style="color:#FF8C00;margin-right:6px;"></i>Autoriza doações de alimentos em situações de emergência</li>
+                            <li><i class="bi bi-check-circle-fill" style="color:#FF8C00;margin-right:6px;"></i>Facilita a distribuição de alimentos em contextos de crise sanitária</li>
+                            <li><i class="bi bi-check-circle-fill" style="color:#FF8C00;margin-right:6px;"></i>Protege doadores de responsabilidades legais em doações de boa fé</li>
+                            <li><i class="bi bi-check-circle-fill" style="color:#FF8C00;margin-right:6px;"></i>Estimula a solidariedade alimentar</li>
                         </ul>
                     </div>
                 </div>
@@ -56,10 +56,10 @@ HTML;
                     <div class="lei-details">
                         <h4>Benefícios para Doadores:</h4>
                         <ul>
-                            <li>✓ Dedução fiscal de até 1% do Imposto de Renda</li>
-                            <li>✓ Dedução de doações de alimentos para instituições sociais</li>
-                            <li>✓ Benefícios tributários para empresas que participam do programa</li>
-                            <li>✓ Crédito fiscal para alimentos doados</li>
+                            <li><i class="bi bi-check-circle-fill" style="color:#FF8C00;margin-right:6px;"></i>Dedução fiscal de até 1% do Imposto de Renda</li>
+                            <li><i class="bi bi-check-circle-fill" style="color:#FF8C00;margin-right:6px;"></i>Dedução de doações de alimentos para instituições sociais</li>
+                            <li><i class="bi bi-check-circle-fill" style="color:#FF8C00;margin-right:6px;"></i>Benefícios tributários para empresas que participam do programa</li>
+                            <li><i class="bi bi-check-circle-fill" style="color:#FF8C00;margin-right:6px;"></i>Crédito fiscal para alimentos doados</li>
                         </ul>
                     </div>
                 </div>
@@ -77,10 +77,10 @@ HTML;
                     <div class="lei-details">
                         <h4>Principais Características:</h4>
                         <ul>
-                            <li>✓ Compra de produtos da agricultura familiar</li>
-                            <li>✓ Distribuição para entidades de assistência social</li>
-                            <li>✓ Fortalece a segurança alimentar</li>
-                            <li>✓ Promove a agricultura sustentável</li>
+                            <li><i class="bi bi-check-circle-fill" style="color:#FF8C00;margin-right:6px;"></i>Compra de produtos da agricultura familiar</li>
+                            <li><i class="bi bi-check-circle-fill" style="color:#FF8C00;margin-right:6px;"></i>Distribuição para entidades de assistência social</li>
+                            <li><i class="bi bi-check-circle-fill" style="color:#FF8C00;margin-right:6px;"></i>Fortalece a segurança alimentar</li>
+                            <li><i class="bi bi-check-circle-fill" style="color:#FF8C00;margin-right:6px;"></i>Promove a agricultura sustentável</li>
                         </ul>
                     </div>
                 </div>
@@ -98,10 +98,10 @@ HTML;
                     <div class="lei-details">
                         <h4>Direitos e Responsabilidades:</h4>
                         <ul>
-                            <li>✓ Reconhece a alimentação como direito fundamental</li>
-                            <li>✓ Estabelece responsabilidade estatal e privada</li>
-                            <li>✓ Promove participação da sociedade civil</li>
-                            <li>✓ Define políticas de combate à fome</li>
+                            <li><i class="bi bi-check-circle-fill" style="color:#FF8C00;margin-right:6px;"></i>Reconhece a alimentação como direito fundamental</li>
+                            <li><i class="bi bi-check-circle-fill" style="color:#FF8C00;margin-right:6px;"></i>Estabelece responsabilidade estatal e privada</li>
+                            <li><i class="bi bi-check-circle-fill" style="color:#FF8C00;margin-right:6px;"></i>Promove participação da sociedade civil</li>
+                            <li><i class="bi bi-check-circle-fill" style="color:#FF8C00;margin-right:6px;"></i>Define políticas de combate à fome</li>
                         </ul>
                     </div>
                 </div>
@@ -119,10 +119,10 @@ HTML;
                     <div class="lei-details">
                         <h4>Normas de Qualidade e Segurança:</h4>
                         <ul>
-                            <li>✓ Alimentos devem estar em perfeitas condições de consumo</li>
-                            <li>✓ Respeito à cadeia de frio quando necessário</li>
-                            <li>✓ Documentação e rastreabilidade dos alimentos</li>
-                            <li>✓ Conformidade com regulamentações sanitárias</li>
+                            <li><i class="bi bi-check-circle-fill" style="color:#FF8C00;margin-right:6px;"></i>Alimentos devem estar em perfeitas condições de consumo</li>
+                            <li><i class="bi bi-check-circle-fill" style="color:#FF8C00;margin-right:6px;"></i>Respeito à cadeia de frio quando necessário</li>
+                            <li><i class="bi bi-check-circle-fill" style="color:#FF8C00;margin-right:6px;"></i>Documentação e rastreabilidade dos alimentos</li>
+                            <li><i class="bi bi-check-circle-fill" style="color:#FF8C00;margin-right:6px;"></i>Conformidade com regulamentações sanitárias</li>
                         </ul>
                     </div>
                 </div>
@@ -140,10 +140,10 @@ HTML;
                     <div class="lei-details">
                         <h4>Engajamento Corporativo:</h4>
                         <ul>
-                            <li>✓ Redução de desperdício de alimentos</li>
-                            <li>✓ Contribuição para segurança alimentar da comunidade</li>
-                            <li>✓ Reputação corporativa e branding positivo</li>
-                            <li>✓ Impacto social mensurável</li>
+                            <li><i class="bi bi-check-circle-fill" style="color:#FF8C00;margin-right:6px;"></i>Redução de desperdício de alimentos</li>
+                            <li><i class="bi bi-check-circle-fill" style="color:#FF8C00;margin-right:6px;"></i>Contribuição para segurança alimentar da comunidade</li>
+                            <li><i class="bi bi-check-circle-fill" style="color:#FF8C00;margin-right:6px;"></i>Reputação corporativa e branding positivo</li>
+                            <li><i class="bi bi-check-circle-fill" style="color:#FF8C00;margin-right:6px;"></i>Impacto social mensurável</li>
                         </ul>
                     </div>
                 </div>
@@ -152,7 +152,7 @@ HTML;
 
         <div class="leis-cta">
             <div class="cta-card">
-                <h3>💡 Quer Fazer uma Doação?</h3>
+                <h3><i class="bi bi-lightbulb"></i> Quer Fazer uma Doação?</h3>
                 <p>Junte-se a empresas e ONGs que já estão fazendo a diferença através de doações de alimentos.</p>
                 <?php if ($isLogged): ?>
                     <a href="home.php" class="cta-btn">Ir para Home</a>
@@ -161,7 +161,7 @@ HTML;
                 <?php endif; ?>
             </div>
             <div class="cta-card">
-                <h3>❓ Dúvidas Frequentes?</h3>
+                <h3><i class="bi bi-question-circle"></i> Dúvidas Frequentes?</h3>
                 <p>Entre em contato conosco para esclarecer dúvidas sobre legislação e processo de doação.</p>
                 <a href="#" class="cta-btn secondary">Contatar Suporte</a>
             </div>

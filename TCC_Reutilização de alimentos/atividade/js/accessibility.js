@@ -259,12 +259,23 @@
             const panel = document.getElementById('accessibility-panel');
             const isOpen = panel.classList.toggle('open');
             if (this.overlay) this.overlay.classList.toggle('active', isOpen);
+            this._setChat(!isOpen);
         }
 
         closePanel() {
             const panel = document.getElementById('accessibility-panel');
             panel.classList.remove('open');
             if (this.overlay) this.overlay.classList.remove('active');
+            this._setChat(true);
+        }
+
+        _setChat(visible) {
+            if (!window.Tawk_API) return;
+            if (visible && typeof Tawk_API.showWidget === 'function') {
+                Tawk_API.showWidget();
+            } else if (!visible && typeof Tawk_API.hideWidget === 'function') {
+                Tawk_API.hideWidget();
+            }
         }
 
         attachEventListeners() {

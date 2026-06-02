@@ -9,6 +9,7 @@ $success = $_GET['success'] ?? '';
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FomeOff — Entrar</title>
     <link rel="stylesheet" href="./css/index.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <style>
         /* ── Login page overrides ── */
         .brand-logo {
@@ -124,17 +125,24 @@ $success = $_GET['success'] ?? '';
 
             <div class="brand-features">
                 <div class="feature-card">
-                    <span>🕛</span>
+                    <span><i class="bi bi-geo-alt-fill"></i></span>
                     <div>
                         <strong>Locais próximos</strong>
                         <p>Doações perto de você.</p>
                     </div>
                 </div>
                 <div class="feature-card">
-                    <span>⚡</span>
+                    <span><i class="bi bi-lightning-charge-fill"></i></span>
                     <div>
                         <strong>Tempo real</strong>
                         <p>Atualizações instantâneas.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <span><i class="bi bi-heart-fill"></i></span>
+                    <div>
+                        <strong>Solidariedade</strong>
+                        <p>Conectando quem doa a quem precisa.</p>
                     </div>
                 </div>
             </div>
@@ -200,7 +208,7 @@ $success = $_GET['success'] ?? '';
                     <p>Encontre o centro de doação mais próximo de você.</p>
                     <button type="button" class="chat-open-btn"
                             onclick="window.chatbotManager?.open()">
-                        💬 Precisa de ajuda? Abra o chat
+                        <i class="bi bi-chat-dots"></i> Precisa de ajuda? Abra o chat
                     </button>
                 </div>
 
@@ -213,21 +221,23 @@ $success = $_GET['success'] ?? '';
 
                 <form action="./php/login.php" method="post">
                     <label>
-                        Tipo de conta
+                        <i class="bi bi-person-badge"></i> Tipo de conta
                         <select name="tipo" required>
                             <option value="usuario">Usuário</option>
                             <option value="empresa">Empresa / ONG</option>
                         </select>
                     </label>
                     <label>
-                        Email
+                        <i class="bi bi-envelope"></i> Email
                         <input type="email" name="email" placeholder="seu@email.com" required />
                     </label>
                     <label>
-                        Senha
+                        <i class="bi bi-lock"></i> Senha
                         <input type="password" name="senha" placeholder="••••••••" required minlength="3" maxlength="50" />
                     </label>
-                    <button type="submit" class="primary-btn">Entrar</button>
+                    <button type="submit" class="primary-btn">
+                        <i class="bi bi-box-arrow-in-right"></i> Entrar
+                    </button>
                 </form>
 
                 <p class="form-footer">
@@ -239,7 +249,7 @@ $success = $_GET['success'] ?? '';
                     <a href="./html/cadastroEmpresas.html">Cadastre sua empresa / ONG</a>
                 </p>
                 <p class="form-footer">
-                    <a href="./php/leis_doacoes.php">📋 Conheça as leis sobre doações</a>
+                    <a href="./php/leis_doacoes.php"><i class="bi bi-book"></i> Conheça as leis sobre doações</a>
                 </p>
             </div>
         </main>

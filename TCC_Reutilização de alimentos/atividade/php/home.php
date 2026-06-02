@@ -1,12 +1,13 @@
 <?php
 session_start();
+
 if (!isset($_SESSION['nome'])) {
-    header("Location: ../index.php?error=Voce+precisa+logar+primeiro");
+    header('Location: ../index.php?error=Voce+precisa+logar+primeiro');
     exit;
 }
 
 $nome = $_SESSION['nome'];
-require 'conexao.php';
+require_once __DIR__ . '/conexao.php';
 
 if (!$pdo) {
     die('Erro de conexão com o banco de dados. Tente novamente mais tarde.');
@@ -20,576 +21,475 @@ if ($cepFiltro !== '') {
     $sql .= ' WHERE cep LIKE :cep';
     $params[':cep'] = substr($cepFiltro, 0, 5) . '%';
 }
-?>
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home | FomeOff</title>
-    <link rel="stylesheet" href="../css/index.css" />
-    <link rel="stylesheet" href="../css/acessibilidade.css" />
-    <link rel="stylesheet" href="../css/accessibility-panel.css" />
+
+$sql .= ' ORDER BY created_at DESC';
+$stmt = $pdo->prepare($sql);
+$stmt->execute($params);
+$produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$success = $_GET['success'] ?? '';
+$error   = $_GET['error'] ?? '';
+
+$paginaAtiva = 'home';
+$pageTitle   = 'Home | FomeOff';
+$extra_head  = <<<'HTML'
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
     <style>
         * { box-sizing: border-box; }
-        
-        body { 
-            background: linear-gradient(180deg, #FFF3E0 0%, #FFE4B5 100%);
+
+        body {
             margin: 0;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', Arial, sans-serif;
+            background: linear-gradient(180deg, #fff3e0 0%, #ffe8bf 100%);
+            color: #1f2937;
         }
-        
-        .navbar {
-            background: white;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            padding: 16px 20px;
-        }
-        
-        .navbar-content {
+
+        .home-container {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 36px 20px 56px;
+        }
+
+        .hero {
+            padding: 36px 28px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(255,140,0,0.13), rgba(232,79,22,0.08));
+            border-left: 8px solid #ff8c00;
+            box-shadow: 0 14px 32px rgba(232,65,28,0.08);
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            margin: 0 0 10px;
+            font-size: clamp(1.8rem, 3.8vw, 2.8rem);
+            color: #0f172a;
+        }
+
+        .hero p {
+            margin: 0;
+            font-size: 1.05rem;
+            color: #475569;
+        }
+
+        .message {
+            padding: 14px 16px;
+            border-radius: 14px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .message.success { background: #ecfdf5; color: #065f46; }
+        .message.error   { background: #fff1f2; color: #9f1239; }
+
+        .controls {
             display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
             justify-content: space-between;
             align-items: center;
-            gap: 24px;
+            background: rgba(255,255,255,0.72);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.7);
+            padding: 18px;
+            border-radius: 18px;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 24px rgba(15,23,42,0.05);
         }
-        
-        .navbar-brand {
+
+        .filter {
             display: flex;
+            gap: 10px;
+            flex: 1;
+            min-width: 260px;
+            flex-wrap: wrap;
             align-items: center;
-            gap: 12px;
-            text-decoration: none;
-            color: #E8411C;
+        }
+
+        .filter input {
+            flex: 1;
+            min-width: 220px;
+            height: 48px;
+            padding: 0 14px;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 0.98rem;
+            background: #fffaf3;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+
+        .filter button,
+        .btn-primary {
+            height: 48px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #ff8c00, #fdb813);
+            color: #fff;
             font-weight: 700;
-            font-size: 1.3rem;
-        }
-        
-        .navbar-brand span {
-            font-size: 1.8rem;
-        }
-        
-        .navbar-menu {
-            display: flex;
-            gap: 18px;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-        
-        .navbar-menu a {
-            color: #374151;
+            cursor: pointer;
             text-decoration: none;
-            font-weight: 600;
-            padding: 8px 10px;
-            border-radius: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-family: inherit;
+            box-sizing: border-box;
         }
-        
-        .navbar-menu a.active {
-            background: rgba(255,140,0,0.08);
-            color: #E8411C;
-        }
-        
-        .home-container {
-            max-width: 1180px;
-            margin: 40px auto;
-            padding: 20px;
-        }
-        
-        .message { padding: 14px 18px; border-radius: 14px; margin-bottom: 22px; }
-        .message.success { background:#ecfdf5; color:#065f46; }
-        .message.error { background:#fff1f2; color:#7f1d1d; }
-        
-        h1 { margin: 0 0 8px 0; }
-        p { margin: 0 0 20px 0; color: #475569; }
-        
-        .controls { display:flex; gap:12px; align-items:center; margin: 18px 0 20px 0; }
-        .filter { display:flex; gap:8px; align-items:center; }
-        .filter input { padding:10px 12px; border-radius:12px; border:1px solid #e6e6e6; }
-        
-        .cards { display:grid; gap:18px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
-        
-        .card { background:white; border-radius: 18px; padding: 18px; box-shadow: 0 10px 30px rgba(15,23,42,0.06); }
-        
-        .welcome { padding: 28px; background: linear-gradient(135deg, rgba(255,140,0,0.06), rgba(232,65,28,0.06)); border-radius: 18px; }
-        
-        .map { height: 320px; border-radius: 14px; overflow: hidden; }
-        
-        .cards-grid { display:grid; grid-template-columns: 1fr 340px; gap: 20px; }
-        
-        @media (max-width: 1024px) {
-            .cards-grid { grid-template-columns: 1fr; }
-        }
-        
-        @media (max-width: 768px) { 
-            .navbar-content {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 12px;
-            }
-            
-            .navbar-menu {
-                width: 100%;
-                gap: 12px;
-                font-size: 0.9rem;
-            }
-            
-            .controls { 
-                flex-direction: column; 
-            }
-            
-            .filter {
-                flex-direction: column;
-                min-width: auto;
-            }
-            
-            .filter input,
-            .filter button {
-                width: 100%;
-            }
-            
-            .cards {
-                grid-template-columns: 1fr;
-            }
-            
-            .welcome {
-                padding: 24px;
-            }
-            
-        }
-    </style>
-</head>
-<body>
-            max-width: 1200px; 
-            margin: 0 auto; 
-            padding: 40px 20px;
-        }
-        
-        .welcome { 
-            text-align: center; 
-            margin-bottom: 40px;
-            background: linear-gradient(135deg, rgba(255, 140, 0, 0.08), rgba(253, 184, 19, 0.08));
-            padding: 40px;
-            border-radius: 20px;
-            border-left: 6px solid #FF8C00;
-        }
-        
-        .welcome h1 {
-            margin: 0 0 12px 0;
-            font-size: clamp(1.8rem, 4vw, 2.8rem);
-            color: #E8411C;
-        }
-        
-        .welcome p {
-            margin: 0;
-            color: #666;
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .controls { 
-            display: flex; 
-            flex-wrap: wrap; 
-            gap: 20px; 
-            justify-content: space-between; 
-            align-items: stretch;
-            margin-bottom: 32px;
-            background: white;
-            padding: 20px;
-            border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        }
-        
-        .filter { 
-            display: flex; 
-            gap: 12px; 
-            flex: 1;
-            min-width: 280px;
-        }
-        
-        .filter input { 
-            flex: 1;
-            padding: 12px 16px; 
-            border: 2px solid #E0E0E0;
-            border-radius: 10px; 
-            background: #FFF;
-            transition: all 0.3s ease;
-            font-size: 0.95rem;
-        }
-        
-        .filter input:focus {
-            outline: none;
-            border-color: #FF8C00;
-            box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.1);
-        }
-        
-        .filter button { 
-            padding: 12px 24px; 
-            border: none; 
-            border-radius: 10px; 
-            background: linear-gradient(135deg, #FF8C00, #FDB813); 
-            color: #fff; 
-            cursor: pointer; 
-            font-weight: 600;
-            transition: all 0.3s ease;
+
+        .filter button { padding: 0 18px; }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0 16px;
             white-space: nowrap;
         }
-        
-        .filter button:hover {
+
+        .filter button:hover,
+        .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(255, 140, 0, 0.3);
+            box-shadow: 0 10px 18px rgba(255,140,0,0.25);
         }
-        
-        #map { 
-            width: 100%; 
-            min-height: 480px; 
-            border-radius: 16px; 
-            margin-bottom: 40px; 
-            box-shadow: 0 12px 32px rgba(232, 65, 28, 0.12);
+
+        .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+        #map {
+            width: 100%;
+            min-height: 360px;
+            border-radius: 18px;
+            margin-bottom: 32px;
+            box-shadow: 0 12px 32px rgba(232,65,28,0.10);
             overflow: hidden;
         }
-        
+
         .section-title {
-            font-size: 1.6rem;
-            color: #E8411C;
-            margin: 40px 0 24px 0;
-            display: flex;
-            align-items: center;
-            gap: 12px;
+            margin: 0 0 18px;
+            font-size: 1.45rem;
+            color: #c2410c;
         }
-        
-        .cards { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
-            gap: 24px;
-            margin-bottom: 40px;
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
         }
-        
-        .card { 
-            background: white; 
-            border-radius: 16px; 
-            padding: 24px; 
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-            border-left: 6px solid #FF8C00;
-            transition: all 0.3s ease;
+
+        .card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 22px;
+            box-shadow: 0 12px 28px rgba(15,23,42,0.08);
+            border-top: 5px solid #ff8c00;
             display: flex;
             flex-direction: column;
+            gap: 14px;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
-        
+
         .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+            transform: translateY(-3px);
+            box-shadow: 0 18px 36px rgba(15,23,42,0.12);
         }
-        
-        .card h3 { 
-            margin: 0 0 12px 0; 
-            color: #E8411C;
-            font-size: 1.2rem;
+
+        .card h3 { margin: 0; font-size: 1.18rem; color: #c2410c; }
+
+        .card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 12px;
         }
-        
-        .card-info {
-            display: grid;
-            gap: 10px;
-            margin-bottom: 16px;
-            flex: 1;
-        }
-        
-        .card-field {
-            display: grid;
-            gap: 4px;
-        }
-        
+
+        .card-info { display: grid; gap: 10px; }
+
+        .card-field { display: grid; gap: 4px; }
+
         .card-field-label {
-            font-weight: 600;
-            color: #666;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.04em;
+            color: #6b7280;
+            font-weight: 700;
         }
-        
-        .card-field-value {
-            color: #333;
-            font-size: 0.95rem;
-        }
-        
-        .card button { 
-            margin-top: auto;
-            padding: 12px 16px; 
-            border: none; 
-            border-radius: 10px; 
-            background: linear-gradient(135deg, #FF8C00, #FDB813); 
-            color: #fff; 
-            cursor: pointer; 
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
+
+        .card-field-value { color: #1f2937; word-break: break-word; }
+
         .card-actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 16px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: auto;
         }
+
+        .card-actions form {
+            display: contents; /* form invisível ao grid; button vira filho direto */
+        }
+
+        .card-actions .btn-solicitar,
+        .card-actions .btn-entrega {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 12px 8px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.88rem;
+            white-space: nowrap;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card-actions .btn-solicitar {
+            background: linear-gradient(135deg, #ff8c00, #fdb813);
+            color: #fff;
+            border: none;
+        }
+
+        .card-actions .btn-entrega {
+            border: 2px solid #ff8c00;
+            background: #fff;
+            color: #ff8c00;
+        }
+
+        .card-actions .btn-solicitar:hover,
+        .card-actions .btn-entrega:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(255,140,0,0.22);
+        }
+
         .delivery-form {
             display: none;
-            margin-top: 16px;
-            padding: 16px;
-            border-radius: 18px;
+            padding: 14px;
+            border-radius: 14px;
+            background: #fff8ef;
+            border: 1px solid #fed7aa;
+            gap: 10px;
+        }
+
+        .delivery-form.active { display: grid; }
+
+        .delivery-form input,
+        .delivery-form textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            font: inherit;
+            background: #fff;
+        }
+
+        .delivery-form button {
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #ff8c00, #fdb813);
+            color: #fff;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .avaliacoes { margin-top: 10px; }
+
+        .avaliacao-item {
+            margin-top: 8px;
+            padding: 10px;
+            border-radius: 10px;
             background: #fff8f0;
-            border: 1px solid #fed8b1;
+            border: 1px solid #ffecd1;
+            font-size: 0.9rem;
         }
-        .delivery-form.active {
-            display: block;
+
+        .avaliacao-nota { font-weight: 700; color: #c94a00; }
+        .avaliacao-autor { color: #555; margin-left: 8px; font-weight: 500; }
+        .avaliacao-comentario { margin-top: 6px; color: #444; }
+
+        .form-avaliar {
+            margin-top: 10px;
+            display: grid;
+            gap: 8px;
         }
-        
-        .card button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(255, 140, 0, 0.3);
-        }
-        
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            background: linear-gradient(135deg, rgba(255, 140, 0, 0.08), rgba(253, 184, 19, 0.08));
-            border-radius: 16px;
-            border-left: 6px solid #FF8C00;
-        }
-        
-        .empty-state p {
-            color: #666;
-            font-size: 1.1rem;
-            margin: 0;
-        }
-        
-        .actions { 
-            display: flex; 
-            gap: 14px; 
+
+        .form-avaliar-row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
             flex-wrap: wrap;
         }
-        
-        .actions a { 
-            color: #333;
-            text-decoration: none; 
-            font-weight: 500;
-            padding: 10px 16px;
+
+        .form-avaliar select,
+        .form-avaliar input {
+            padding: 8px 10px;
             border-radius: 8px;
-            transition: all 0.3s ease;
-            white-space: nowrap;
+            border: 1px solid #e9caa8;
+            font-family: inherit;
         }
-        
-        .actions a:hover {
-            background: rgba(255, 140, 0, 0.1);
-            color: #FF8C00;
+
+        .form-avaliar button {
+            padding: 8px 14px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #ff8c00, #fdb813);
+            color: #fff;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
         }
-        
-        .actions a.btn-primary {
-            background: linear-gradient(135deg, #FF8C00, #FDB813);
-            color: white;
+
+        .empty-state {
+            padding: 40px 28px;
+            border-radius: 18px;
+            background: rgba(255,255,255,0.8);
+            color: #475569;
+            text-align: center;
+            box-shadow: 0 10px 24px rgba(15,23,42,0.05);
         }
-        
-        .actions a.btn-primary:hover {
-            background: linear-gradient(135deg, #E8411C, #FF6C3C);
-        }
-        
-        body.dark-mode {
-            background: linear-gradient(180deg, #1a1a1a 0%, #2a2a2a 100%);
-        }
-        
-        body.dark-mode .navbar {
-            background: #2a2a2a;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        }
-        
-        body.dark-mode .card,
-        body.dark-mode .controls,
-        body.dark-mode .welcome {
-            background: #2a2a2a;
-            color: #e0e0e0;
-        }
-        
-        body.dark-mode .card-field-label,
-        body.dark-mode .card-field-value {
-            color: #b0b0b0;
-        }
-        
-        body.dark-mode .filter input {
-            background: #3a3a3a;
-            color: #e0e0e0;
-            border-color: #555;
-        }
-        
-        @media (max-width: 768px) { 
-            .navbar-content {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 12px;
-            }
-            
-            .navbar-menu {
-                width: 100%;
-                gap: 12px;
-                font-size: 0.9rem;
-            }
-            
-            .controls { 
-                flex-direction: column; 
-            }
-            
-            .filter {
-                flex-direction: column;
-                min-width: auto;
-            }
-            
-            .filter input,
-            .filter button {
-                width: 100%;
-            }
-            
-            .cards {
-                grid-template-columns: 1fr;
-            }
-            
-            .welcome {
-                padding: 24px;
-            }
-            
+
+        @media (max-width: 768px) {
+            .controls { align-items: stretch; }
+            .actions { width: 100%; }
+            .btn-primary, .filter button { width: 100%; }
         }
     </style>
-</head>
+HTML;
+?>
+<!DOCTYPE html>
+<html lang="pt-br">
+<?php include __DIR__ . '/head.php'; ?>
 <body>
-    <?php include __DIR__ . '/header.php'; ?>
-    <nav class="navbar">
-        <div class="navbar-content">
-            <a href="home.php" class="navbar-brand">
-                <img src="../Imagens/Logo.png" alt="FomeOff" class="site-logo" />
-            </a>
-            <ul class="navbar-menu">
-                <li><a href="home.php" class="active">🏡Home</a></li>
-                <li><a href="doacoes.php">📌 Doações</a></li>
-                <li><a href="leis_doacoes.php">📋 Leis</a></li>
-                <li><a href="configuracoes.php">⚙️ Configurações</a></li>
-            </ul>
-            <div class="navbar-location" id="locationBadge">
-                <span class="location-icon">🚩</span>
-                <span class="location-text">Localizando...</span>
-            </div>
-            <div class="navbar-actions">
-                <a href="logout.php">🚪 Sair</a>
-            </div>
-        </div>
-    </nav>
-    
-    <div class="home-container">
-            <?php if ($success): ?>
-                <div class="message success"><?php echo htmlspecialchars($success, ENT_QUOTES, 'UTF-8'); ?></div>
-            <?php endif; ?>
-            <?php if ($error): ?>
-                <div class="message error"><?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></div>
-            <?php endif; ?>
+    <?php include __DIR__ . '/navbar.php'; ?>
 
-            <h1>👋 Bem-vindo, <?php echo htmlspecialchars($nome, ENT_QUOTES, 'UTF-8'); ?>!</h1>
-            <p>Encontre alimentos disponíveis para doação próximo a você e faça a diferença na comunidade</p>
-        </div>
+    <main class="home-container">
+        <?php if ($success): ?>
+            <div class="message success"><?php echo htmlspecialchars($success, ENT_QUOTES, 'UTF-8'); ?></div>
+        <?php endif; ?>
+        <?php if ($error): ?>
+            <div class="message error"><?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></div>
+        <?php endif; ?>
 
-        <div class="controls">
-            <form class="filter" method="get">
-                <input type="text" name="cep" placeholder="🔍 Buscar por CEP (ex: 12345-678)" value="<?php echo htmlspecialchars($cepFiltro, ENT_QUOTES, 'UTF-8'); ?>" />
+        <section class="hero">
+            <h1>Bem-vindo, <?php echo htmlspecialchars($nome, ENT_QUOTES, 'UTF-8'); ?>!</h1>
+            <p>Encontre alimentos disponíveis para doação próximo a você e conecte sua comunidade a quem mais precisa.</p>
+        </section>
+
+        <section class="controls">
+            <form class="filter" method="get" action="">
+                <input type="text" name="cep" placeholder="Buscar por CEP (ex: 12345-678)"
+                       value="<?php echo htmlspecialchars($cepFiltro, ENT_QUOTES, 'UTF-8'); ?>" />
                 <button type="submit">Filtrar</button>
             </form>
             <div class="actions">
-                <a href="doacoes.php" class="btn-primary">📌 Ver Doações</a>
+                <a href="doacoes.php" class="btn-primary"><i class="bi bi-box-seam"></i> Ver Doa&ccedil;&otilde;es</a>
                 <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'empresa'): ?>
-                    <a href="../html/cadastroProduto.php" class="btn-primary">➕ Cadastrar Produto</a>
+                    <a href="../html/cadastroProduto.php" class="btn-primary"><i class="bi bi-plus-circle"></i> Cadastrar Produto</a>
                 <?php endif; ?>
             </div>
-        </div>
+        </section>
 
         <div id="map"></div>
 
-        <h2 class="section-title">📦 Produtos Disponíveis</h2>
+        <h2 class="section-title">Produtos Disponíveis</h2>
+
         <?php if (empty($produtos)): ?>
             <div class="empty-state">
-                <p>🚫 Nenhum produto cadastrado ainda.</p>
-                <p>As empresas podem adicionar itens para doação clicando em "Cadastrar Produto".</p>
+                <p>Nenhum produto cadastrado ainda.</p>
+                <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'empresa'): ?>
+                    <p>Clique em <strong>Cadastrar Produto</strong> para adicionar itens para doação.</p>
+                <?php endif; ?>
             </div>
         <?php else: ?>
             <div class="cards">
                 <?php foreach ($produtos as $produto): ?>
-                    <div class="card">
-                        <h3>🎁 <?php echo htmlspecialchars($produto['nome_produto'], ENT_QUOTES, 'UTF-8'); ?></h3>
-                        
+                    <article class="card">
+                        <h3><i class="bi bi-gift"></i> <?php echo htmlspecialchars($produto['nome_produto'] ?? 'Produto', ENT_QUOTES, 'UTF-8'); ?></h3>
+
                         <?php if (!empty($produto['imagem'])): ?>
-                            <div style="margin-bottom:18px;text-align:center;">
-                                <img src="../<?php echo htmlspecialchars($produto['imagem'], ENT_QUOTES, 'UTF-8'); ?>" alt="Foto do produto" style="max-width:100%;height:auto;border-radius:16px;object-fit:cover;border:1px solid #ffe5c8;" />
-                            </div>
+                            <img src="../<?php echo htmlspecialchars($produto['imagem'], ENT_QUOTES, 'UTF-8'); ?>"
+                                 alt="Foto do produto" />
                         <?php endif; ?>
+
                         <div class="card-info">
+                            <?php if (!empty($produto['empresa'])): ?>
                             <div class="card-field">
-                                <div class="card-field-label">🏢 Empresa</div>
+                                <div class="card-field-label">Empresa</div>
                                 <div class="card-field-value"><?php echo htmlspecialchars($produto['empresa'], ENT_QUOTES, 'UTF-8'); ?></div>
                             </div>
-                            
+                            <?php endif; ?>
+
+                            <?php if (!empty($produto['descricao'])): ?>
                             <div class="card-field">
-                                <div class="card-field-label">📝 Descrição</div>
+                                <div class="card-field-label">Descrição</div>
                                 <div class="card-field-value"><?php echo htmlspecialchars($produto['descricao'], ENT_QUOTES, 'UTF-8'); ?></div>
                             </div>
-                            
-                            <div class="card-field">
-                                <div class="card-field-label">📊 Quantidade</div>
-                                <div class="card-field-value"><?php echo htmlspecialchars($produto['quantidade'], ENT_QUOTES, 'UTF-8'); ?> unidades</div>
-                            </div>
-                            
-                            <div class="card-field">
-                                <div class="card-field-label">�️ Validade</div>
-                                <div class="card-field-value"><?php echo htmlspecialchars(date('d/m/Y', strtotime($produto['validade'])), ENT_QUOTES, 'UTF-8'); ?></div>
-                            </div>
+                            <?php endif; ?>
 
                             <div class="card-field">
-                                <div class="card-field-label">�📍 CEP</div>
-                                <div class="card-field-value"><?php echo htmlspecialchars($produto['cep'], ENT_QUOTES, 'UTF-8'); ?></div>
+                                <div class="card-field-label">Quantidade</div>
+                                <div class="card-field-value"><?php echo htmlspecialchars((string)($produto['quantidade'] ?? ''), ENT_QUOTES, 'UTF-8'); ?> unidades</div>
+                            </div>
+
+                            <?php if (!empty($produto['validade'])): ?>
+                            <div class="card-field">
+                                <div class="card-field-label">Validade</div>
+                                <div class="card-field-value">
+                                    <?php
+                                        $d = $produto['validade'];
+                                        echo htmlspecialchars(
+                                            (strlen($d) === 10 ? date('d/m/Y', strtotime($d)) : $d),
+                                            ENT_QUOTES, 'UTF-8'
+                                        );
+                                    ?>
+                                </div>
+                            </div>
+                            <?php endif; ?>
+
+                            <div class="card-field">
+                                <div class="card-field-label">CEP</div>
+                                <div class="card-field-value"><?php echo htmlspecialchars($produto['cep'] ?? '', ENT_QUOTES, 'UTF-8'); ?></div>
                             </div>
                         </div>
-                        
+
                         <div class="card-actions">
-                            <form method="post" action="solicitar.php" style="margin:0">
-                                <input type="hidden" name="produto_id" value="<?php echo (int)$produto['id']; ?>" />
+                            <form method="post" action="solicitar.php">
+                                <input type="hidden" name="produto_id" value="<?php echo (int)($produto['id'] ?? 0); ?>" />
                                 <input type="hidden" name="tipo" value="retirada" />
-                                <button type="submit">✅ Solicitar Doação</button>
+                                <button type="submit" class="btn-solicitar"><i class="bi bi-check-circle"></i> Solicitar</button>
                             </form>
-                            <button type="button" onclick="toggleDeliveryForm(<?php echo (int)$produto['id']; ?>)">🚚 Solicitar Entrega</button>
+                            <button type="button" class="btn-entrega"
+                                    onclick="document.getElementById('df-<?php echo (int)($produto['id'] ?? 0); ?>').classList.toggle('active')">
+                                <i class="bi bi-truck"></i> Entrega
+                            </button>
                         </div>
 
-                        <div id="delivery-form-<?php echo (int)$produto['id']; ?>" class="delivery-form">
-                            <form method="post" action="solicitar.php" style="margin:0">
-                                <input type="hidden" name="produto_id" value="<?php echo (int)$produto['id']; ?>" />
+                        <div id="df-<?php echo (int)($produto['id'] ?? 0); ?>" class="delivery-form">
+                            <form method="post" action="solicitar.php">
+                                <input type="hidden" name="produto_id" value="<?php echo (int)($produto['id'] ?? 0); ?>" />
                                 <input type="hidden" name="tipo" value="entrega" />
-                                <label style="display:block;margin-bottom:8px;font-weight:600;color:#666;">Informe o endereço de entrega</label>
-                                <input type="text" name="endereco" placeholder="Rua, número, bairro, cidade" required style="width:100%;padding:12px;border-radius:12px;border:1px solid #E0E0E0;margin-bottom:10px;" />
-                                <textarea name="observacoes" placeholder="Observações de entrega (opcional)" rows="3" style="width:100%;padding:12px;border-radius:12px;border:1px solid #E0E0E0;margin-bottom:10px;"></textarea>
-                                <button type="submit" style="padding:10px 14px;border-radius:10px;background:linear-gradient(135deg,#FF8C00,#FDB813);color:#fff;border:none;">Enviar pedido de entrega</button>
+                                <label style="font-weight:600;color:#666;font-size:0.9rem;">Endereço de entrega</label>
+                                <input type="text" name="endereco" placeholder="Rua, número, bairro, cidade" required />
+                                <textarea name="observacoes" placeholder="Observações (opcional)" rows="2"></textarea>
+                                <button type="submit">Enviar pedido</button>
                             </form>
                         </div>
 
                         <?php
-                            // buscar avaliações deste produto
+                        $avaliacoes = [];
+                        try {
                             $stmtRev = $pdo->prepare('SELECT nota, comentario, usuario_email, created_at FROM avaliacoes WHERE produto_id = :id ORDER BY created_at DESC');
                             $stmtRev->execute([':id' => $produto['id']]);
                             $avaliacoes = $stmtRev->fetchAll(PDO::FETCH_ASSOC);
+                        } catch (PDOException $e) { /* tabela pode não existir ainda */ }
                         ?>
 
                         <?php if (!empty($avaliacoes)): ?>
-                            <div style="margin-top:12px;">
-                                <strong>Avaliações:</strong>
+                            <div class="avaliacoes">
+                                <strong style="font-size:0.9rem;color:#555;">Avaliações:</strong>
                                 <?php foreach ($avaliacoes as $av): ?>
-                                    <div style="margin-top:8px;padding:8px;border-radius:8px;background:#fff8f0;border:1px solid #ffecd1;">
-                                        <div style="font-weight:600;color:#c94a00;">
-                                            <?php echo str_repeat('⭐', max(1, (int)$av['nota'])); ?> <span style="font-weight:500;color:#333;margin-left:8px;">por <?php echo htmlspecialchars($av['usuario_email'], ENT_QUOTES, 'UTF-8'); ?></span>
-                                        </div>
+                                    <div class="avaliacao-item">
+                                        <span class="avaliacao-nota"><?php echo str_repeat('<i class="bi bi-star-fill"></i>', max(1, (int)$av['nota'])); ?></span>
+                                        <span class="avaliacao-autor">por <?php echo htmlspecialchars($av['usuario_email'], ENT_QUOTES, 'UTF-8'); ?></span>
                                         <?php if (!empty($av['comentario'])): ?>
-                                            <div style="margin-top:6px;color:#444;"><?php echo nl2br(htmlspecialchars($av['comentario'], ENT_QUOTES, 'UTF-8')); ?></div>
+                                            <div class="avaliacao-comentario"><?php echo nl2br(htmlspecialchars($av['comentario'], ENT_QUOTES, 'UTF-8')); ?></div>
                                         <?php endif; ?>
                                     </div>
                                 <?php endforeach; ?>
@@ -597,158 +497,103 @@ if ($cepFiltro !== '') {
                         <?php endif; ?>
 
                         <?php
-                            // permitir avaliar somente se usuário solicitou (aprovado)
-                            $canReview = false;
-                            if (isset($_SESSION['email'])) {
+                        $canReview     = false;
+                        $alreadyReviewed = false;
+                        if (isset($_SESSION['email'])) {
+                            try {
                                 $stmtSol = $pdo->prepare('SELECT COUNT(*) FROM solicitacoes WHERE produto_id = :id AND usuario_email = :email AND status = "aprovado"');
                                 $stmtSol->execute([':id' => $produto['id'], ':email' => $_SESSION['email']]);
                                 $canReview = $stmtSol->fetchColumn() > 0;
 
-                                // verificar se já avaliou
                                 $stmtOwn = $pdo->prepare('SELECT COUNT(*) FROM avaliacoes WHERE produto_id = :id AND usuario_email = :email');
                                 $stmtOwn->execute([':id' => $produto['id'], ':email' => $_SESSION['email']]);
                                 $alreadyReviewed = $stmtOwn->fetchColumn() > 0;
-                            } else {
-                                $alreadyReviewed = false;
-                            }
+                            } catch (PDOException $e) { /* tabela pode não existir ainda */ }
+                        }
                         ?>
 
-                        <?php if (!empty($canReview) && !$alreadyReviewed): ?>
-                            <form method="post" action="salvarAvaliacao.php" style="margin-top:12px;">
-                                <input type="hidden" name="produto_id" value="<?php echo (int)$produto['id']; ?>" />
-                                <label style="display:block;margin-bottom:6px;font-weight:600;color:#666;">Deixe sua avaliação</label>
-                                <div style="display:flex;gap:8px;align-items:center;">
-                                    <select name="nota" required style="padding:8px;border-radius:8px;border:1px solid #e9caa8;">
+                        <?php if ($canReview && !$alreadyReviewed): ?>
+                            <form method="post" action="salvarAvaliacao.php" class="form-avaliar">
+                                <input type="hidden" name="produto_id" value="<?php echo (int)($produto['id'] ?? 0); ?>" />
+                                <label style="font-size:0.9rem;font-weight:600;color:#666;">Deixe sua avaliação</label>
+                                <div class="form-avaliar-row">
+                                    <select name="nota" required>
                                         <option value="">Nota</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
+                                        <?php for ($i = 1; $i <= 5; $i++): ?>
+                                            <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                        <?php endfor; ?>
                                     </select>
-                                    <input name="comentario" placeholder="Comentário (opcional)" style="flex:1;padding:8px;border-radius:8px;border:1px solid #e9caa8;" />
-                                    <button type="submit" style="padding:8px 12px;border-radius:8px;background:linear-gradient(135deg,#FF8C00,#FDB813);color:#fff;border:none;">Avaliar</button>
+                                    <input name="comentario" placeholder="Comentário (opcional)" style="flex:1;" />
+                                    <button type="submit">Avaliar</button>
                                 </div>
                             </form>
                         <?php endif; ?>
-                    </div>
+                    </article>
                 <?php endforeach; ?>
             </div>
         <?php endif; ?>
-    </div>
+    </main>
+
+    <?php include __DIR__ . '/footer.php'; ?>
 
     <script src="../js/accessibility.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
-    <script src="../js/chatbot.js"></script>
-    <script src="../js/site-brand.js"></script>
     <script>
-        function solicitarProduto(empresa) {
-            alert(`✅ Solicitação enviada para ${empresa}!\n\nEm breve você será contatado com as instruções de coleta.`);
-        }
-        
         const produtos = <?php echo json_encode($produtos, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP); ?>;
-        const mapElement = document.getElementById('map');
-        const map = L.map(mapElement).setView([-23.550520, -46.633308], 5);
-        let markers = [];
+        const mapEl = document.getElementById('map');
+        const map = L.map(mapEl).setView([-23.5505, -46.6333], 5);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
 
-        function addProductMarkers() {
-            produtos.forEach((produto) => {
-                const lat = parseFloat(produto.latitude);
-                const lon = parseFloat(produto.longitude);
-                if (
-                    produto.latitude !== null && produto.longitude !== null &&
-                    produto.latitude !== '' && produto.longitude !== '' &&
-                    !isNaN(lat) && !isNaN(lon)
-                ) {
-                    const marker = L.marker([lat, lon]).addTo(map);
-                    marker.bindPopup(`
-                        <strong>🏢 ${produto.empresa}</strong><br>
-                        <strong>🎁 ${produto.nome_produto}</strong><br>
-                        📝 ${produto.descricao}<br>
-                        📊 Quantidade: ${produto.quantidade}<br>
-                        📍 CEP: ${produto.cep}
-                    `);
-                    markers.push(marker);
-                }
-            });
-        }
-
-        function toggleDeliveryForm(id) {
-            const el = document.getElementById(`delivery-form-${id}`);
-            if (el) {
-                el.classList.toggle('active');
+        produtos.forEach(function(p) {
+            const lat = parseFloat(p.latitude);
+            const lon = parseFloat(p.longitude);
+            if (p.latitude && p.longitude && !isNaN(lat) && !isNaN(lon)) {
+                L.marker([lat, lon]).addTo(map).bindPopup(
+                    '<strong>' + p.empresa + '</strong><br>' +
+                    '🎁 ' + p.nome_produto + '<br>' +
+                    '📊 Qtd: ' + p.quantidade + '<br>' +
+                    '📍 CEP: ' + p.cep
+                );
             }
-        }
-
-        function setUserLocation(lat, lon) {
-            const userMarker = L.circleMarker([lat, lon], {
-                radius: 12,
-                fillColor: '#FF8C00',
-                color: '#E8411C',
-                weight: 3,
-                fillOpacity: 0.9,
-            }).addTo(map);
-            userMarker.bindPopup('📍 Você está aqui');
-            map.setView([lat, lon], 13);
-        }
-
-        addProductMarkers();
+        });
 
         function updateLocationBadge(lat, lon) {
             const badge = document.getElementById('locationBadge');
-            const textElement = badge ? badge.querySelector('.location-text') : null;
-            if (textElement) {
-                textElement.textContent = 'Localizando...';
-            }
+            const txt = badge ? badge.querySelector('.location-text') : null;
+            if (txt) txt.textContent = 'Localizando...';
 
-            fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`)
-                .then((response) => response.json())
-                .then((data) => {
-                    const address = data.address || {};
-                    const city = address.city || address.town || address.village || address.county || '';
-                    const state = address.state || address.state_district || '';
-                    const locationText = [city, state].filter(Boolean).join(', ');
-                    if (textElement) {
-                        textElement.textContent = locationText || 'Localização encontrada';
-                    }
+            fetch('https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=' + lat + '&lon=' + lon)
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    const addr = data.address || {};
+                    const city  = addr.city || addr.town || addr.village || addr.county || '';
+                    const state = addr.state || '';
+                    if (txt) txt.textContent = [city, state].filter(Boolean).join(', ') || 'Localização encontrada';
                 })
-                .catch(() => {
-                    if (textElement) {
-                        textElement.textContent = 'Localização encontrada';
-                    }
-                });
+                .catch(function() { if (txt) txt.textContent = 'Localização encontrada'; });
         }
 
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    setUserLocation(position.coords.latitude, position.coords.longitude);
-                    updateLocationBadge(position.coords.latitude, position.coords.longitude);
+                function(pos) {
+                    var lat = pos.coords.latitude, lon = pos.coords.longitude;
+                    L.circleMarker([lat, lon], {
+                        radius: 12, fillColor: '#FF8C00', color: '#E8411C',
+                        weight: 3, fillOpacity: 0.9
+                    }).addTo(map).bindPopup('📍 Você está aqui');
+                    map.setView([lat, lon], 13);
+                    updateLocationBadge(lat, lon);
                 },
-                () => {
-                    console.warn('Localização não permitida; mostrando mapa geral.');
-                    const badge = document.getElementById('locationBadge');
-                    if (badge) {
-                        const textElement = badge.querySelector('.location-text');
-                        if (textElement) {
-                            textElement.textContent = 'Localização indisponível';
-                        }
-                    }
+                function() {
+                    var badge = document.getElementById('locationBadge');
+                    var txt = badge ? badge.querySelector('.location-text') : null;
+                    if (txt) txt.textContent = 'Localização indisponível';
                 },
                 { enableHighAccuracy: true, timeout: 10000 }
             );
-        } else {
-            const badge = document.getElementById('locationBadge');
-            if (badge) {
-                const textElement = badge.querySelector('.location-text');
-                if (textElement) {
-                    textElement.textContent = 'Geolocalização não suportada';
-                }
-            }
         }
     </script>
 </body>

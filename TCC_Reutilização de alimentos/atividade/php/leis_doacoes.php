@@ -1,35 +1,18 @@
 <?php
 session_start();
 $isLogged = isset($_SESSION['nome']);
+
+$paginaAtiva = 'leis';
+$pageTitle   = 'Leis sobre Doações | FomeOff';
+$extra_head  = <<<'HTML'
+    <link rel="stylesheet" href="../css/leis.css" />
+HTML;
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Leis sobre Doações | FomeOff</title>
-    <link rel="stylesheet" href="../css/index.css" />
-    <link rel="stylesheet" href="../css/leis.css" />
-</head>
+<?php include __DIR__ . '/head.php'; ?>
 <body>
-    <?php include __DIR__ . '/header.php'; ?>
-    <?php if ($isLogged): ?>
-        <nav class="navbar">
-            <div class="navbar-container">
-                <div class="navbar-brand">
-                    <a href="home.php" class="navbar-brand">
-                    <img src="../Imagens/Logo.png" alt="Logo FomeOff" class="site-logo" />
-                </div>
-            <ul class="navbar-menu">
-                <li><a href="home.php" >🏡Home</a></li>
-                <li><a href="doacoes.php">📌 Doações</a></li>
-                <li><a href="leis_doacoes.php"class="active">📋 Leis</a></li>
-                <li><a href="configuracoes.php">⚙️ Configurações</a></li>
-            </ul>
-                </ul>
-            </div>
-        </nav>
-    <?php endif; ?>
+    <?php if ($isLogged): include __DIR__ . '/navbar.php'; endif; ?>
 
     <div class="leis-page">
         <div class="leis-header">
@@ -47,7 +30,6 @@ $isLogged = isset($_SESSION['nome']);
                     <span class="lei-badge">Nacional</span>
                 </div>
                 <div class="lei-content">
-        <script src="../js/chatbot.js"></script>
                     <h3>Doações de Alimentos Durante Pandemia</h3>
                     <p>Esta lei autoriza a União a transferir recursos para estados, Distrito Federal e municípios, a fim de apoiar ações de enfrentamento à emergência de saúde pública de importância internacional decorrente do novo coronavírus.</p>
                     <div class="lei-details">
@@ -125,7 +107,7 @@ $isLogged = isset($_SESSION['nome']);
                 </div>
             </section>
 
-            <!-- Lei de Distribuição de Alimentos -->
+            <!-- Resoluções e Normas -->
             <section class="lei-card">
                 <div class="lei-header">
                     <h2>Resoluções e Normas Complementares</h2>
@@ -146,7 +128,7 @@ $isLogged = isset($_SESSION['nome']);
                 </div>
             </section>
 
-            <!-- Estatuto de Responsabilidade Social -->
+            <!-- Responsabilidade Social -->
             <section class="lei-card">
                 <div class="lei-header">
                     <h2>Legislação de Responsabilidade Social Corporativa</h2>
@@ -186,8 +168,8 @@ $isLogged = isset($_SESSION['nome']);
         </div>
     </div>
 
-    <footer class="footer">
-        <p>&copy; 2026 FomeOff - Conectando solidariedade em tempo real. Todos os direitos reservados.</p>
-    </footer>
+    <?php include __DIR__ . '/footer.php'; ?>
+
+    <script src="../js/accessibility.js"></script>
 </body>
 </html>

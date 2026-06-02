@@ -1,5 +1,5 @@
 <?php
-$error = $_GET['error'] ?? '';
+$error   = $_GET['error'] ?? '';
 $success = $_GET['success'] ?? '';
 ?>
 <!DOCTYPE html>
@@ -7,23 +7,120 @@ $success = $_GET['success'] ?? '';
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Entrar | FomeOff</title>
+    <title>FomeOff — Entrar</title>
     <link rel="stylesheet" href="./css/index.css" />
+    <style>
+        /* ── Login page overrides ── */
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: #fff;
+        }
+
+        .brand-logo img {
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            object-fit: cover;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+        }
+
+        .form-card {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .form-header { margin-bottom: 0; }
+
+        form { margin-top: 24px; gap: 18px; }
+
+        select {
+            width: 100%;
+            padding: 16px 18px;
+            border: 1px solid #E0B299;
+            border-radius: 18px;
+            background: #FFF8F0;
+            font: inherit;
+            color: #111827;
+            transition: border-color 0.25s, box-shadow 0.25s;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 18px center;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #FF8C00;
+            box-shadow: 0 0 0 4px rgba(255,140,0,0.15);
+        }
+
+        .message {
+            padding: 14px 16px;
+            border-radius: 14px;
+            margin: 16px 0 0;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .message.error   { background: #fff1f2; color: #be123c; border-left: 4px solid #f43f5e; }
+        .message.success { background: #f0fdf4; color: #166534; border-left: 4px solid #22c55e; }
+
+        .form-footer { margin-top: 14px; }
+        .form-footer a { color: #FF8C00; }
+
+        .chat-open-btn {
+            margin-top: 12px;
+            padding: 9px 16px;
+            border: 1.5px solid #e5e7eb;
+            border-radius: 10px;
+            background: transparent;
+            color: #6b7280;
+            font: inherit;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .chat-open-btn:hover { border-color: #FF8C00; color: #FF8C00; }
+
+        /* Stats */
+        .stats-grid {
+            grid-template-columns: repeat(3, 1fr);
+            margin-top: 20px;
+        }
+
+        .stat-card strong { font-size: 1.6rem; }
+
+        /* Maps */
+        .maps-grid { margin-top: 20px; }
+
+        /* Idea card */
+        .idea-card { margin-top: 20px; }
+
+        @media (max-width: 960px) {
+            .brand-panel { padding: 32px 24px; }
+        }
+    </style>
 </head>
 <body>
-    <?php include 'php/header.php'; ?>
     <div class="auth-page">
+
+        <!-- Painel esquerdo — marca -->
         <aside class="brand-panel">
             <div>
                 <div class="brand-logo">
-                    <img src="./Imagens/Logo.png" alt="Logo FomeOff" class="site-logo" />
+                    <img src="./Imagens/Logo.png" alt="Logo FomeOff" />
+                    FomeOff
                 </div>
                 <h2>Conectando pessoas em tempo real</h2>
                 <p>Encontre empresas e ONGs que doam alimentos perto de você.</p>
             </div>
-
-                <figure class="brand-image">
-                </figure>
 
             <div class="brand-features">
                 <div class="feature-card">
@@ -90,23 +187,26 @@ $success = $_GET['success'] ?? '';
 
                 <div class="idea-card">
                     <h4>Como nossa ideia faz diferença</h4>
-                    <p>Esta plataforma conecta empresas e ONGs que têm alimentos disponíveis com quem precisa. Ao doar, você evita desperdício, fortalece cadeias locais e transforma vidas. A contribuição de cada organização significa menos pessoas em filas, menos comida desperdiçada e mais dignidade para famílias vulneráveis.</p>
+                    <p>Esta plataforma conecta empresas e ONGs que têm alimentos disponíveis com quem precisa. Ao doar, você evita desperdício, fortalece cadeias locais e transforma vidas.</p>
                 </div>
             </section>
         </aside>
 
+        <!-- Painel direito — formulário -->
         <main class="form-panel">
             <div class="form-card">
                 <div class="form-header">
                     <h3>Bem-vindo de volta!</h3>
                     <p>Encontre o centro de doação mais próximo de você.</p>
-                    <button type="button" class="chat-open-btn" onclick="window.chatbotManager?.open()">Precisa de ajuda? Abra o chat</button>
+                    <button type="button" class="chat-open-btn"
+                            onclick="window.chatbotManager?.open()">
+                        💬 Precisa de ajuda? Abra o chat
+                    </button>
                 </div>
 
                 <?php if ($error): ?>
                     <div class="message error"><?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></div>
                 <?php endif; ?>
-
                 <?php if ($success): ?>
                     <div class="message success"><?php echo htmlspecialchars($success, ENT_QUOTES, 'UTF-8'); ?></div>
                 <?php endif; ?>
@@ -119,17 +219,14 @@ $success = $_GET['success'] ?? '';
                             <option value="empresa">Empresa / ONG</option>
                         </select>
                     </label>
-
                     <label>
                         Email
                         <input type="email" name="email" placeholder="seu@email.com" required />
                     </label>
-
                     <label>
                         Senha
-                        <input type="password" name="senha" placeholder="••••••••" required minlength="3" maxlength="8" />
+                        <input type="password" name="senha" placeholder="••••••••" required minlength="3" maxlength="50" />
                     </label>
-
                     <button type="submit" class="primary-btn">Entrar</button>
                 </form>
 
@@ -138,15 +235,16 @@ $success = $_GET['success'] ?? '';
                     <a href="./html/cadastroUsuario.php">Cadastre-se</a>
                 </p>
                 <p class="form-footer">
-                    Sou empresa? <a href="./html/cadastroEmpresas.html">Cadastre sua empresa / ONG</a>
+                    Sou empresa?
+                    <a href="./html/cadastroEmpresas.html">Cadastre sua empresa / ONG</a>
                 </p>
                 <p class="form-footer">
-                    <a href="./php/leis_doacoes.php">📋 Conheça as leis sobre doações de alimentos</a>
+                    <a href="./php/leis_doacoes.php">📋 Conheça as leis sobre doações</a>
                 </p>
             </div>
         </main>
     </div>
+
     <script src="./js/chatbot.js"></script>
-    <script src="./js/site-brand.js"></script>
 </body>
 </html>

@@ -205,7 +205,6 @@ body {
 }
 
 form {
-    margin-top: 32px;
     display: grid;
     gap: 20px;
 }

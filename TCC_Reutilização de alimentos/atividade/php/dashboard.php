@@ -134,7 +134,7 @@ HTML;
                         </div>
 
                         <div class="card-actions">
-                            <form method="post" action="solicitar.php">
+                            <form method="post" action="actions/solicitar.php">
                                 <input type="hidden" name="produto_id" value="<?php echo (int)($produto['id'] ?? 0); ?>" />
                                 <input type="hidden" name="tipo" value="retirada" />
                                 <button type="submit" class="btn-solicitar"><i class="bi bi-check-circle"></i> Solicitar</button>
@@ -146,7 +146,7 @@ HTML;
                         </div>
 
                         <div id="df-<?php echo (int)($produto['id'] ?? 0); ?>" class="delivery-form">
-                            <form method="post" action="solicitar.php">
+                            <form method="post" action="actions/solicitar.php">
                                 <input type="hidden" name="produto_id" value="<?php echo (int)($produto['id'] ?? 0); ?>" />
                                 <input type="hidden" name="tipo" value="entrega" />
                                 <label style="font-weight:600;color:#666;font-size:0.9rem;">Endereço de entrega</label>
@@ -197,7 +197,7 @@ HTML;
                         ?>
 
                         <?php if ($canReview && !$alreadyReviewed): ?>
-                            <form method="post" action="salvarAvaliacao.php" class="form-avaliar">
+                            <form method="post" action="actions/salvarAvaliacao.php" class="form-avaliar">
                                 <input type="hidden" name="produto_id" value="<?php echo (int)($produto['id'] ?? 0); ?>" />
                                 <label style="font-size:0.9rem;font-weight:600;color:#666;">Deixe sua avaliação</label>
                                 <div class="form-avaliar-row">
@@ -284,6 +284,7 @@ HTML;
     </script>
 </body>
 </html>
+
 
 
 

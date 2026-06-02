@@ -1,4 +1,6 @@
 ﻿<?php
+session_start(); // deve ser chamado antes de qualquer output ou include
+
 if (isset($_POST['email'])) {
     $email = trim($_POST['email']);
     $senha = trim($_POST['senha']);
@@ -24,7 +26,6 @@ if (isset($_POST['email'])) {
         $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($usuario && $usuario['senha'] === $senha) {
-            session_start();
             $_SESSION['nome'] = $usuario['nome'];
             $_SESSION['email'] = $usuario['email'];
             $_SESSION['role'] = $tipo;

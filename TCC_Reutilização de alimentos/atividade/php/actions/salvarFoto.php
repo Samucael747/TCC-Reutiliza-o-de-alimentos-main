@@ -43,8 +43,8 @@ if (!in_array($file['type'], $allowedTypes)) {
     exit;
 }
 
-// Criar diretório se não existir
-$uploadDir = '../uploads/fotos/';
+// Criar diretório se não existir (caminho absoluto baseado em __DIR__)
+$uploadDir = __DIR__ . '/../../uploads/fotos/';
 if (!is_dir($uploadDir)) {
     mkdir($uploadDir, 0755, true);
 }
@@ -53,7 +53,8 @@ if (!is_dir($uploadDir)) {
 $fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
 $fileName = 'foto_' . $role . '_' . md5($email . time()) . '.' . $fileExtension;
 $filePath = $uploadDir . $fileName;
-$fileUrl = str_replace('\\', '/', $filePath);
+// URL relativa usada no HTML (servida de /php/)
+$fileUrl = '../uploads/fotos/' . $fileName;
 
 // Mover arquivo
 if (!move_uploaded_file($file['tmp_name'], $filePath)) {

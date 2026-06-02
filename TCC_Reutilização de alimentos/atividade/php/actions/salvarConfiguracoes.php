@@ -21,8 +21,6 @@ $currentEmail = $_SESSION['email'];
 $nome = trim($_POST['nome'] ?? '');
 $email = trim($_POST['email'] ?? '');
 $senha = trim($_POST['senha'] ?? '');
-$tema = in_array($_POST['tema'] ?? 'claro', ['claro', 'escuro'], true) ? $_POST['tema'] : 'claro';
-$notificacoes = isset($_POST['notificacoes']) && $_POST['notificacoes'] === '1' ? 1 : 0;
 
 if (!$nome || !$email) {
     header('Location: ../configuracoes.php?error=Nome+e+email+sao+obrigatorios');
@@ -54,15 +52,13 @@ try {
 
         $senha = $senha ?: $conta['senha'];
 
-        $stmt = $pdo->prepare('UPDATE empresas SET nome = :nome, email = :email, senha = :senha, cnpj = :cnpj, cep = :cep, tema = :tema, notificacoes = :notificacoes WHERE email = :currentEmail');
+        $stmt = $pdo->prepare('UPDATE empresas SET nome = :nome, email = :email, senha = :senha, cnpj = :cnpj, cep = :cep WHERE email = :currentEmail');
         $stmt->execute([
-            ':nome' => $nome,
-            ':email' => $email,
-            ':senha' => $senha,
-            ':cnpj' => $cnpj,
-            ':cep' => $cep,
-            ':tema' => $tema,
-            ':notificacoes' => $notificacoes,
+            ':nome'         => $nome,
+            ':email'        => $email,
+            ':senha'        => $senha,
+            ':cnpj'         => $cnpj,
+            ':cep'          => $cep,
             ':currentEmail' => $currentEmail,
         ]);
     } else {
@@ -86,13 +82,11 @@ try {
 
         $senha = $senha ?: $conta['senha'];
 
-        $stmt = $pdo->prepare('UPDATE usuarios SET nome = :nome, email = :email, senha = :senha, tema = :tema, notificacoes = :notificacoes WHERE email = :currentEmail');
+        $stmt = $pdo->prepare('UPDATE usuarios SET nome = :nome, email = :email, senha = :senha WHERE email = :currentEmail');
         $stmt->execute([
-            ':nome' => $nome,
-            ':email' => $email,
-            ':senha' => $senha,
-            ':tema' => $tema,
-            ':notificacoes' => $notificacoes,
+            ':nome'         => $nome,
+            ':email'        => $email,
+            ':senha'        => $senha,
             ':currentEmail' => $currentEmail,
         ]);
     }

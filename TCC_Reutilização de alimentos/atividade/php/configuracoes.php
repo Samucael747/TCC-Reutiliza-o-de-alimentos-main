@@ -17,9 +17,9 @@ $role    = $_SESSION['role'];
 $email   = $_SESSION['email'];
 
 if ($role === 'empresa') {
-    $stmt = $pdo->prepare('SELECT nome, email, senha, cnpj, cep FROM empresas WHERE email = :email LIMIT 1');
+    $stmt = $pdo->prepare('SELECT nome, email, senha, cnpj, cep, foto_perfil FROM empresas WHERE email = :email LIMIT 1');
 } else {
-    $stmt = $pdo->prepare('SELECT nome, email, senha FROM usuarios WHERE email = :email LIMIT 1');
+    $stmt = $pdo->prepare('SELECT nome, email, senha, foto_perfil FROM usuarios WHERE email = :email LIMIT 1');
 }
 $stmt->execute([':email' => $email]);
 $conta = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -29,8 +29,9 @@ if (!$conta) {
     exit;
 }
 
-$fotoPerfil      = null;
-$fotoPlaceholder = '../images/user-placeholder.png';
+$fotoPerfil = !empty($conta['foto_perfil']) ? htmlspecialchars($conta['foto_perfil'], ENT_QUOTES, 'UTF-8') : null;
+// SVG placeholder inline — sem depender de arquivo externo
+$fotoPlaceholder = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23FFF3E0'/%3E%3Ccircle cx='50' cy='38' r='18' fill='%23FF8C00' opacity='.7'/%3E%3Cellipse cx='50' cy='85' rx='28' ry='20' fill='%23FF8C00' opacity='.5'/%3E%3C/svg%3E";
 
 $paginaAtiva = 'configuracoes';
 $pageTitle   = 'Configurações | FomeOff';
@@ -61,7 +62,8 @@ HTML;
 
                 <div class="profile-section">
                     <img src="<?php echo $fotoPerfil ? htmlspecialchars($fotoPerfil, ENT_QUOTES, 'UTF-8') : $fotoPlaceholder; ?>"
-                         alt="Foto de perfil" class="profile-avatar" id="preview-foto" />
+                         alt="Foto de perfil" class="profile-avatar" id="preview-foto"
+                         onerror="this.src='<?php echo $fotoPlaceholder; ?>'" />
                     <div class="upload-wrapper">
                         <input type="file" id="foto-input" accept="image/*" onchange="uploadFoto(event)" />
                         <label for="foto-input" class="file-input-label"><i class="bi bi-camera"></i> Alterar Foto</label>
@@ -145,10 +147,36 @@ HTML;
                 return;
             }
 
+            // Preview local imediato
             const preview = document.getElementById('preview-foto');
             const reader = new FileReader();
             reader.onload = function(e) { preview.src = e.target.result; };
             reader.readAsDataURL(file);
+
+            // Upload real para o servidor
+            const loading = document.getElementById('upload-loading');
+            if (loading) loading.style.display = 'block';
+
+            const formData = new FormData();
+            formData.append('foto', file);
+
+            fetch('actions/salvarFoto.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (loading) loading.style.display = 'none';
+                if (data.success) {
+                    preview.src = data.fotoUrl;
+                } else {
+                    alert('Erro ao enviar foto: ' + (data.error || 'Tente novamente.'));
+                }
+            })
+            .catch(() => {
+                if (loading) loading.style.display = 'none';
+                alert('Falha na conexão ao enviar foto.');
+            });
         }
     </script>
 </body>

@@ -12,6 +12,7 @@ try {
     // Configura o modo de erro do PDO para exceção
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+    if (!function_exists('addColumnIfMissing')) {
     function addColumnIfMissing(PDO $pdo, string $table, string $columnName, string $columnDefinition)
     {
         $stmt = $pdo->prepare("SHOW COLUMNS FROM `$table` LIKE :column");
@@ -20,6 +21,7 @@ try {
             $pdo->exec("ALTER TABLE `$table` ADD COLUMN $columnDefinition");
         }
     }
+    } // end if (!function_exists)
 
     // Criar tabelas se não existirem
     $pdo->exec("CREATE TABLE IF NOT EXISTS usuarios(

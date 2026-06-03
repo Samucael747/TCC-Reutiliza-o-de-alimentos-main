@@ -17,8 +17,6 @@ body {
     background: linear-gradient(180deg, #FFE4B5 0%, #FFF3E0 100%);
 }
 
-.navbar
-
 .auth-page {
     display: grid;
     grid-template-columns: 1.2fr 1fr;
@@ -33,6 +31,14 @@ body {
     background: linear-gradient(135deg, #E8411C, #FF8C00 50%, #FDB813);
     color: #fff;
     gap: 24px;
+    align-self: stretch;
+}
+
+.form-panel {
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .brand-logo {

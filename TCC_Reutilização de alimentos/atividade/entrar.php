@@ -110,28 +110,16 @@ $success = $_GET['success'] ?? '';
         /* Idea card */
         .idea-card { margin-top: 20px; }
 
-        .auth-page {
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            gap: 32px;
-            min-height: 14vh;
-            align-items: center;
-        }
-
-        .brand-panel {
-            grid-column: 1;
-        }
-
         .form-panel {
-            grid-column: 2;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: center;
-            padding: 48px 24px;
+            padding: 48px 24px 48px;
+            background: #FFF3E0;
         }
 
         .form-card {
-            width: min(560px, 100%);
+            width: min(480px, 100%);
             background: #fff;
             border-radius: 32px;
             box-shadow: 0 28px 70px rgba(15, 23, 42, 0.12);

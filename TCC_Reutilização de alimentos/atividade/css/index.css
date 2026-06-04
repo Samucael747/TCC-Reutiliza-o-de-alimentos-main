@@ -70,9 +70,41 @@ body {
     display: inline-block;
     vertical-align: middle;
 }
+.menu-item {
+    position: relative;
+    list-style: none;
+}
+
+.sub-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 220px;
+    background: #ff6600;
+    border-radius: 20px;
+    padding: 10px 0;
+}
+
+.menu-item:hover .sub-menu {
+    display: block;
+}
+
+.sub-menu li {
+    list-style: none;
+}
+
+.sub-menu a {
+    display: block;
+    padding: 12px 20px;
+    color: white;
+    text-decoration: none;
+}
+
 
 /* Ensure navbar-brand aligns items center and logo sits at top-left */
 .navbar-brand img.site-logo { margin-left: 6px; }
+
 
 /* Fixed global logo for pages without a header logo */
 

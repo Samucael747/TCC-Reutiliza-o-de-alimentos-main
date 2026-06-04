@@ -142,7 +142,11 @@ $success = $_GET['success'] ?? '';
                 <div class="brand-logo">
                     <img src="./Imagens/Logo.png" alt="Logo FomeOff" />
                     FomeOff
-                    
+                    <div>
+                        <button type="button" onclick="window.location.href='index.php'">
+                            voltar
+                        </button>
+                    </div>
                 </div>
                 <h2>Conectando pessoas em tempo real</h2>
                 <p>Encontre empresas e ONGs que doam alimentos perto de você.</p>

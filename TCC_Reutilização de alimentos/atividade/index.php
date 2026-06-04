@@ -20,6 +20,71 @@
         }
     </script>
     <link rel="stylesheet" href="./css/acessibilidade.css" />
+    <style>
+        /* Transição premium de página */
+        #overlay{
+            position:fixed;
+            inset:0;
+            background:linear-gradient(135deg,#ff7a1a,#ff9b2f);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            flex-direction:column;
+            opacity:0;
+            visibility:hidden;
+            transition:.45s;
+            z-index:9999;
+        }
+        #overlay.active{
+            opacity:1;
+            visibility:visible;
+        }
+        .glow{
+            position:absolute;
+            width:320px;
+            height:320px;
+            border-radius:50%;
+            background:rgba(255,255,255,.18);
+            filter:blur(25px);
+            animation:glow 2s infinite ease-in-out;
+        }
+        .logo{
+            width:240px;
+            z-index:2;
+            animation:float 2s infinite ease-in-out;
+            filter:drop-shadow(0 25px 35px rgba(0,0,0,.25));
+        }
+        .tag{
+            color:white;
+            font-size:22px;
+            font-weight:600;
+            margin-top:20px;
+            opacity:0;
+            animation:textIn .6s .3s forwards;
+            z-index:2;
+        }
+        .progress{
+            width:260px;
+            height:5px;
+            background:rgba(255,255,255,.25);
+            border-radius:999px;
+            margin-top:22px;
+            overflow:hidden;
+            z-index:2;
+        }
+        .progress::after{
+            content:'';
+            display:block;
+            height:100%;
+            width:0%;
+            background:white;
+            animation:load 1.8s forwards;
+        }
+        @keyframes load{to{width:100%;}}
+        @keyframes glow{0%,100%{transform:scale(1);}50%{transform:scale(1.15);}}
+        @keyframes float{0%,100%{transform:translateY(0) rotate(-2deg);}50%{transform:translateY(-16px) rotate(2deg);}}
+        @keyframes textIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+    </style>
     <link rel="stylesheet" href="./css/accessibility-panel.css" />
     <style>
         body { font-family: 'Inter', system-ui, sans-serif; }
@@ -39,8 +104,8 @@
                     <span class="text-gray-800 text-2xl font-bold">FomeOff</span>
                 </div>
                 <div class="flex gap-4">
-                    <a href="entrar.php" class="px-6 py-2 text-gray-700 hover:text-orange-600 rounded-lg transition">Entrar</a>
-                    <a href="auth/cadastroUsuario.php" class="px-6 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition">Cadastre-se</a>
+                    <a href="entrar.php" class="px-6 py-2 text-gray-700 hover:text-orange-600 rounded-lg transition" onclick="startTransition('entrar.php'); return false;">Entrar</a>
+                    <a href="auth/cadastroUsuario.php" class="px-6 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition" onclick="startTransition('auth/cadastroUsuario.php'); return false;">Cadastre-se</a>
                 </div>
             </div>
         </header>
@@ -60,14 +125,14 @@
                         Plataforma que conecta empresas e ONGs que doam alimentos com pessoas que precisam. Em tempo real, com mapa interativo.
                     </p>
                     <div class="flex gap-4 flex-wrap">
-                        <a href="auth/cadastroUsuario.php" class="px-8 py-4 bg-orange-500 text-white rounded-lg font-semibold hover:bg-orange-600 transition flex items-center gap-2 shadow-lg shadow-orange-200">
+                        <a href="auth/cadastroUsuario.php" class="px-8 py-4 bg-orange-500 text-white rounded-lg font-semibold hover:bg-orange-600 transition flex items-center gap-2 shadow-lg shadow-orange-200" onclick="startTransition('auth/cadastroUsuario.php'); return false;">
                             Quero Receber Doações
                             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <line x1="5" y1="12" x2="19" y2="12"></line>
                                 <polyline points="12 5 19 12 12 19"></polyline>
                             </svg>
                         </a>
-                        <a href="auth/cadastroEmpresas.html" class="px-8 py-4 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 transition shadow-lg shadow-green-200">
+                        <a href="auth/cadastroEmpresas.html" class="px-8 py-4 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 transition shadow-lg shadow-green-200" onclick="startTransition('auth/cadastroEmpresas.html'); return false;">
                             Quero Doar Alimentos
                         </a>
                     </div>
@@ -232,8 +297,8 @@
                 <h2 class="text-4xl font-bold text-white mb-6">Pronto para Fazer a Diferença?</h2>
                 <p class="text-xl text-white/90 mb-12">Junte-se a nós na luta contra o desperdício de alimentos</p>
                 <div class="flex gap-4 justify-center flex-wrap">
-                    <a href="auth/cadastroUsuario.php" class="px-12 py-5 bg-white text-orange-600 rounded-lg text-lg font-semibold hover:bg-gray-50 transition shadow-xl">Começar Agora</a>
-                    <a href="auth/cadastroEmpresas.html" class="px-12 py-5 bg-green-500 text-white rounded-lg text-lg font-semibold hover:bg-green-600 transition shadow-xl">Quero Doar</a>
+                    <a href="auth/cadastroUsuario.php" class="px-12 py-5 bg-white text-orange-600 rounded-lg text-lg font-semibold hover:bg-gray-50 transition shadow-xl" onclick="startTransition('auth/cadastroUsuario.php'); return false;">Começar Agora</a>
+                    <a href="auth/cadastroEmpresas.html" class="px-12 py-5 bg-green-500 text-white rounded-lg text-lg font-semibold hover:bg-green-600 transition shadow-xl" onclick="startTransition('auth/cadastroEmpresas.html'); return false;">Quero Doar</a>
                 </div>
             </div>
         </section>
@@ -251,8 +316,8 @@
                     <div class="flex gap-6 text-gray-400">
                         <a href="./sensibilizacao.html" class="hover:text-orange-500 transition">Sobre</a>
                         <a href="php/leis_doacoes.php" class="hover:text-orange-500 transition">Leis</a>
-                        <a href="entrar.php" class="hover:text-orange-500 transition">Entrar</a>
-                        <a href="auth/cadastroUsuario.php" class="hover:text-orange-500 transition">Cadastre-se</a>
+                        <a href="entrar.php" class="hover:text-orange-500 transition" onclick="startTransition('entrar.php'); return false;">Entrar</a>
+                        <a href="auth/cadastroUsuario.php" class="hover:text-orange-500 transition" onclick="startTransition('auth/cadastroUsuario.php'); return false;">Cadastre-se</a>
                     </div>
                 </div>
                 <div class="border-t border-gray-800 pt-8 text-center">
@@ -262,6 +327,20 @@
         </footer>
     </div>
 
+    <div id="overlay">
+        <div class="glow"></div>
+        <img class="logo" src="Imagens/Logo.png" alt="FomeOff" />
+        <div class="tag">Conectando doadores a quem precisa</div>
+        <div class="progress"></div>
+    </div>
+
+    <script>
+        function startTransition(targetPath){
+            const overlay = document.getElementById('overlay');
+            overlay.classList.add('active');
+            setTimeout(() => { window.location.href = targetPath; }, 1900);
+        }
+    </script>
     <script src="./js/accessibility.js"></script>
 </body>
 </html>

@@ -105,10 +105,24 @@ HTML;
                     <label>
                         <span class="field-label"><i class="bi bi-lock"></i> Nova senha</span>
                         <input type="password" name="senha"
-                               placeholder="Deixe em branco para manter a senha atual"
+                               placeholder="Digite a nova senha"
                                minlength="3" maxlength="50" />
                     </label>
-
+                    <label>
+                        <span class="field-label"><i class="bi bi-lock"></i> Confirmar nova senha</span>
+                        <input type="password" name="confirmar_senha"
+                               placeholder="Confirme a nova senha"
+                               minlength="3" maxlength="50" />
+                    </label>
+                    <label>
+                        <span class = "fild-label"><i class="bi bi-envelope-check"></i> Email de recuperação</span>
+                            <input type="emailRecuperacao" name="email_recuperacao"></i> Email para recuperação de senha</span>
+                        <span class="field-hint">Opcional: email para recuperar email caso esqueçar a senha</span>
+                        <input type="email" name="email_recuperacao"
+                                   value="<?php echo htmlspecialchars($conta['email'], ENT_QUOTES, 'UTF-8'); ?>"
+                                   placeholder="Email para recuperação de senha" maxlength="100" />
+                        </span>
+                    </label>
                     <div class="actions-row">
                         <button type="submit" class="primary-btn"><i class="bi bi-floppy"></i> Salvar Alterações</button>
                         <a href="dashboard.php"><i class="bi bi-arrow-left"></i> Voltar</a>

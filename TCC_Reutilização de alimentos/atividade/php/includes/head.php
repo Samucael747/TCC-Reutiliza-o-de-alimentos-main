@@ -60,6 +60,38 @@ $pageTitle = $pageTitle ?? 'FomeOff';
         }
         .navbar-menu a:hover { color: #FF8C00; }
         .navbar-menu a.active { color: #FF8C00; font-weight: 600; }
+        .navbar-search {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #f5f5f5;
+            padding: 6px 10px;
+            border-radius: 999px;
+            border: 1px solid #e5e7eb;
+        }
+        .navbar-search input {
+            border: none;
+            background: transparent;
+            outline: none;
+            width: 180px;
+            font: inherit;
+            color: #111827;
+        }
+        .navbar-search input::placeholder { color: #9ca3af; }
+        .navbar-search button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            border: none;
+            background: #FF8C00;
+            color: #fff;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+        .navbar-search button:hover { transform: scale(1.05); background: #e55a00; }
         .navbar-sair {
             color: #333;
             text-decoration: none;

@@ -127,6 +127,10 @@ $error = $_GET['error'] ?? '';
                         <input type="password" name="senha" placeholder="••••••••"
                                required minlength="3" maxlength="50" />
                     </label>
+                    <label>
+                        <span class="field-label"><i class="bi bi-lock"></i> Confirmar senha</span>
+                        <input type="password" name="confirmar_senha" placeholder="••••••••"
+                               required minlength="3" maxlength="50" />
 
                     <button type="submit" class="primary-btn">
                         <i class="bi bi-person-plus"></i> Criar conta

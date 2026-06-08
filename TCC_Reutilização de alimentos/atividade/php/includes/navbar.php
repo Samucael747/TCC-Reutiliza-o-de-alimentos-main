@@ -20,8 +20,9 @@ $p      = $inHtml ? '../php/' : '';   // prefixo para links de páginas PHP
                     <li><a href="<?php echo $p; ?>leis_doacoes.php"<?php if ($paginaAtiva === 'leis') echo ' class="active"'; ?>>Leis</a></li>
                 </ul>
             </li>
-            <li><a href="<?php echo $p; ?>configuracoes.php"<?php if ($paginaAtiva === 'configuracoes') echo ' class="active"'; ?>><i class="bi bi-gear"></i> Configura&ccedil;&otilde;es</a></li>
             <li><a href="<?php echo $p; ?>chat.php"<?php if ($paginaAtiva === 'chat') echo ' class="active"'; ?>><i class="bi bi-chat-dots"></i> Chat</a></li>
+        
+            <li><a href="<?php echo $p; ?>configuracoes.php"<?php if ($paginaAtiva === 'configuracoes') echo ' class="active"'; ?>><i class="bi bi-gear"></i> Configura&ccedil;&otilde;es</a></li>
         </ul>
         <form class="navbar-search" onsubmit="return handleNavbarSearch(event)">
             <input type="search" name="q" placeholder="Buscar páginas..." aria-label="Buscar páginas" />

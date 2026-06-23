@@ -105,6 +105,15 @@ try {
     addColumnIfMissing($pdo, 'solicitacoes', 'endereco_entrega', "endereco_entrega VARCHAR(255) DEFAULT NULL");
     addColumnIfMissing($pdo, 'solicitacoes', 'observacoes', "observacoes VARCHAR(500) DEFAULT NULL");
 
+    $pdo->exec("CREATE TABLE IF NOT EXISTS mensagens (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        usuario_email VARCHAR(100) NOT NULL,
+        empresa_id INT NOT NULL,
+        remetente ENUM('usuario','voluntario') NOT NULL DEFAULT 'usuario',
+        texto TEXT NOT NULL,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )");
+
     // Avaliações deixadas por usuários sobre produtos/empresas
     $pdo->exec("CREATE TABLE IF NOT EXISTS avaliacoes (
         id INT PRIMARY KEY AUTO_INCREMENT,

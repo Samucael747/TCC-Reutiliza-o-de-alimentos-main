@@ -20,7 +20,7 @@ $p      = $inHtml ? '../php/' : '';   // prefixo para links de páginas PHP
                     <li><a href="<?php echo $p; ?>leis_doacoes.php"<?php if ($paginaAtiva === 'leis') echo ' class="active"'; ?>>Leis</a></li>
                 </ul>
             </li>
-            <li><a href="<?php echo $p; ?>chat.php"<?php if ($paginaAtiva === 'chat') echo ' class="active"'; ?>><i class="bi bi-chat-dots"></i> Chat</a></li>
+            <li><a href="<?php echo $p; ?>chat.php"<?php if ($paginaAtiva === 'chat') echo ' class="active"'; ?> id="navChatLink"><i class="bi bi-chat-dots"></i> Chat <span id="chatBadge" style="display:none;background:#e8411c;color:#fff;border-radius:999px;font-size:0.7rem;font-weight:700;padding:1px 7px;margin-left:2px;vertical-align:middle;"></span></a></li>
         
             <li><a href="<?php echo $p; ?>configuracoes.php"<?php if ($paginaAtiva === 'configuracoes') echo ' class="active"'; ?>><i class="bi bi-gear"></i> Configura&ccedil;&otilde;es</a></li>
         </ul>
@@ -39,6 +39,26 @@ $p      = $inHtml ? '../php/' : '';   // prefixo para links de páginas PHP
     </div>
 </nav>
 <script>
+    (function pollBadge() {
+        fetch('<?php echo $p; ?>actions/contarNaoLidas.php')
+            .then(r => r.json())
+            .then(d => {
+                const badge = document.getElementById('chatBadge');
+                if (!badge) return;
+                if (d.count > 0) {
+                    badge.textContent = d.count > 99 ? '99+' : d.count;
+                    badge.style.display = 'inline';
+                    document.title = document.title.replace(/^\(\d+\) /, '');
+                    document.title = '(' + d.count + ') ' + document.title;
+                } else {
+                    badge.style.display = 'none';
+                    document.title = document.title.replace(/^\(\d+\) /, '');
+                }
+            })
+            .catch(() => {});
+        setTimeout(pollBadge, 10000);
+    })();
+
     function handleNavbarSearch(event) {
         event.preventDefault();
         const query = (event.target.q.value || '').trim().toLowerCase();

@@ -111,8 +111,10 @@ try {
         empresa_id INT NOT NULL,
         remetente ENUM('usuario','voluntario') NOT NULL DEFAULT 'usuario',
         texto TEXT NOT NULL,
+        lida TINYINT(1) NOT NULL DEFAULT 0,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )");
+    addColumnIfMissing($pdo, 'mensagens', 'lida', "lida TINYINT(1) NOT NULL DEFAULT 0");
 
     // Avaliações deixadas por usuários sobre produtos/empresas
     $pdo->exec("CREATE TABLE IF NOT EXISTS avaliacoes (
@@ -125,6 +127,13 @@ try {
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (produto_id) REFERENCES produtos(id)
     )");
+
+    // Limpeza automática: remove mensagens lidas com mais de 30 dias
+    // Roda apenas 1 vez por sessão para não impactar performance
+    if (session_status() === PHP_SESSION_ACTIVE && empty($_SESSION['_limpeza_feita'])) {
+        $_SESSION['_limpeza_feita'] = true;
+        $pdo->exec("DELETE FROM mensagens WHERE lida = 1 AND created_at < DATE_SUB(NOW(), INTERVAL 30 DAY)");
+    }
 
 } catch (PDOException $e) {
     die("Erro na conexão com banco de dados: " . $e->getMessage());

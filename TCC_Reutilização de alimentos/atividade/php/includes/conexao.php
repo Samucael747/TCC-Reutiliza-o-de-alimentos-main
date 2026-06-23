@@ -47,6 +47,10 @@ try {
     addColumnIfMissing($pdo, 'usuarios', 'acessibilidade_preferences', "acessibilidade_preferences JSON DEFAULT NULL");
     addColumnIfMissing($pdo, 'empresas', 'foto_perfil', "foto_perfil VARCHAR(255) DEFAULT NULL");
     addColumnIfMissing($pdo, 'empresas', 'acessibilidade_preferences', "acessibilidade_preferences JSON DEFAULT NULL");
+    addColumnIfMissing($pdo, 'empresas', 'voluntario_nome', "voluntario_nome VARCHAR(100) DEFAULT NULL");
+    addColumnIfMissing($pdo, 'empresas', 'voluntario_info', "voluntario_info VARCHAR(255) DEFAULT NULL");
+    addColumnIfMissing($pdo, 'empresas', 'latitude', "latitude DECIMAL(10,7) DEFAULT NULL");
+    addColumnIfMissing($pdo, 'empresas', 'longitude', "longitude DECIMAL(10,7) DEFAULT NULL");
 
     $pdo->exec("CREATE TABLE IF NOT EXISTS produtos (
         id INT PRIMARY KEY AUTO_INCREMENT,

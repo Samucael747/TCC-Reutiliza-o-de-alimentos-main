@@ -27,6 +27,9 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute($params);
 $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+$stmtVol = $pdo->query('SELECT nome, voluntario_nome, voluntario_info, latitude, longitude FROM empresas WHERE voluntario_nome IS NOT NULL AND voluntario_nome != \'\' AND latitude IS NOT NULL');
+$voluntariosBD = $stmtVol->fetchAll(PDO::FETCH_ASSOC);
+
 $success = $_GET['success'] ?? '';
 $error   = $_GET['error'] ?? '';
 
@@ -224,6 +227,17 @@ HTML;
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
     <script>
         const produtos = <?php echo json_encode($produtos, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP); ?>;
+
+        const voluntarios = <?php echo json_encode(array_map(function($v) {
+            return [
+                'nome'   => $v['voluntario_nome'],
+                'cidade' => $v['nome'],
+                'info'   => $v['voluntario_info'] ?? '',
+                'lat'    => (float)$v['latitude'],
+                'lon'    => (float)$v['longitude'],
+            ];
+        }, $voluntariosBD), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP); ?>;
+
         const mapEl = document.getElementById('map');
         const map = L.map(mapEl).setView([-23.5505, -46.6333], 5);
 
@@ -244,6 +258,25 @@ HTML;
                     '</div>'
                 );
             }
+        });
+
+        const voluntarioIcon = L.divIcon({
+            html: '<div style="background:#16a34a;width:28px;height:28px;border-radius:50%;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;font-size:14px;">🤝</div>',
+            className: '',
+            iconSize: [28, 28],
+            iconAnchor: [14, 14],
+            popupAnchor: [0, -16]
+        });
+
+        voluntarios.forEach(function(v) {
+            L.marker([v.lat, v.lon], { icon: voluntarioIcon }).addTo(map).bindPopup(
+                '<div style="font-family:Inter,sans-serif;min-width:180px;">' +
+                    '<strong style="color:#16a34a;font-size:1rem;">🤝 ' + v.nome + '</strong><br>' +
+                    '<small style="color:#64748b;">' + v.cidade + '</small><br><br>' +
+                    '<span style="color:#374151;">' + v.info + '</span><br><br>' +
+                    '<a href="chat.php" style="color:#16a34a;font-weight:700;text-decoration:none;">Conversar →</a>' +
+                '</div>'
+            );
         });
 
         function updateLocationBadge(lat, lon) {

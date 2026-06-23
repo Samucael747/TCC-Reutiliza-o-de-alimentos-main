@@ -204,6 +204,22 @@
                         <input type="password" name="confirmar_senha" placeholder="••••••••" required minlength="3" maxlength="50" />
                     </label>
 
+                    <div style="border-top:1px solid #f1e8db;margin:8px 0;padding-top:16px;">
+                        <p style="margin:0 0 12px;font-size:0.9rem;color:#6b7280;font-weight:600;">
+                            <i class="bi bi-person-check" style="color:#16a34a;"></i> Voluntário responsável <span style="font-weight:400;">(opcional)</span>
+                        </p>
+                        <div style="display:grid;gap:14px;">
+                            <label>
+                                <span class="field-label"><i class="bi bi-person" style="color:#16a34a;"></i> Nome do voluntário</span>
+                                <input type="text" name="voluntario_nome" placeholder="Ex: Maria Silva" maxlength="100" />
+                            </label>
+                            <label>
+                                <span class="field-label"><i class="bi bi-clock" style="color:#16a34a;"></i> Disponibilidade</span>
+                                <input type="text" name="voluntario_info" placeholder="Ex: Disponível 14h–18h, pequenas entregas" maxlength="255" />
+                            </label>
+                        </div>
+                    </div>
+
                     <button type="submit" class="primary-btn">
                         <i class="bi bi-building-add"></i> Cadastrar empresa
                     </button>

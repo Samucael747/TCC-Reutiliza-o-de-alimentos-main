@@ -6,6 +6,10 @@ if (!isset($_SESSION['nome'])) {
     exit;
 }
 
+require __DIR__ . '/includes/conexao.php';
+$stmtVol = $pdo->query('SELECT nome AS empresa, voluntario_nome, voluntario_info FROM empresas WHERE voluntario_nome IS NOT NULL AND voluntario_nome != \'\' ORDER BY nome');
+$voluntarios = $stmtVol->fetchAll(PDO::FETCH_ASSOC);
+
 $paginaAtiva = 'chat';
 $pageTitle   = 'Chat de Voluntários | FomeOff';
 $extra_head  = <<<'HTML'
@@ -87,26 +91,20 @@ HTML;
                 <h2>Voluntários disponíveis</h2>
                 <p>Pessoas comprometidas em entregar doações de forma solidária e gratuita.</p>
 
-                <div class="volunteer-card">
-                    <h3>Maria Silva</h3>
-                    <p>Moradora de São Paulo, SP. Já realizou 12 entregas voluntárias este mês.</p>
-                    <div class="status"><span class="dot"></span> Online</div>
-                    <small>Disponível para entregas entre 14h e 18h.</small>
-                </div>
-
-                <div class="volunteer-card">
-                    <h3>Lucas Souza</h3>
-                    <p>Voluntário de logísticas comunitárias, disponível para rota no centro e bairros próximos.</p>
-                    <div class="status"><span class="dot"></span> Online</div>
-                    <small>Consulte para retirada amanhã ou depois.</small>
-                </div>
-
-                <div class="volunteer-card">
-                    <h3>Ana Pereira</h3>
-                    <p>Atua em entregas sociais sem custo e ajuda a conectar doadores a quem precisa.</p>
-                    <div class="status"><span class="dot"></span> Online</div>
-                    <small>Tem carro disponível para pequenas entregas.</small>
-                </div>
+                <?php if (empty($voluntarios)): ?>
+                    <p style="color:#94a3b8;text-align:center;padding:24px 0;">Nenhum voluntário cadastrado ainda.<br>Empresas podem adicionar um voluntário no cadastro.</p>
+                <?php else: ?>
+                    <?php foreach ($voluntarios as $v): ?>
+                    <div class="volunteer-card">
+                        <h3><?php echo htmlspecialchars($v['voluntario_nome'], ENT_QUOTES, 'UTF-8'); ?></h3>
+                        <p>Voluntário da empresa <strong><?php echo htmlspecialchars($v['empresa'], ENT_QUOTES, 'UTF-8'); ?></strong>.</p>
+                        <div class="status"><span class="dot"></span> Online</div>
+                        <?php if ($v['voluntario_info']): ?>
+                            <small><?php echo htmlspecialchars($v['voluntario_info'], ENT_QUOTES, 'UTF-8'); ?></small>
+                        <?php endif; ?>
+                    </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </aside>
         </div>
     </main>
